@@ -2,6 +2,7 @@
 
 from subprocess import run as cmdrun, PIPE as cmdPIPE
 from math_functions import take_closest
+from os import system as systex
 
 def change_volume_lnx(level, sound_conf):
     current_vol = cmdrun(["amixer", "get" ,"Master"], stdout=cmdPIPE)
@@ -21,7 +22,14 @@ def change_volume_lnx(level, sound_conf):
             if step == current_vol:
                 actual_step = k
                 d = 0
-    step_diff = wanted_step - actual_step # It means that if `step_diff` is positive, volume must increase of `step_diff` and if `step_diff` is negative, volume must decrease of `abs(step_diff)`
-
-
-change_volume_lnx(0, [0, 0, 15, 31, 43, 52, 60, 66, 71, 76, 79, 84, 87, 90, 93, 95, 99, 100])
+    step_diff = wanted_step - actual_step
+    if step_diff > 0:
+        k = 0
+        while k < step_diff:
+            systex("xdotool key XF86AudioRaiseVolume")
+            k = k + 1
+    elif step_diff < 0:
+        k = 0
+        while k < abs(step_diff):
+            systex("xdotool key XF86AudioLowerVolume")
+            k = k + 1
