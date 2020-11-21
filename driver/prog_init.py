@@ -2,7 +2,6 @@
 
 from os import getenv
 from sys import platform
-from json import load as json_load
 
 def check_platorm():
     if platform == 'linux':
@@ -14,9 +13,10 @@ def check_platorm():
 def init_lnx():
     home = getenv('HOME')
     try:
-        with open (f'{home}/.config/PiDeck/sound_conf.json', 'r') as conf_file:
-            sound_conf = json_load(conf_file.read())
+        with open (f'{home}/.config/PiDeck/sound_conf.pideck', 'r') as conf_file:
+            sound_conf = conf_file.read()
     except:
+        sound_conf = ""
         print('huh')
         # Run calibration process
     return {"sound_conf": sound_conf}
