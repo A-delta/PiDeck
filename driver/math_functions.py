@@ -1,4 +1,6 @@
-def take_closest(sound_conf, number):
+# -*- coding: utf-8 -*-
+
+def take_closest(sound_conf, number): # Function which takes the closest value to a number in a list.
     from bisect import bisect_left
     
     pos = bisect_left(sound_conf, number)
