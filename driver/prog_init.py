@@ -3,7 +3,7 @@
 from os import getenv
 from sys import platform
 
-def check_platorm():
+def check_platorm(): # Check if the current platform is one of the supported platforms.
     if platform == 'linux':
         return 'linux'
     else:
@@ -13,10 +13,10 @@ def check_platorm():
 def init_lnx():
     home = getenv('HOME')
     try:
-        with open (f'{home}/.config/PiDeck/sound_conf.pideck', 'r') as conf_file:
+        with open (f'{home}/.config/PiDeck/sound_conf.pideck', 'r') as conf_file: # Retreive the sound_conf for this computer.
             sound_conf = conf_file.read()
     except:
         sound_conf = ""
         print('huh')
-        # Run calibration process
+        # In that case, calibration process must be run.
     return {"sound_conf": sound_conf}
