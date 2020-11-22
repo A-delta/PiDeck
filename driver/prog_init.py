@@ -23,12 +23,12 @@ def init_lnx():
     return {"sound_conf": sound_conf}
 
 def calibrate_sound_lnx():
-    from os import system as systex
+    from os import system as systex, getenv, chdir
     from subprocess import run as cmdrun, PIPE as cmdPIPE
     from math_functions import take_closest
     from time import sleep
 
-    print("Please wait while we're calibrating volume change for your device.") # A dialog box telling the user not to touch anything must be shown.
+    print("Please wait while we are calibrating volume change for your device.") # A dialog box telling the user not to touch anything must be shown.
     c = 1
     while c == 1: # Mute the sound (level 0).
         current_vol = cmdrun(["amixer", "get" ,"Master"], stdout=cmdPIPE) # Run the command "amixer get Master", and get its return, which contains the current volume level.
@@ -70,4 +70,9 @@ def calibrate_sound_lnx():
                 c = 0
             else:
                 sound_conf.append(last_vol)
-    print(sound_conf) # Now, soundconf must be saved in "/home/username/.config/PiDeck/soundconf.pideck" and not only printed.
+    home = getenv('HOME')
+    systex(f'mkdir -p {home}/.config/PiDeck')
+    chdir(f'{home}/.config/PiDeck')
+    with open ("sound_conf.pideck", "w") as scfile:
+        scfile.write(str(sound_conf))
+    print("Calibration completed and saved successfully!") # A dialog box telling the user that the calibration is completed must be shown.
