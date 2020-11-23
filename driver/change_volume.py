@@ -38,3 +38,9 @@ def change_volume_mac(level):
     from os import system as systex
 
     systex(f"volume {level}") # Simply change volume (uses module mac-volume).
+
+def change_volume_win(level):
+    from os import system as systex
+
+    level = round(int(level) * 65535 / 100)
+    systex(f"nircmd.exe setsysvolume {level}")
