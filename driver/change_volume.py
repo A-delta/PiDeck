@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from subprocess import run as cmdrun, PIPE as cmdPIPE
-from math_functions import take_closest
-from os import system as systex
-
 def change_volume_lnx(level, sound_conf):
+    from subprocess import run as cmdrun, PIPE as cmdPIPE
+    from math_functions import take_closest
+    from os import system as systex
+
     current_vol = cmdrun(["amixer", "get" ,"Master"], stdout=cmdPIPE) # Run the command "amixer get Master", and get its return, which contains the current volume level.
     current_vol = int(str(current_vol.stdout).split("[")[1].replace("]", "").replace("%", "")) # In the return of the function, isolate the current volume level (in %) as an integer.
     current_vol = take_closest(sound_conf, current_vol) # Take the closest value to the current volume level in the sound_conf.
@@ -33,3 +33,8 @@ def change_volume_lnx(level, sound_conf):
         while k < abs(step_diff):
             systex("xdotool key XF86AudioLowerVolume") # If the difference between the wanted step and the actual step is negative, decrease the volume through the media keys.
             k = k + 1
+
+def change_volume_mac(level):
+    from os import system as systex
+
+    systex(f"volume {level}") # Simply change volume (uses module mac-volume).
