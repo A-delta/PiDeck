@@ -12,3 +12,5 @@ The driver rests on a few open source modules or programs :
     * [ALSA utils](https://github.com/alsa-project/alsa-utils), to retreive the current sound volume.
 * On macOS:
     * [mac-volume](https://github.com/andrewp-as-is/mac-volume), to control the sound volume.
+* On Windows:
+    * [NirCmd](https://github.com/gillstrom/nircmd), to control the sound volume.
