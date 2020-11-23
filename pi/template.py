@@ -3,6 +3,8 @@ from time import sleep
 
 from gpiozero import Button, LED
 
+
+
 disp_info = True
 info_led = LED(18)
 
@@ -18,8 +20,7 @@ def show_info():
 
 
 def send_data(data):
-    print("Not implemented")
-    print(data)
+    print("send_data not implemented")
     success = True
 
     if success and disp_info:
@@ -40,29 +41,42 @@ def get_input_device(device):
     type_input = device["type_input"]
     fcn = device["fcn"]
 
+    #  example for a button :
+    #  just add the name of your function as a string in user_devices
+
     if type_input == "button":
         temp = Button(pin)
         temp.when_activated = eval(fcn)
 
+    else:
+        print(type_input, "in", pin, "not supported, add your pwn code for it or verify given information")
+    #  CREATE YOU OWN DEVICES TO PLEASE YOUR NEEDS.
+
     return temp
 
 
-
 def main():
-    pin = 21
-    type_input = "button"
-    fcn = "button_test_pressed"
-
-    user_devices = [
-        {"pin": pin, "type_input": type_input, "fcn": fcn},
-    ]
+    user_devices = []
+    """user_devices = [
+        {"pin": "21", "input_type": "button", "fcn": "test"},
+    ]"""
 
     devices = setup(user_devices)
 
     pause()
 
 
+
+#USER'S FUNCTIONS HERE
+
+
+def button_test_pressed2():
+    print("2")
+    send_data(None)
+
+
 def button_test_pressed():
+    print("1")
     send_data(None)
 
 
