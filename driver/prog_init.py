@@ -18,8 +18,10 @@ def init_lnx():
             sound_conf = conf_file.read()
     except:
         sound_conf = ""
-        print("sound_conf file doesn't exist.")
-        # In that case, calibration process must be run.
+        print("sound_conf file doesn't exist. Running calibration process.")
+        calibrate_sound_lnx() # Run calibration process.
+        with open (f'{home}/.config/PiDeck/sound_conf.pideck', 'r') as conf_file: # Retreive the sound_conf for this computer.
+            sound_conf = conf_file.read()
     return {"sound_conf": sound_conf}
 
 def calibrate_sound_lnx():
@@ -73,6 +75,6 @@ def calibrate_sound_lnx():
     home = getenv('HOME')
     systex(f'mkdir -p {home}/.config/PiDeck')
     chdir(f'{home}/.config/PiDeck')
-    with open ("sound_conf.pideck", "w") as scfile:
+    with open ("sound_conf.pideck", "w") as scfile: # Save the sound_conf.
         scfile.write(str(sound_conf))
     print("Calibration completed and saved successfully!") # A dialog box telling the user that the calibration is completed must be shown.
