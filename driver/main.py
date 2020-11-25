@@ -8,7 +8,13 @@ try:
     import prog_init as init
     from os import system as systex
 
-    if init.check_platorm() == 'linux': # Run the function to test if the platform on which the program is run is supported.
+    platform = init.check_platorm() # Run the function to test if the platform on which the program is run is supported.
+    if platform == 'windows':
+        
+        print('win')
+    elif platform == 'macos':
+        print('mac')
+    elif platform == 'linux':
         pc_init = init.init_lnx() # Run the function to initialize the program.
         systex("gunicorn --certfile cert.pem --keyfile key.pem --bind 0.0.0.0:9876 wsgi:app") # Run the HTTPS server.
 

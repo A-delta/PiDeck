@@ -5,6 +5,10 @@ def check_platorm(): # Check if the current platform is one of the supported pla
 
     if platform == 'linux':
         return 'linux'
+    elif platform == 'win32':
+        return 'windows'
+    elif platform == 'darwin':
+        return 'macos'
     else:
         print('Sorry, your platform is not supported at the moment.') # Should be replaced by an alert messagebox in the future, with the possibility to submit an issue.
         return False
