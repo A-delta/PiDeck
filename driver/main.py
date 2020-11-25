@@ -1,7 +1,14 @@
 # -*- coding: utf-8 -*-
 
-def errorclose(reason):
-    print(f'The program encountered a problem and needs to close.\nError : “{reason}”')
+def errorclose(reason, platform):
+    if platform == None:
+        print(f'The program encountered a problem and needs to close.\nError: “{reason}”')
+    if platform == 'windows':
+        from win10toast import ToastNotifier as toast # Solutions must be found to reduce the size of the dependencies (win32 especially).
+
+        toast().show_toast('Fatal error !', f'PiDeck driver has stopped.\nError: “{reason}”', "C:\\Firmin\\PiDeck\\logo\\PiDeck_logo.ico", 5, True) # Show notification if PiDeck needs to close because of an important error.
+    else:
+        print(f'The program encountered a problem and needs to close.\nError: “{reason}”')
 
 try:
     import change_volume as vol
@@ -19,4 +26,8 @@ try:
         systex("gunicorn --certfile cert.pem --keyfile key.pem --bind 0.0.0.0:9876 wsgi:app") # Run the HTTPS server.
 
 except:
-    errorclose(reason="Unknown")
+    try:
+        platform
+    except NameError:
+        platform = None
+    errorclose(reason="Unknown", platform=platform)
