@@ -10,10 +10,10 @@ try:
 
     platform = init.check_platorm() # Run the function to test if the platform on which the program is run is supported.
     if platform == 'windows':
-        
+        systex('python lan_server.py') # Run the HTTP server.
         print('win')
     elif platform == 'macos':
-        print('mac')
+        systex("gunicorn --certfile cert.pem --keyfile key.pem --bind 0.0.0.0:9876 wsgi:app") # Run the HTTPS server.
     elif platform == 'linux':
         pc_init = init.init_lnx() # Run the function to initialize the program.
         systex("gunicorn --certfile cert.pem --keyfile key.pem --bind 0.0.0.0:9876 wsgi:app") # Run the HTTPS server.
