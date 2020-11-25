@@ -47,7 +47,7 @@ def action():
             connection_code = code
         if code != connection_code:
             return '<h1>Not authorized.</h1><h2>Codes do not match.</h2>', 401 # Not authorized if the connection codes don't match.
-
-        return "OK" # Return a value so the Pi knows that the request was received without problems.
+        else:
+            return "OK" # Return a value so the Pi knows that the request was received without problems.
 
 serve(app, host='0.0.0.0', port=9876)
