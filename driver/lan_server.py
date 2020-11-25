@@ -8,6 +8,7 @@ from flask import Flask, request
 from waitress import serve
 from sys import platform as plt
 from os import getenv
+from json import loads as jld
 
 app = Flask(__name__)
 
@@ -25,14 +26,29 @@ def action():
         home = f'{home}/Library/Preferences/PiDeck/'
     ip = request.remote_addr
     try:
-        with open (f"{home}pi_ip.pideck", "r") as ip_file: # Check that the request is from the Pi and not from a malicious person who wants to control your computer.
-            pi_ip = ip_file.read()
+        with open (f"{home}pi_ip.pideck", "r") as ip_json: # Check that the request is from the Pi and not from a malicious person who wants to control your computer.
+            ip_file = ip_json.jld
+            print(ip_file)
+            pi_ip = ip_file.read()["ip"]
+            connection_code = ip_file.read()["code"]
     except:
         pi_ip = ip
     if pi_ip != ip:
-        return '<h1>Not authorized</h1>', 401 # Not authorized if the IPs don't match.
+        return '<h1>Not authorized.</h1><h2>IPs do not match.</h2>', 401 # Not authorized if the IPs don't match.
     else:
-        
+        json = request.json # Retreive json data from the request.
+        code = json["code"]
+        ID = json["id"]
+        value = json["value"]
+        try:
+            connection_code
+        except NameError:
+            connection_code = code
+        if code != connection_code:
+            return '<h1>Not authorized.</h1><h2>Codes do not match.</h2>', 401 # Not authorized if the IPs don't match.
+        # json["extra"] not implemented for the moment
+
+
         return "<h1>test</h1>" # This is a test.
 
 serve(app, host='0.0.0.0', port=9876)
