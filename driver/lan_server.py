@@ -32,7 +32,7 @@ def action():
     if pi_ip != ip:
         return '<h1>Not authorized</h1>', 401 # Not authorized if the IPs don't match.
     else:
-        request.json
+        
         return "<h1>test</h1>" # This is a test.
 
 serve(app, host='0.0.0.0', port=9876)
