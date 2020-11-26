@@ -5,7 +5,6 @@ Build a web server to receive the PiDeck's requests.
 """
 
 from flask import Flask, request
-from waitress import serve
 from sys import platform as plt
 from os import getenv
 from json import loads as jld
@@ -49,5 +48,3 @@ def action():
             return '<h1>Not authorized.</h1><h2>Codes do not match.</h2>', 401 # Not authorized if the connection codes don't match.
         else:
             return "OK" # Return a value so the Pi knows that the request was received without problems.
-
-serve(app, host='0.0.0.0', port=9876)
