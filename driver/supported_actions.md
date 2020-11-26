@@ -1,4 +1,4 @@
-# List of actions that can be perfrmed through the driver:  
+# List of actions that can be performed through the driver:  
 
 * Simulate keyboard press (just one key), or press several keys at a time, or one after another:
     * All latin alphabet keys (from `A` to `Z`)
