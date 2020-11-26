@@ -62,9 +62,8 @@ def setup(user_devices):
     :param user_devices:
     :return:
     """
-    adc = PCF8591()  # creating my ADC device, if you have one you may want to look up for another module.
 
-    devices = [adc]  # easy support for buttons that reads in <user_devices>
+    devices = []  # easy support for buttons that reads in <user_devices>
     for device in user_devices:
         devices.append(get_input_device(device))
 
@@ -95,57 +94,15 @@ def get_input_device(device):
 
 
 def main():
-    user_devices = [
-        {"pin": "21", "type_input": "button", "fcn": "open_repo"},
-        {"pin": "20", "type_input": "button", "fcn": "enable_night_light"},
-        {"pin": "16", "type_input": "button", "fcn": "disable_night_light"},
-    ]
+    user_devices = []
 
     devices = setup(user_devices)
 
-    adc = devices[0]
-
-    # changer le channel en ce que c'est + raccourcir les noms
-
-    old_volume_potentiometer = adc.analogRead(0)
-    old_pot1 = adc.analogRead(1)
-
-    while True:
-        volume_potentiometer = adc.analogRead(0)
-        pot1 = adc.analogRead(1)
-
-        if old_volume_potentiometer != volume_potentiometer:
-            volume(volume_potentiometer, old_volume_potentiometer)
-            old_volume_potentiometer = volume_potentiometer
-
-
-        if old_pot1 != pot1:
-            old_pot1 = pot1
-            send_data(str(pot1)+" # 1")
+    pause()
 
 
 
 #USER'S FUNCTIONS HERE
-
-def volume(old, new):
-    old = int((old/255) * 100)
-    new = int((old/255) * 100)
-    if old < new:
-        send_data(f"Volume UP, old={old}%, new={new}%")
-    else:
-        send_data(f"Volume DOWN, old={old}%, new={new}%")
-
-def undefined():
-    send_data("Pot #2")
-
-def open_repo():
-    send_data("open_repo button")
-
-def enable_night_light():
-    send_data("enable_night_light")
-
-def disable_night_light():
-    send_data("disable_night_light")
 
 
 if __name__ == '__main__':
