@@ -1,11 +1,9 @@
-from .user_custom_functions import *
 from gpiozero import Button, LED
 from time import sleep
 
 
 class Pi:
     def __init__(self, config):
-
         self.setup(config)
 
     def setup(self, user_supported_devices):
@@ -27,13 +25,16 @@ class Pi:
         :param device:
         :return:
         """
+
+
         pin = device["pin"]
         type_input = device["type_input"]
-        fcn = device["fcn"]
+
+        print(f"Configuring : GPIO{pin}, {type_input}")
 
         if type_input == "button":
             new = Button(pin)
-            new.when_activated = eval(fcn)
+            new.when_activated = self.send_data
 
             return new
 
@@ -59,4 +60,11 @@ class Pi:
             self.error_led.on()
             sleep(0.1)
             self.error_led.off()
+
+
+    def send_data(self, data):
+        print(data.pin)
+
+        success = True
+        self.show_info(success)
 
