@@ -64,7 +64,7 @@ def setup(user_devices):
     """
     adc = PCF8591()  # creating my ADC device, if you have one you may want to look up for another module.
 
-    devices = []  # easy support for buttons that reads in <user_devices>
+    devices = [adc]  # easy support for buttons that reads in <user_devices>
     for device in user_devices:
         devices.append(get_input_device(device))
 
@@ -103,7 +103,7 @@ def main():
 
     devices = setup(user_devices)
 
-      # -> setup()
+    adc = devices[0]
 
     old_pot0 = adc.analogRead(0)
     old_pot1 = adc.analogRead(1)
