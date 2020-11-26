@@ -1,14 +1,15 @@
-from pideck import pi_config
-from signal import pause
+from pideck.pi_config import Pi
 
 
 def main():
-    pi = pi_config.Pi([
+    pi = Pi([
         {"pin": "21", "type_input": "button"},
         {"pin": "20", "type_input": "button"},
         {"pin": "16", "type_input": "button"},
     ])
-    pause()
+
+    pi.add_ADC_Device(2)
+    pi.run()
 
 
 if __name__ == '__main__':
