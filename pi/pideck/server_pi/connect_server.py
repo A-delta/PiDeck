@@ -32,9 +32,10 @@ def connect():
 
     connection_file = open(path.join(config_folder, "connection.pideck"), "w+", encoding="utf-8")
 
-    connection_file.write(jdp({"ip": ip, "code": request.json["code"]}))
-    print(jdp({"ip": ip, "code": request.json["code"]}))
-
+    data = jdp({"ip": ip, "code": request.json["code"]})
+    print("Writing data", data)
+    connection_file.write(data)
     connection_file.close()
+
     k.start()
     return "True" # Return a value so the driver knows that the request was received without problems.
