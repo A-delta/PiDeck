@@ -27,7 +27,9 @@ def connect():
     home = getenv('HOME')
 
     config_folder = path.join(home, "PiDeck")
+
     if not path.isdir(config_folder):
+        print("Making config folder")
         mkdir(config_folder)
 
     connection_file = open(path.join(config_folder, "connection.pideck"), "w+", encoding="utf-8")
