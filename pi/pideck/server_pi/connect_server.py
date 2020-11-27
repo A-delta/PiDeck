@@ -5,10 +5,13 @@ Build a web server to establish connection between the driver and the Pi.
 """
 
 from flask import Flask, request
-from os import getenv, path, mkdir, chdir
+from os import getenv, path, mkdir, chdir, kill, getpid
 from json import loads as jld, dumps as jdp
+from signal import SIGINT
 
 app = Flask(__name__)
+
+
 
 @app.route('/connect', methods = ['CONNECT'])
 def connect():
@@ -25,5 +28,7 @@ def connect():
     print(jdp({"ip": ip, "code": request.json["code"]}))
 
     connection_file.close()
+
+    kill(os.getpid(), signal.SIGINT)
 
     return "True" # Return a value so the driver knows that the request was received without problems.
