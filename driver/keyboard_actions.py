@@ -1,14 +1,29 @@
 def press_key(platform, todo, value):
     if todo == "alphabet":
         if platform == 'linux':
-            print('Not implemented yet.')
+            from os import system as systex
+
+            systex(f"xdotool key {value}")
         else:
             from keyboard import send as press
 
             press(value)
     elif todo == "media":
         if platform == 'linux':
-            print('Not implemented yet.')
+            from os import system as systex
+
+            if value == "volup":  
+                systex('xdotool key XF86AudioRaiseVolume')
+            elif value == "voldown":
+                systex('dotool key XF86AudioLowerVolume')
+            elif value ==  "mute":
+                systex('xdotool key XF86AudioMute')
+            elif value == "pp":
+                systex('xdotool key XF86AudioPlay')
+            elif value == "next":
+                systex('xdotool key XF86AudioNext')
+            elif value == "previous":
+                systex('xdotool key XF86AudioPrev')
         else:
             from keyboard import send as press
 
@@ -26,7 +41,9 @@ def press_key(platform, todo, value):
                 press('previous track')
     elif todo == "fn":
         if platform == 'linux':
-            print('Not implemented yet.')
+            from os import system as systex
+            
+            systex(f'xdotool key F{value}')
         else:
             from keyboard import send as press
             
