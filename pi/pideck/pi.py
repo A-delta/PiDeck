@@ -71,7 +71,7 @@ class Pi:
         os.chdir(old_cwd)
 
         with open(os.path.join(self.config_folder, "connection.pideck"), 'r', encoding="utf-8") as f:
-            self.code = json.loads(f)["code"]
+            self.code = json.loads(f.read())["code"]
             print(self.code)
 
 
