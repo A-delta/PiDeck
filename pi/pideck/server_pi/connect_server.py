@@ -26,7 +26,7 @@ def connect():
     ip = request.remote_addr
     home = getenv('HOME')
 
-    config_folder = path.join(home, "PiDeck")
+    config_folder = path.join(home, ".config","PiDeck")
 
     print("Is folder : ", path.isdir(config_folder), config_folder)
 
