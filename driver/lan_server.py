@@ -24,7 +24,6 @@ def action():
     try:
         with open (f"{home}pi_ip.pideck", "r") as ip_json: # Check that the request is from the Pi and not from a malicious person who wants to control your computer.
             ip_file = ip_json.jld
-            print(ip_file)
             pi_ip = ip_file.read()["ip"]
             connection_code = ip_file.read()["code"]
     except:
@@ -34,9 +33,11 @@ def action():
     else:
         json = request.json # Retreive json data from the request.
         code = json["code"]
-        ID = json["id"]
-        value = json["value"]
-        # json["extra"] not implemented for the moment
+        data_type = json["request"]["type"]
+        pin = json["request"]["pin"]
+        value = json["request"]["value"]
+        
+        
         try:
             connection_code
         except NameError:
@@ -44,4 +45,4 @@ def action():
         if code != connection_code:
             return '<h1>Not authorized.</h1><h2>Codes do not match.</h2>', 401 # Not authorized if the connection codes don't match.
         else:
-            return True # Return a value so the Pi knows that the request was received without problems.
+            return "True" # Return a value so the Pi knows that the request was received without problems.
