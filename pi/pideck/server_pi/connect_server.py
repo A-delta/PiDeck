@@ -18,4 +18,4 @@ def connect():
     with open (f"{home}connection.pideck", "w") as connection_file: # Save the data sent by the driver.
         connection_file.write(jdp({"ip": ip, "code": request.json["code"]}))
         print(jdp({"ip": ip, "code": request.json["code"]}))
-    return "OK" # Return a value so the driver knows that the request was received without problems.
+    return "True" # Return a value so the driver knows that the request was received without problems.

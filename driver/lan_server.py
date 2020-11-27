@@ -5,9 +5,9 @@ Build a web server to receive the PiDeck's requests.
 """
 
 from flask import Flask, request
-from sys import platform as plt
 from os import getenv
 from json import loads as jld
+from sys import platform as plt
 
 app = Flask(__name__)
 
@@ -20,9 +20,6 @@ def action():
     if platform == 'win32':
         home = getenv('APPDATA')
         home = f'{home}\\PiDeck\\'
-    if platform == 'darwin':
-        home = getenv('HOME')
-        home = f'{home}/Library/Preferences/PiDeck/'
     ip = request.remote_addr
     try:
         with open (f"{home}pi_ip.pideck", "r") as ip_json: # Check that the request is from the Pi and not from a malicious person who wants to control your computer.

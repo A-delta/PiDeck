@@ -1,5 +1,34 @@
 # -*- coding: utf-8 -*-
 
+def connect(ip, platform):
+    from requests import request
+    from random import randint
+    from json import dumps
+    from os import system as systex, getenv
+
+    random = randint(0,9999999)
+    home = getenv('HOME')
+    if platform == 'linux':
+        home = getenv('HOME')
+        home_no_slash = f'{home}/.config/PiDeck'
+        home = f'{home_no_slash}/'
+    if platform == 'windows':
+        home = getenv('APPDATA')
+        home_no_slash = f'{home}\\PiDeck'
+        home = f'{home_no_slash}\\'
+    systex(f'mkdir -p "{home_no_slash}"')
+    with open (f"{home}pi_ip.pideck", 'w') as pi_ip:
+        pi_ip.write(dumps({"ip": ip, "code": str(random)}))
+    url = f'https://{ip}:9876/connect'
+    content = {"code": str(random)} # Generate a random number as the connection code.
+    headers = {"Content-Type": "application/json"}
+    content = dumps(content)
+    x = request('CONNECT', url, data=content, headers=headers, verify=False)
+    if x.text == "True":
+        return True
+    else:
+        return False
+
 def check_platorm(): # Check if the current platform is one of the supported platforms.
     from sys import platform
 
@@ -77,7 +106,7 @@ def calibrate_sound_lnx():
             else:
                 sound_conf.append(last_vol)
     home = getenv('HOME')
-    systex(f'mkdir -p {home}/.config/PiDeck')
+    systex(f'mkdir -p "{home}/.config/PiDeck"')
     chdir(f'{home}/.config/PiDeck')
     with open ("sound_conf.pideck", "w") as scfile: # Save the sound_conf.
         scfile.write(str(sound_conf))
