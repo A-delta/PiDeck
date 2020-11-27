@@ -1,4 +1,11 @@
-from pideck.pi_config import Pi
+from pideck.pi import Pi
+from subprocess import run
+import subprocess
+
+
+def wait_for_connection():
+    run("gunicorn --certfile cert.pem --keyfile key.pem --bind 0.0.0.0:9876 wsgi:app".split())
+    subprocess.check_output()
 
 
 def main():
@@ -8,7 +15,8 @@ def main():
         {"pin": "16", "type_input": "button"},
     ])
 
-    pi.add_ADC_Device(2)
+    pi.add_ADC_Device_PCF8591(2)
+    pi.establish_connection()
     pi.run()
 
 
