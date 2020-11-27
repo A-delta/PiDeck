@@ -128,3 +128,14 @@ def press_key(platform, todo, value):
 
         else:
             print('Not implemented.')
+
+def type_text(platform, text):
+    if platform == 'linux':
+        from os import system as systex
+
+        systex(f"xdotool type {text}")
+
+    if platform == 'windows':
+        from keyboard import write
+
+        write(text)
