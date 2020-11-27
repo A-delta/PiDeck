@@ -3,7 +3,7 @@
 """
 Build a web server to establish connection between the driver and the Pi.
 """
-
+from wsgi import Test
 from flask import Flask, request
 from os import getenv, path, mkdir, chdir, kill, getpid
 from json import loads as jld, dumps as jdp
@@ -18,8 +18,8 @@ app = Flask(__name__)
 
 def killme():
     sleep(2)
-    raise RuntimeError
-    #kill(pid, SIGINT)
+    temp = Test
+    kill(temp.pid, SIGINT)
 
 @app.route('/connect', methods = ['CONNECT'])
 def connect():
