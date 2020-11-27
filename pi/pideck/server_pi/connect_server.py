@@ -4,9 +4,8 @@
 Build a web server to establish connection between the driver and the Pi.
 """
 from flask import Flask, request
-from os import getenv, path, mkdir, chdir, kill, getpid, system
-from json import loads as jld, dumps as jdp
-from signal import SIGINT
+from os import getenv, path, mkdir, system
+from json import dumps as jdp
 import threading
 from time import sleep
 
@@ -42,4 +41,4 @@ def connect():
     connection_file.close()
 
     k.start()
-    return "True" # Return a value so the driver knows that the request was received without problems.
+    return "True"

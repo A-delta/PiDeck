@@ -59,15 +59,13 @@ class Pi:
 
     def establish_connection(self):
         print("Wating for connection from pc")
-        t = threading.Thread(name='Connection Blink LED', target=self.show_connection)
-        t.start()
+        led = threading.Thread(name='Connection Blink LED', target=self.show_connection)
+        led.start()
 
         old_cwd = os.getcwd()
 
         os.chdir(os.path.join("pideck", "server_pi"))
         run("gunicorn --certfile cert.pem --keyfile key.pem --bind 0.0.0.0:9876 wsgi:app".split())
-        #os.system("gunicorn --certfile cert.pem --keyfile key.pem --bind 0.0.0.0:9876 wsgi:app")
-
         os.chdir(old_cwd)
 
         with open(os.path.join(self.config_folder, "connection.pideck"), 'r', encoding="utf-8") as f:
@@ -116,7 +114,7 @@ class Pi:
                         time_sleep = 0.075
 
                         self.ADC_old_values[channel] = new
-                        self.send_data({"CODE": self.code, "REQUEST": {"TYPE": "ADC", "pin": channel, "value": new}})
+                        self.send_data({"code": self.code, "request": {"TYPE": "ADC", "pin": channel, "value": new}})
 
                     elif idle != 0:
                         idle += 1
@@ -161,7 +159,7 @@ class Pi:
     def event_button(self, button):
         pin = self.pins[self.devices.index(button)]
         print(pin)
-        self.send_data({"CODE": self.code, "REQUEST": {"TYPE": "button", "pin": pin, "value": 1}})
+        self.send_data({"code": self.code, "request": {"TYPE": "button", "pin": pin, "value": 1}})
 
     def send_data(self, data):
         success = self.send_request(data)
