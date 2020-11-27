@@ -65,7 +65,8 @@ class Pi:
         old_cwd = os.getcwd()
 
         os.chdir(os.path.join("pideck", "server_pi"))
-        os.system("gunicorn --certfile cert.pem --keyfile key.pem --bind 0.0.0.0:9876 wsgi:app")
+        run("gunicorn --certfile cert.pem --keyfile key.pem --bind 0.0.0.0:9876 wsgi:app".split())
+        #os.system("gunicorn --certfile cert.pem --keyfile key.pem --bind 0.0.0.0:9876 wsgi:app")
 
         os.chdir(old_cwd)
 

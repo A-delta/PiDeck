@@ -11,12 +11,18 @@ from signal import SIGINT
 import threading
 from time import sleep
 
+pid = 0
 app = Flask(__name__)
 
+def run_server(pid_):
+    app.run()
+    global pid
+    pid = pid_
 
 def killme():
     sleep(2)
-    kill(getpid(), SIGINT)
+    global pid
+    kill(pid, SIGINT)
 
 @app.route('/connect', methods = ['CONNECT'])
 def connect():
