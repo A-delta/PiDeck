@@ -4,8 +4,9 @@
 Build a web server to establish connection between the driver and the Pi.
 """
 from wsgi import Test
+
 from flask import Flask, request
-from os import getenv, path, mkdir, chdir, kill, getpid
+from os import getenv, path, mkdir, chdir, kill, getpid, system
 from json import loads as jld, dumps as jdp
 from signal import SIGINT
 import threading
@@ -18,8 +19,8 @@ app = Flask(__name__)
 
 def killme():
     sleep(2)
-    temp = Test
-    kill(temp.pid, SIGINT)
+    temp = Test()
+    system("pkill gunicorn")
 
 @app.route('/connect', methods = ['CONNECT'])
 def connect():
