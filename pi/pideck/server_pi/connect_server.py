@@ -8,13 +8,20 @@ from flask import Flask, request
 from os import getenv, path, mkdir, chdir, kill, getpid
 from json import loads as jld, dumps as jdp
 from signal import SIGINT
+import threading
+from time import sleep
 
 app = Flask(__name__)
 
 
+def killme():
+    sleep(2)
+    kill(getpid(), SIGINT)
 
 @app.route('/connect', methods = ['CONNECT'])
 def connect():
+    k = threading.Thread(name='Kill server', target=killme)
+
     ip = request.remote_addr
     home = getenv('HOME')
 
@@ -28,7 +35,5 @@ def connect():
     print(jdp({"ip": ip, "code": request.json["code"]}))
 
     connection_file.close()
-
-    kill(getpid(), SIGINT)
-
+    k.start()
     return "True" # Return a value so the driver knows that the request was received without problems.
