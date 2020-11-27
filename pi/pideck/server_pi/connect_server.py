@@ -19,8 +19,11 @@ def connect():
         path.isdir(home)
     except:
         mkdir(home)
+    connection_file = open(path.join(home, "connection.pideck"), "w", encoding="utf-8")
 
-    with open (f"{home}connection.pideck", "w") as connection_file: # Save the data sent by the driver.
-        connection_file.write(jdp({"ip": ip, "code": request.json["code"]}))
-        print(jdp({"ip": ip, "code": request.json["code"]}))
+    connection_file.write(jdp({"ip": ip, "code": request.json["code"]}))
+    print(jdp({"ip": ip, "code": request.json["code"]}))
+
+    connection_file.close()
+
     return "True" # Return a value so the driver knows that the request was received without problems.
