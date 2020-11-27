@@ -114,7 +114,7 @@ class Pi:
                         time_sleep = 0.075
 
                         self.ADC_old_values[channel] = new
-                        self.send_data({"code": self.code, "request": {"TYPE": "ADC", "pin": channel, "value": new}})
+                        self.send_data({"code": self.code, "request": {"type": "ADC", "pin": channel, "value": new}})
 
                     elif idle != 0:
                         idle += 1
@@ -159,7 +159,7 @@ class Pi:
     def event_button(self, button):
         pin = self.pins[self.devices.index(button)]
         print(pin)
-        self.send_data({"code": self.code, "request": {"TYPE": "button", "pin": pin, "value": 1}})
+        self.send_data({"code": self.code, "request": {"type": "button", "pin": pin, "value": 1}})
 
     def send_data(self, data):
         success = self.send_request(data)
