@@ -29,6 +29,6 @@ def connect():
 
     connection_file.close()
 
-    kill(os.getpid(), signal.SIGINT)
+    kill(getpid(), SIGINT)
 
     return "True" # Return a value so the driver knows that the request was received without problems.
