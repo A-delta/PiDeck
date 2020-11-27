@@ -20,6 +20,8 @@ class Pi:
         self.error_led = LED(18)
         self.success_led = LED(23)
 
+        self.establish_connection()
+
         self.ADC_channels = 0
 
         self.devices = []
@@ -56,6 +58,10 @@ class Pi:
 
 
     def establish_connection(self):
+        print("Wating for connection from pc")
+        t = threading.Thread(name='Connection Blink LED', target=self.show_connection)
+        t.start()
+
         old_cwd = os.getcwd()
 
         os.chdir(os.path.join("pideck", "server_pi"))
@@ -65,6 +71,8 @@ class Pi:
 
         with open(os.path.join(self.config_folder, "connection.pideck"), 'r', encoding="utf-8") as f:
             self.code = json.loads(f)["code"]
+
+
 
 
 
@@ -117,6 +125,17 @@ class Pi:
                             idle = 0
         else:
             pause()
+
+
+    def show_connection(self):
+        for _ in range(3):
+            self.success_led.on()
+            sleep(0.1)
+            self.success_led.off()
+            self.error_led.on()
+            sleep(0.1)
+            self.error_led.off()
+
 
     def show_success(self):
         self.success_led.on()
