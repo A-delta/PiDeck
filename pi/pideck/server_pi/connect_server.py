@@ -14,12 +14,13 @@ app = Flask(__name__)
 def connect():
     ip = request.remote_addr
     home = getenv('HOME')
+    home = f'{home}/.config/PiDeck/'
     try:
-        home = f'{home}/.config/PiDeck/'
         path.isdir(home)
     except:
         mkdir(home)
-    connection_file = open(path.join(home, "connection.pideck"), "w", encoding="utf-8")
+
+    connection_file = open(path.join(home, "connection.pideck"), "w+", encoding="utf-8")
 
     connection_file.write(jdp({"ip": ip, "code": request.json["code"]}))
     print(jdp({"ip": ip, "code": request.json["code"]}))
