@@ -5,7 +5,7 @@ Build a web server to establish connection between the driver and the Pi.
 """
 
 from flask import Flask, request
-from os import getenv, path, mkdir, chdir, isdir
+from os import getenv, path, mkdir, chdir
 from json import loads as jld, dumps as jdp
 
 app = Flask(__name__)
