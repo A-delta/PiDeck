@@ -4,7 +4,7 @@
     * All latin alphabet keys (from `A` to `Z`)
     * All numeral keys (from `0` to `9`)
     * Media keys (`🔊`, `🔈`, `🔇`, `►/||`, `|◄◄`, `►►|`)
-    * Function keys (from `F1` to `F12`)
+    * Function keys (from `F1` to `F24`)
     * `Print Screen`, `↖`, `End`, `Insert`, `Delete`, `↲`, `←`, `→|`, `⇞`, `⇟`, `⇧`, `Ctrl`, `Alt`, `Super`
   
 * Change volume dynamically (requires a potentiometer)
