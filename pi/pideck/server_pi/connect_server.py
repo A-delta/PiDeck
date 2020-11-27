@@ -28,6 +28,8 @@ def connect():
 
     config_folder = path.join(home, "PiDeck")
 
+    print("Is folder : ", path.isdir(config_folder), config_folder)
+
     if not path.isdir(config_folder):
         print("Making config folder")
         mkdir(config_folder)
