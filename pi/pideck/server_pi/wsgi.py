@@ -3,9 +3,8 @@
 """
 Entrypoint to run the web server with Gunicorn.
 """
-from os import getpid
-from connect_server import run
+
+from connect_server import app
 
 if __name__ == "__main__":
-
-    run(getpid())
+    app.run()
