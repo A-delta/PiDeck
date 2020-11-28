@@ -1,4 +1,4 @@
-# PiDeck
+# RaspiMote
 
 <img src="https://github.com/A-delta/RaspiMote/raw/main/logo/RaspiMote_logo_500px.png" width="100">
 
