@@ -3,7 +3,7 @@
 """
 Build a web server to receive RaspiMote's requests.
 """
-
+from request_processor import process
 from flask import Flask, request
 from os import getenv, path
 from json import load
@@ -32,4 +32,5 @@ def action():
         if code != connection_code:
             return '<h1>Not authorized.</h1><h2>Codes do not match.</h2>', 401  # Not authorized if the connection codes don't match.
         else:
+            process(json)
             return "True"  # Return a value so the Pi knows that the request was received without problems.
