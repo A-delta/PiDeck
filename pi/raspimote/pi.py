@@ -25,6 +25,7 @@ class Pi:
         self.error_led = LED(18)
         self.success_led = LED(23)
 
+        self.ADC = None
         self.ADC_channels = 0
 
         self.devices = []
@@ -83,6 +84,15 @@ class Pi:
         with open(os.path.join(self.config_folder, "connection.raspimote"), 'r', encoding="utf-8") as f:
             self.code = json.loads(f.read())["code"]
             self.log(self.code)
+
+        self.send_inventory()
+
+    def send_inventory(self):
+        print(self.devices)
+
+        if self.ADC != None:
+            print(self.ADC_channels)
+
 
 
 
