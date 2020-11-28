@@ -6,6 +6,9 @@ import requests
 import os
 from subprocess import run, check_output
 import json
+import logging
+
+logging.getLogger("requests").setLevel(logging.WARNING)
 
 
 class Pi:
