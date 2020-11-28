@@ -60,7 +60,7 @@ class Pi:
         # Here you can add support for a device to make it easier to setup (for json configuration files for example.
 
         else:
-            print(type_input, "in", pin, "not supported, add your own code for it or verify given information")
+            self.log(type_input, "in", pin, "not supported, add your own code for it or verify given information")
 
 
     def establish_connection(self):
@@ -164,7 +164,7 @@ class Pi:
 
     def event_button(self, button):
         pin = self.pins[self.devices.index(button)]
-        print(pin)
+        self.log(pin)
         self.send_data({"code": self.code, "request": {"type": "button", "pin": pin, "value": 1}})
 
     def send_data(self, data):

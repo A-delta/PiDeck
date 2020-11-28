@@ -27,16 +27,12 @@ def connect():
 
     config_folder = path.join(home, ".config","PiDeck")
 
-    print("Is folder : ", path.isdir(config_folder), config_folder)
-
     if not path.isdir(config_folder):
-        print("Making config folder")
         mkdir(config_folder)
 
     connection_file = open(path.join(config_folder, "connection.pideck"), "w+", encoding="utf-8")
 
     data = jdp({"ip": ip, "code": request.json["code"]})
-    print("Writing data", data)
     connection_file.write(data)
     connection_file.close()
 
