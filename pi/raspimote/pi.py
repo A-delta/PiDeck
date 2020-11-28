@@ -25,8 +25,6 @@ class Pi:
         self.error_led = LED(18)
         self.success_led = LED(23)
 
-        self.establish_connection()
-
         self.ADC_channels = 0
 
         self.devices = []
@@ -35,6 +33,8 @@ class Pi:
             device, pin = self.get_input_device(device)
             self.devices.append(device)
             self.pins.append(pin)
+
+        self.establish_connection()
 
 
     def log(self, message, newline=True):

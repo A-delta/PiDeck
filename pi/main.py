@@ -4,11 +4,6 @@ from subprocess import run
 import subprocess
 
 
-def wait_for_connection():
-    run("gunicorn --certfile cert.pem --keyfile key.pem --bind 0.0.0.0:9876 wsgi:app".split())
-    subprocess.check_output()
-
-
 def main(argv):
     if "-verbose" in argv or '-v' in argv:
         verbose = True
