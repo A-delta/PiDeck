@@ -1,4 +1,4 @@
-from pideck.pi import Pi
+from raspimote.pi import Pi
 from sys import argv
 from subprocess import run
 import subprocess

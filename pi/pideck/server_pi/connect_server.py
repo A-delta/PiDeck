@@ -25,12 +25,12 @@ def connect():
     ip = request.remote_addr
     home = getenv('HOME')
 
-    config_folder = path.join(home, ".config","PiDeck")
+    config_folder = path.join(home, ".config","Raspimote")
 
     if not path.isdir(config_folder):
         mkdir(config_folder)
 
-    connection_file = open(path.join(config_folder, "connection.pideck"), "w+", encoding="utf-8")
+    connection_file = open(path.join(config_folder, "connection.Raspimote"), "w+", encoding="utf-8")
 
     data = jdp({"ip": ip, "code": request.json["code"]})
     connection_file.write(data)

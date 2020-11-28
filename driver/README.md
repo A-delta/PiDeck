@@ -1,5 +1,5 @@
-# PiDeck ─ driver  
-This driver allows you to control your PiDeck and to personalize the actions of the buttons.
+# RaspiMote ─ driver  
+This driver allows you to control your RaspiMote and to personalize the actions of the buttons.
 
 
 ## Dependencies

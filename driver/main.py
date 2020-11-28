@@ -4,11 +4,11 @@ def errorclose(reason, platform):
     if platform == None:
         print(f'The program encountered a problem and needs to close.\nError: “{reason}”')
         exit()
-    if platform == 'windows' or platform == 'macos' or platform == 'linux': # Show notification if PiDeck needs to close because of an important error.
+    if platform == 'windows' or platform == 'macos' or platform == 'linux': # Show notification if RaspiMote needs to close because of an important error.
         from tkinter import Tk, messagebox
         window = Tk()
         window.withdraw()
-        messagebox.showerror('PiDeck ─ error', f'The program encountered a problem and needs to close\nError: “{reason}”')
+        messagebox.showerror('RaspiMote ─ error', f'The program encountered a problem and needs to close\nError: “{reason}”')
         exit()
     else:
         print(f'The program encountered a problem and needs to close.\nError: “{reason}”')

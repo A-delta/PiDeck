@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Build a web server to receive the PiDeck's requests.
+Build a web server to receive RaspiMote's requests.
 """
 
 from flask import Flask, request
@@ -37,7 +37,7 @@ def action():
         pin = json["request"]["pin"]
         value = json["request"]["value"]
         
-        
+
         try:
             connection_code
         except NameError:

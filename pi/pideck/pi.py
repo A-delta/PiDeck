@@ -16,7 +16,7 @@ class Pi:
 
         self.verbose = verbose
 
-        self.config_folder = os.getenv('HOME') + "/.config/PiDeck/"
+        self.config_folder = os.getenv('HOME') + "/.config/RaspiMote/"
 
         self.ip = "192.168.1.16"
         self.code = 0
@@ -76,11 +76,11 @@ class Pi:
 
         old_cwd = os.getcwd()
 
-        os.chdir(os.path.join("pideck", "server_pi"))
+        os.chdir(os.path.join("raspimote", "server_pi"))
         run("gunicorn --certfile cert.pem --keyfile key.pem --bind 0.0.0.0:9876 wsgi:app".split())
         os.chdir(old_cwd)
 
-        with open(os.path.join(self.config_folder, "connection.pideck"), 'r', encoding="utf-8") as f:
+        with open(os.path.join(self.config_folder, "connection.raspimote"), 'r', encoding="utf-8") as f:
             self.code = json.loads(f.read())["code"]
             self.log(self.code)
 

@@ -10,14 +10,14 @@ def connect(ip, platform):
     home = getenv('HOME')
     if platform == 'linux':
         home = getenv('HOME')
-        home_no_slash = f'{home}/.config/PiDeck'
+        home_no_slash = f'{home}/.config/RaspiMote'
         home = f'{home_no_slash}/'
     if platform == 'windows':
         home = getenv('APPDATA')
-        home_no_slash = f'{home}\\PiDeck'
+        home_no_slash = f'{home}\\RaspiMote'
         home = f'{home_no_slash}\\'
     systex(f'mkdir -p "{home_no_slash}"')
-    with open (f"{home}pi_ip.pideck", 'w') as pi_ip:
+    with open (f"{home}pi_ip.raspimote", 'w') as pi_ip:
         pi_ip.write(dumps({"ip": ip, "code": str(random)}))
     url = f'https://{ip}:9876/connect'
     content = {"code": str(random)} # Generate a random number as the connection code.
@@ -47,13 +47,13 @@ def init_lnx():
 
     home = getenv('HOME')
     try:
-        with open (f'{home}/.config/PiDeck/sound_conf.pideck', 'r') as conf_file: # Retreive the sound_conf for this computer.
+        with open (f'{home}/.config/RaspiMote/sound_conf.raspimote', 'r') as conf_file: # Retreive the sound_conf for this computer.
             sound_conf = conf_file.read()
     except:
         sound_conf = ""
         print("sound_conf file doesn't exist. Running calibration process.")
         calibrate_sound_lnx() # Run calibration process.
-        with open (f'{home}/.config/PiDeck/sound_conf.pideck', 'r') as conf_file: # Retreive the sound_conf for this computer.
+        with open (f'{home}/.config/RaspiMote/sound_conf.raspimote', 'r') as conf_file: # Retreive the sound_conf for this computer.
             sound_conf = conf_file.read()
     return {"sound_conf": sound_conf}
 
@@ -106,8 +106,8 @@ def calibrate_sound_lnx():
             else:
                 sound_conf.append(last_vol)
     home = getenv('HOME')
-    systex(f'mkdir -p "{home}/.config/PiDeck"')
-    chdir(f'{home}/.config/PiDeck')
-    with open ("sound_conf.pideck", "w") as scfile: # Save the sound_conf.
+    systex(f'mkdir -p "{home}/.config/RaspiMote"')
+    chdir(f'{home}/.config/RaspiMote')
+    with open ("sound_conf.RaspiMote", "w") as scfile: # Save the sound_conf.
         scfile.write(str(sound_conf))
     print("Calibration completed and saved successfully!") # A dialog box telling the user that the calibration is completed must be shown.
