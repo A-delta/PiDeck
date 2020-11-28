@@ -106,7 +106,7 @@ def calibrate_sound_lnx():
             else:
                 sound_conf.append(last_vol)
     home = getenv('HOME')
-    systex(f'mkdir -p "{home}/.config/RaspiMote"')
+    systex(f'mkdir -p "{home}/.config/raspiMote"')
     chdir(f'{home}/.config/RaspiMote')
     with open ("sound_conf.RaspiMote", "w") as scfile: # Save the sound_conf.
         scfile.write(str(sound_conf))
