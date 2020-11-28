@@ -25,7 +25,7 @@ def connect():
     ip = request.remote_addr
     home = getenv('HOME')
 
-    config_folder = path.join(home, ".config","Raspimote")
+    config_folder = path.join(home, ".config","RaspiMote")
 
     if not path.isdir(config_folder):
         mkdir(config_folder)
