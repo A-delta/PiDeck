@@ -86,6 +86,11 @@ class Pi:
 
 
 
+    def debug_simulate_input_button(self, pin):
+        self.send_data({"code": self.code, "request": {"type": "button", "pin": pin, "value": 1}})
+
+    def debug_simulate_input_pot(self, channel, value):
+        self.send_data({"code": self.code, "request": {"type": "ADC", "pin": channel, "value": value}})
 
 
     def add_ADC_Device_PCF8591(self, number_channels):
@@ -126,7 +131,9 @@ class Pi:
                         time_sleep = 0.075
 
                         self.ADC_old_values[channel] = new
-                        self.log(f"ADC{channel} : {new}", False)
+                        if self.verbose:
+                            self.print(f"ADC{channel} : {new}", end='; ')
+
                         self.send_data({"code": self.code, "request": {"type": "ADC", "pin": channel, "value": new}})
 
                     elif idle != 0:
@@ -171,13 +178,14 @@ class Pi:
 
     def event_button(self, button):
         pin = self.pins[self.devices.index(button)]
-        self.log(pin)
+        self.log(f"Button{pin}")
         self.send_data({"code": self.code, "request": {"type": "button", "pin": pin, "value": 1}})
 
     def send_data(self, data):
         success = self.send_request(data)
 
         if success:
+            self.log("Sent.")
             t = threading.Thread(name='Blink LED', target=self.show_success)
         else:
             t = threading.Thread(name='Blink LED', target=self.show_error)
