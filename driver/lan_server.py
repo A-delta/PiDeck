@@ -31,6 +31,7 @@ def action():
         pin = json["request"]["pin"]
         value = json["request"]["value"]
 
+        print(json)
 
         if code != connection_code:
             return '<h1>Not authorized.</h1><h2>Codes do not match.</h2>', 401  # Not authorized if the connection codes don't match.
