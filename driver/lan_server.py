@@ -8,11 +8,14 @@ from flask import Flask, request
 from os import getenv
 from json import loads as jld
 from sys import platform as plt
-
+import time
 app = Flask(__name__)
+
 
 @app.route('/action', methods = ['POST'])
 def action():
+    start = time.time()
+
     platform = plt
     if platform == 'linux':
         home = getenv('HOME')
@@ -28,6 +31,11 @@ def action():
             connection_code = ip_file.read()["code"]
     except:
         pi_ip = ip
+
+    mid = time.time()
+
+    print(mid-start, "before ip verification")
+
     if pi_ip != ip:
         return '<h1>Not authorized.</h1><h2>IPs do not match.</h2>', 401 # Not authorized if the IPs don't match.
     else:

@@ -30,7 +30,7 @@ def connect():
     if not path.isdir(config_folder):
         mkdir(config_folder)
 
-    connection_file = open(path.join(config_folder, "connection.Raspimote"), "w+", encoding="utf-8")
+    connection_file = open(path.join(config_folder, "connection.raspimote"), "w+", encoding="utf-8")
 
     data = jdp({"ip": ip, "code": request.json["code"]})
     connection_file.write(data)
