@@ -8,7 +8,7 @@ from subprocess import run, check_output
 import json
 import logging
 
-logging.getLogger("urllib3").setLevel(logging.WARNING)
+logging.getLogger("urllib3").setLevel(logging.CRITICAL)
 
 
 class Pi:
