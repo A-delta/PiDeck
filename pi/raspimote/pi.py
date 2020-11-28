@@ -25,6 +25,7 @@ class Pi:
         self.error_led = LED(18)
         self.success_led = LED(23)
 
+        self.has_ADC = False
         self.ADC = None
         self.ADC_channels = 0
 
@@ -88,7 +89,6 @@ class Pi:
         self.send_inventory()
 
     def send_inventory(self):
-        print(self.ADC != None)
 
         if self.ADC != None:
             print(self.ADC_channels)
@@ -120,6 +120,8 @@ class Pi:
         :return:
         """
         from ADCDevice import PCF8591
+
+        self.has_ADC = True
         self.log(f"ADC Device added with {number_channels} channels used")
         self.ADC = PCF8591()
         self.ADC_channels += (number_channels - 1)
@@ -130,14 +132,7 @@ class Pi:
 
 
     def run(self):
-        adc = False
-        try:
-            if self.ADC != None:
-                adc = True
-        except:
-            pass
-
-        if adc:
+        if self.has_ADC:
             idle = 0
             time_sleep = 0.15
             while True:
