@@ -28,11 +28,11 @@ class Pi:
         self.ADC = None
         self.ADC_channels = 0
 
-        self.devices = []
+        self.buttons = []
         self.pins = []
         for device in config:
             device, pin = self.get_input_device(device)
-            self.devices.append(device)
+            self.buttons.append(device)
             self.pins.append(pin)
 
         self.establish_connection()
@@ -88,10 +88,21 @@ class Pi:
         self.send_inventory()
 
     def send_inventory(self):
-        print(self.devices)
+        print(self.ADC != None)
 
         if self.ADC != None:
             print(self.ADC_channels)
+
+        inventory = {"GPIO_devices": []}
+
+        for b in self.buttons:
+            pin = self.pins[self.buttons.index(b)]
+            inventory["GPIO_buttons"].append(pin)
+
+        if self.ADC is not None:
+            inventory.update({"ADC_channels": self.ADC.channels})
+
+        print(inventory)
 
 
 
@@ -187,7 +198,7 @@ class Pi:
 
 
     def event_button(self, button):
-        pin = self.pins[self.devices.index(button)]
+        pin = self.pins[self.buttons.index(button)]
         self.log(f"Button{pin}")
         self.send_data({"code": self.code, "request": {"type": "button", "pin": pin, "value": 1}})
 
