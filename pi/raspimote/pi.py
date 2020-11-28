@@ -93,7 +93,7 @@ class Pi:
         if self.ADC != None:
             print(self.ADC_channels)
 
-        inventory = {"GPIO_devices": []}
+        inventory = {"GPIO_buttons": []}
 
         for b in self.buttons:
             pin = self.pins[self.buttons.index(b)]
