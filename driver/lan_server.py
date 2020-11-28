@@ -19,13 +19,13 @@ def action():
     platform = plt
     if platform == 'linux':
         home = getenv('HOME')
-        home = f'{home}/.config/PiDeck/'
+        home = f'{home}/.config/RaspiMote/'
     if platform == 'win32':
         home = getenv('APPDATA')
-        home = f'{home}\\PiDeck\\'
+        home = f'{home}\\RaspiMote\\'
     ip = request.remote_addr
     try:
-        with open (f"{home}pi_ip.pideck", "r") as ip_json: # Check that the request is from the Pi and not from a malicious person who wants to control your computer.
+        with open (f"{home}pi_ip.raspimote", "r") as ip_json: # Check that the request is from the Pi and not from a malicious person who wants to control your computer.
             ip_file = ip_json.jld
             pi_ip = ip_file.read()["ip"]
             connection_code = ip_file.read()["code"]
