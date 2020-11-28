@@ -27,10 +27,6 @@ def action():
     else:
         json = request.json  # Retreive json data from the request.
         code = json["code"]
-        data_type = json["request"]["type"]
-        pin = json["request"]["pin"]
-        value = json["request"]["value"]
-
         print(json)
 
         if code != connection_code:
