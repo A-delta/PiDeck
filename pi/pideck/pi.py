@@ -37,9 +37,12 @@ class Pi:
             self.pins.append(pin)
 
 
-    def log(self, message):
+    def log(self, message, newline=True):
         if self.verbose:
-            print(message)
+            if newline:
+                print(message)
+            else:
+                print(message, end='; ')
 
     def get_input_device(self, device):
         """
@@ -63,7 +66,7 @@ class Pi:
         # Here you can add support for a device to make it easier to setup (for json configuration files for example.
 
         else:
-            self.log(type_input, "in", pin, "not supported, add your own code for it or verify given information")
+            self.log(type_input + "in" + pin + "not supported, add your own code for it or verify given information")
 
 
     def establish_connection(self):
@@ -123,6 +126,7 @@ class Pi:
                         time_sleep = 0.075
 
                         self.ADC_old_values[channel] = new
+                        self.log(f"ADC{channel} : {new}", False)
                         self.send_data({"code": self.code, "request": {"type": "ADC", "pin": channel, "value": new}})
 
                     elif idle != 0:
