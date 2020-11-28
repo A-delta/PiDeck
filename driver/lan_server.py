@@ -29,11 +29,10 @@ def action():
     else:
         json = request.json  # Retreive json data from the request.
         code = json["code"]
-        print(json)
 
         if code != connection_code:
             return '<h1>Not authorized.</h1><h2>Codes do not match.</h2>', 401  # Not authorized if the connection codes don't match.
         else:
-            processor = threading.Thread(name='Processor', target=process, args=json)
+            processor = threading.Thread(name='Processor', target=process, args=[json])
             processor.start()
             return "True"  # Return a value so the Pi knows that the request was received without problems.

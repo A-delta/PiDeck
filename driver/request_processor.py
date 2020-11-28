@@ -1,6 +1,14 @@
 def process(json):
-    print("Processing...", json)
-    test()
+    print("Processing...")
 
-def test():
-    print("Processed!")
+    if "inventory" in json.keys():
+        makeInventory(json)
+    else:
+        execute(json)
+
+def makeInventory(json):
+    print("Got inventory :", json)
+
+def execute(json):
+    print("Executing request :", json)
+
