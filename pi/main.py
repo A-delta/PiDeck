@@ -17,6 +17,7 @@ def main(argv):
     ], verbose)
 
     pi.add_ADC_Device_PCF8591(2)
+    pi.establish_connection()
     pi.run()
 
 

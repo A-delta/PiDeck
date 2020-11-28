@@ -36,7 +36,6 @@ class Pi:
             self.buttons.append(device)
             self.pins.append(pin)
 
-        self.establish_connection()
 
 
     def log(self, message, newline=True):
@@ -107,14 +106,6 @@ class Pi:
 
         self.send_data(request)
 
-
-
-
-    def debug_simulate_input_button(self, pin):
-        self.send_data({"code": self.code, "request": {"type": "button", "pin": pin, "value": 1}})
-
-    def debug_simulate_input_pot(self, channel, value):
-        self.send_data({"code": self.code, "request": {"type": "ADC", "pin": channel, "value": value}})
 
 
     def add_ADC_Device_PCF8591(self, number_channels):
