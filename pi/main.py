@@ -12,6 +12,8 @@ def wait_for_connection():
 def main(argv):
     if "verbose" in argv or 'v' in argv:
         verbose = True
+    else:
+        verbose = False
 
     pi = Pi([
         {"pin": "21", "type_input": "button"},
