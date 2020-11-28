@@ -6,9 +6,9 @@ import requests
 import os
 from subprocess import run, check_output
 import json
-import logging
+import urllib3
 
-logging.getLogger("urllib3").setLevel(logging.CRITICAL)
+urllib3.disable_warnings()
 
 
 class Pi:
