@@ -90,7 +90,7 @@ class Pi:
 
     def send_inventory(self):
 
-        if self.ADC != None:
+        if self.has_ADC:
             print(self.ADC_channels)
 
         inventory = {"GPIO_buttons": []}
@@ -99,10 +99,13 @@ class Pi:
             pin = self.pins[self.buttons.index(b)]
             inventory["GPIO_buttons"].append(pin)
 
-        if self.ADC is not None:
+        if self.has_ADC:
             inventory.update({"ADC_channels": self.ADC.channels})
 
-        print(inventory)
+        request = {"code": self.code, "inventory": inventory}
+        print(request)
+
+        self.send_data(request)
 
 
 
