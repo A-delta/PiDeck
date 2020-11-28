@@ -5,52 +5,34 @@ Build a web server to receive RaspiMote's requests.
 """
 
 from flask import Flask, request
-from os import getenv
-from json import loads as jld
-from sys import platform as plt
-import time
+from os import getenv, path
+from json import load
+
 app = Flask(__name__)
+
+config_path = path.join(getenv("HOME"), ".config","RaspiMote")
+
+file = load(open(path.join(config_path, "pi_ip.raspimote")))
+pi_ip = file["ip"]
+connection_code = file["code"]
 
 
 @app.route('/action', methods = ['POST'])
 def action():
-    start = time.time()
 
-    platform = plt
-    if platform == 'linux':
-        home = getenv('HOME')
-        home = f'{home}/.config/RaspiMote/'
-    if platform == 'win32':
-        home = getenv('APPDATA')
-        home = f'{home}\\RaspiMote\\'
     ip = request.remote_addr
-    try:
-        with open (f"{home}pi_ip.raspimote", "r") as ip_json: # Check that the request is from the Pi and not from a malicious person who wants to control your computer.
-            ip_file = ip_json.jld
-            pi_ip = ip_file.read()["ip"]
-            connection_code = ip_file.read()["code"]
-    except:
-        pi_ip = ip
-
-    mid = time.time()
-
-    print(mid-start, "before ip verification")
 
     if pi_ip != ip:
-        return '<h1>Not authorized.</h1><h2>IPs do not match.</h2>', 401 # Not authorized if the IPs don't match.
+        return '<h1>Not authorized.</h1><h2>IPs do not match.</h2>', 401  # Not authorized if the IPs don't match.
     else:
-        json = request.json # Retreive json data from the request.
+        json = request.json  # Retreive json data from the request.
         code = json["code"]
         data_type = json["request"]["type"]
         pin = json["request"]["pin"]
         value = json["request"]["value"]
-        
 
-        try:
-            connection_code
-        except NameError:
-            connection_code = code
+
         if code != connection_code:
-            return '<h1>Not authorized.</h1><h2>Codes do not match.</h2>', 401 # Not authorized if the connection codes don't match.
+            return '<h1>Not authorized.</h1><h2>Codes do not match.</h2>', 401  # Not authorized if the connection codes don't match.
         else:
-            return "True" # Return a value so the Pi knows that the request was received without problems.
+            return "True"  # Return a value so the Pi knows that the request was received without problems.
