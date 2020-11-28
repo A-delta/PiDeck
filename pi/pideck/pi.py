@@ -9,7 +9,9 @@ import json
 
 
 class Pi:
-    def __init__(self, config):  # user_supported_devices could be a json file
+    def __init__(self, config, verbose):  # user_supported_devices could be a json file
+
+        self.verbose = verbose
 
         self.config_folder = os.getenv('HOME') + "/.config/PiDeck/"
 
@@ -32,6 +34,10 @@ class Pi:
             self.pins.append(pin)
 
 
+    def log(self, message):
+        if self.verbose:
+            print(message)
+
     def get_input_device(self, device):
         """
         This function is designed to handle multiple devices, there's only one for the moment.
@@ -43,7 +49,7 @@ class Pi:
         pin = device["pin"]
         type_input = device["type_input"]
 
-        print(f"Configuring : GPIO{pin}, {type_input}")
+        self.log(f"Configuring : GPIO{pin}, {type_input}")
 
         if type_input == "button":
             new = Button(pin)
@@ -58,7 +64,7 @@ class Pi:
 
 
     def establish_connection(self):
-        print("Wating for connection from pc")
+        self.log("Waiting for connection from pc")
         led = threading.Thread(name='Connection Blink LED', target=self.show_connection)
         led.start()
 
@@ -70,7 +76,7 @@ class Pi:
 
         with open(os.path.join(self.config_folder, "connection.pideck"), 'r', encoding="utf-8") as f:
             self.code = json.loads(f.read())["code"]
-            print(self.code)
+            self.log(self.code)
 
 
 
@@ -82,6 +88,7 @@ class Pi:
         :return:
         """
         from ADCDevice import PCF8591
+        self.log(f"ADC Device added with {number_channels} channels used")
         self.ADC = PCF8591()
         self.ADC_channels += (number_channels - 1)
 
@@ -94,7 +101,6 @@ class Pi:
         adc = False
         try:
             if self.ADC != None:
-                print("got a ADC device")
                 adc = True
         except:
             pass
@@ -119,7 +125,7 @@ class Pi:
                     elif idle != 0:
                         idle += 1
                         if idle > 100:
-                            print("Sleep mode")
+                            self.log("Sleep mode")
                             time_sleep = 0.2
                             idle = 0
         else:
