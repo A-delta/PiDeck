@@ -107,7 +107,7 @@ def calibrate_sound_lnx():
                 sound_conf.append(last_vol)
     home = getenv('HOME')
     systex(f'mkdir -p "{home}/.config/RaspiMote"')
-    chdir(f'{home}/.config/RaspiMote')
-    with open ("sound_conf.raspiMote", "w") as scfile: # Save the sound_conf.
+    chdir(f'{home}/.config/Raspimote')
+    with open ("sound_conf.raspimote", "w") as scfile: # Save the sound_conf.
         scfile.write(str(sound_conf))
     print("Calibration completed and saved successfully!") # A dialog box telling the user that the calibration is completed must be shown.
