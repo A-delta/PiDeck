@@ -136,11 +136,13 @@ class Pi:
 
                     if old not in [new-2, new-1, new, new+1, new+2]:
 
-                        new = int((new/255)*100)
                         idle = 1
                         time_sleep = 0.1
 
                         self.ADC_old_values[channel] = new
+
+                        new = int((new / 255) * 100)
+
                         if self.verbose:
                             print(f"ADC{channel} : {new}", end='; ')
 
