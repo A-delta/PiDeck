@@ -132,6 +132,8 @@ class Pi:
                     old = self.ADC_old_values[channel]
                     new = int(self.ADC.analogRead(channel))
 
+                    print(old, new, "test")
+
                     if old not in [new-2, new-1, new, new+1, new+2]:
 
                         new = int((new/255)*100)
