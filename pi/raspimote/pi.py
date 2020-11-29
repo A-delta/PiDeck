@@ -135,7 +135,7 @@ class Pi:
                     if old != new:
 
                         idle = 1
-                        time_sleep = 0.075
+                        time_sleep = 0.1
 
                         self.ADC_old_values[channel] = new
                         if self.verbose:
