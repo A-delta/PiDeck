@@ -14,6 +14,10 @@ def main(argv):
         {"pin": "21", "type_input": "button"},
         {"pin": "20", "type_input": "button"},
         {"pin": "16", "type_input": "button"},
+        {"pin": "6", "type_input": "button"},
+        {"pin": "13", "type_input": "button"},
+        {"pin": "19", "type_input": "button"},
+        {"pin": "26", "type_input": "button"},
     ], verbose)
 
     pi.add_ADC_Device_PCF8591(2)
