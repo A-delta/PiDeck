@@ -130,7 +130,7 @@ class Pi:
 
                 for channel in range(self.ADC_channels + 1):
                     old = self.ADC_old_values[channel]
-                    new = int(self.ADC.analogRead(channel))
+                    new = int(round(self.ADC.analogRead(channel)))
 
                     if old not in [new-2, new-1, new, new+1, new+2]:
 
