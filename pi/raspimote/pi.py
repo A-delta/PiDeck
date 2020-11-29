@@ -18,7 +18,7 @@ class Pi:
 
         self.config_folder = os.getenv('HOME') + "/.config/RaspiMote/"
 
-        self.ip = "192.168.1.16"
+        self.ip = "192.168.1.16"  # Get server request ip
         self.code = 0
 
         self.disp_info = True  # NEED TO ADD CHOICE
@@ -139,7 +139,7 @@ class Pi:
 
                         self.ADC_old_values[channel] = new
                         if self.verbose:
-                            self.print(f"ADC{channel} : {new}", end='; ')
+                            print(f"ADC{channel} : {new}", end='; ')
 
                         self.send_data({"code": self.code, "request": {"type": "ADC", "pin": channel, "value": new}})
 
