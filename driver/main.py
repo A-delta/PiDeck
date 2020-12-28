@@ -37,8 +37,9 @@ elif platform == 'macos':
     systex("gunicorn --certfile cert.pem --keyfile key.pem --bind 0.0.0.0:9876 wsgi_gunicorn:app") # Run the HTTPS server.
     """
 elif platform == 'linux':
-    print('Enter Pi IP adress :')
-    ip = input()
+    #print('Enter Pi IP adress :')
+    ip = "192.168.1.37"
+    #ip = input()
     connect = init.connect(ip, platform)
     print(connect)
     if connect == True:

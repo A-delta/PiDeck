@@ -1,4 +1,6 @@
-# -*- coding: utf-8 -*-
+# 2020 Adelta
+# https://github.com/A-delta
+
 
 """
 Entrypoint to run the web server with Gunicorn.

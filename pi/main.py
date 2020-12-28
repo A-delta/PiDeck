@@ -1,3 +1,6 @@
+# 2020 Adelta
+# https://github.com/A-delta
+
 from raspimote.pi import Pi
 from sys import argv
 from subprocess import run

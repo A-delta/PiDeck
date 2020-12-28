@@ -1,3 +1,6 @@
+# 2020 Adelta
+# https://github.com/A-delta
+
 from gpiozero import Button, LED
 from time import sleep, time
 from signal import pause

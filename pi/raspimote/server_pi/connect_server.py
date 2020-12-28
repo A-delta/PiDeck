@@ -1,4 +1,6 @@
-# -*- coding: utf-8 -*-
+# 2020 Adelta
+# https://github.com/A-delta
+
 
 """
 Build a web server to establish connection between the driver and the Pi.
