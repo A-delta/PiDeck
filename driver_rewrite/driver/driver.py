@@ -6,7 +6,7 @@ from sys import platform
 from os import system, path, chdir, getcwd, getenv
 from requests import request
 from random import randint
-from json import dumps
+from json import dumps, load
 
 
 class Driver:
@@ -24,18 +24,26 @@ class Driver:
     def load_config(self):
         """Will check for saved config.
         If none, -> self.configure()"""
-        # debug :
-        self.ip = "192.168.1.37"
 
         if self.platform == "linux":
             config_folder = "HOME"
         elif self.platform == "win32":
             config_folder = "APPDATA"
-
         config_path = path.join(getenv(config_folder), ".config", "RaspiMote")
 
-        with open(path.join(config_path, "pi_ip.raspimote"), 'w') as pi_ip:
+        config_file_path = path.join(config_path, "pi_ip.raspimote")
+
+        if path.isfile(config_file_path):
+            pi_ip = open(config_file_path, 'r')
+            self.ip = load(pi_ip)["ip"]
+            pi_ip.close()
+        else:
+            self.ip = input("Raspberry Pi's IP adress : ")
+
+
+        with open(config_file_path, 'w') as pi_ip:
             pi_ip.write(dumps({"ip": self.ip, "code": self.code}))
+
 
 
     def configure(self):
