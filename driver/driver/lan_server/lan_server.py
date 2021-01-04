@@ -9,7 +9,7 @@ import threading
 from flask import Flask, request
 from json import load
 
-import time
+from time import time
 
 app = Flask(__name__)
 
@@ -23,6 +23,8 @@ connection_code = file["code"]
 @app.route('/action', methods = ['POST'])
 def action():
 
+    start = time()
+
     ip = request.remote_addr
 
     if pi_ip != ip:
@@ -35,5 +37,11 @@ def action():
             return '<h1>Not authorized.</h1><h2>Codes do not match.</h2>', 401  # Not authorized if the connection codes don't match.
         else:
             processor = threading.Thread(name='Processor', target=process, args=[json])
+
+            print("Before process :", time()-start)
+            start = time()
+
             processor.start()
+
+            print("after :", time()-start)
             return "True"  # Return a value so the Pi knows that the request was received without problems.

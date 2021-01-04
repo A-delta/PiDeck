@@ -199,6 +199,10 @@ class Pi:
         self.send_data({"code": self.code, "request": {"type": "button", "pin": pin, "value": 1}})
 
     def send_data(self, data):
+        if self.verbose:
+            start = time()
+
+
         success = self.send_request(data)
 
         if success:
@@ -208,6 +212,10 @@ class Pi:
             t = threading.Thread(name='Blink LED', target=self.show_error)
 
         t.start()
+
+        if self.verbose:
+            self.log(time()-start)
+
         return
 
     def send_request(self, data):
