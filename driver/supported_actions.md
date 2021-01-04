@@ -10,3 +10,5 @@
 * Change volume dynamically (requires a potentiometer)
   
 * Move the mouse over the screen (move speed can be changed)
+  
+* If a battery is connectd to your RaspiMote, display its level
