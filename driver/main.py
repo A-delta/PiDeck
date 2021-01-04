@@ -1,7 +1,8 @@
 # 2020 Adelta
 # https://github.com/A-delta
 
-from old_driver.driver import Driver
+from driver.driver import Driver
+
 
 def main():
     driver = Driver()

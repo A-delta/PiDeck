@@ -24,10 +24,10 @@ def parse_data(json):
 
     if type_device == "button":
         if pin == 26:
-            type_text("linux", 'α')
+            type_text('α')
         elif pin == 19:
-            type_text("linux", 'β')
+            type_text('β')
         elif pin == 13:
-            type_text("linux", 'δ')
+            type_text('δ')
         elif pin == 6:
-            type_text("linux", 'ε')
+            type_text('ε')
