@@ -214,7 +214,7 @@ class Pi:
         t.start()
 
         if self.verbose:
-            self.log(str(time()-start)+'\n')
+            self.log("Answered in "+str(time()-start)+'\n')
 
         return
 
