@@ -1,7 +1,7 @@
 # 2020 Adelta
 # https://github.com/A-delta
 
-from user_functions.keyboard_actions import type_text
+from built_in_fcn.keyboard_actions import type_text
 
 
 def process(json):
