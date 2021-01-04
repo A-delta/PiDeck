@@ -127,7 +127,6 @@ def type_text(text):
     if platform == 'win32':
         write(text)
 
-
 def battery_level(level):
     if platform == 'linux':
         system(f"notify-send -a RaspiMote -i RaspiMote -t 5000 'There remains {level} % of power in the battery'")
