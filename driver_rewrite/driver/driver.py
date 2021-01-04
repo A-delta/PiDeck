@@ -38,20 +38,6 @@ class Driver:
             pi_ip.write(dumps({"ip": self.ip, "code": self.code}))
 
 
-        # TRADUIRE CA
-        """    home = getenv('HOME')
-    if platform == 'linux':
-        home = getenv('HOME')
-        home_no_slash = f'{home}/.config/RaspiMote'
-        home = f'{home_no_slash}/'
-    if platform == 'windows':
-        home = getenv('APPDATA')
-        home_no_slash = f'{home}\\RaspiMote'
-        home = f'{home_no_slash}\\'
-    systex(f'mkdir -p "{home_no_slash}"')
-    with open (f"{home}pi_ip.raspimote", 'w') as pi_ip:
-        pi_ip.write(dumps({"ip": ip, "code": str(random)}))"""
-
     def configure(self):
         """Ask for IP and stuff and save it"""
         pass
@@ -62,8 +48,8 @@ class Driver:
         content = {"code": self.code}
         headers = {"Content-Type": "application/json"}
         content = dumps(content)
-        x = request('CONNECT', url, data=content, headers=headers, verify=False)
-        return x.text == "True"
+        connection = request('CONNECT', url, data=content, headers=headers, verify=False)
+        return connection.text == "True"
 
     def run(self):
         chdir(path.join(self.driver_path, "lan_server"))
