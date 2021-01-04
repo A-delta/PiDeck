@@ -124,6 +124,9 @@ class Pi:
         for channel in range(self.ADC_channels + 1):
             self.ADC_old_values.append(int(self.ADC.analogRead(channel)))
 
+    def add_USB_Device(self):
+        pass
+
 
     def run(self):
         if self.has_ADC:
