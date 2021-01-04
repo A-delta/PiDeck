@@ -38,7 +38,7 @@ class Driver:
             self.ip = load(pi_ip)["ip"]
             pi_ip.close()
         else:
-            self.ip = input("Raspberry Pi's IP adress : ")
+            self.ip = input("Raspberry Pi's IP address : ")
 
 
         with open(config_file_path, 'w') as pi_ip:
