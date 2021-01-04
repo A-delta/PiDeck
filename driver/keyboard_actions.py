@@ -57,7 +57,7 @@ def press_key(platform, todo, value):
             
             systex(f'xdotool key F{value}')
 
-        if platform == 'windows':
+        elif platform == 'windows':
             from keyboard import send as press
             
             press(f'f{value}')
@@ -135,7 +135,21 @@ def type_text(platform, text):
 
         systex(f'xdotool type "{text}"')
 
-    if platform == 'windows':
+    elif platform == 'windows':
         from keyboard import write
 
         write(text)
+    
+    else:
+        print('Not implemented.')
+
+def battery_level(platform, level):
+    if platform == 'linux':
+        from os import system as systex
+
+        systex(f"notify-send -a RaspiMote -i RaspiMote -t 5000 'There remains {level} % of power in the battery'")
+
+    elif platform == 'windows':
+        from os import system as systex
+
+        systex(f"powershell -Command \"&'.\\toast.ps1' 'Raspimote' 'There remains {level} % of power in the battery.'")

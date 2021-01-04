@@ -1,39 +1,38 @@
 # -*- coding: utf-8 -*-
 
-def press_key(platform, todo, value):
-    if todo == "alphabet":
+from os import system
+from sys import platform
+from keyboard import send as press, write
+
+
+def press_key(action, value):
+    if action == "alphabet":
         if platform == 'linux':
-            from os import system as systex
+            system(f"xdotool key {value}")
 
-            systex(f"xdotool key {value}")
-
-        elif platform == 'windows':
-            from keyboard import send as press
-
+        elif platform == 'win32':
             press(value)
 
         else:
             print("Not implemented.")
 
-    elif todo == "media":
+    elif action == "media":
         if platform == 'linux':
-            from os import system as systex
 
             if value == "volup":  
-                systex('xdotool key XF86AudioRaiseVolume')
+                system('xdotool key XF86AudioRaiseVolume')
             elif value == "voldown":
-                systex('dotool key XF86AudioLowerVolume')
+                system('dotool key XF86AudioLowerVolume')
             elif value ==  "mute":
-                systex('xdotool key XF86AudioMute')
+                system('xdotool key XF86AudioMute')
             elif value == "pp":
-                systex('xdotool key XF86AudioPlay')
+                system('xdotool key XF86AudioPlay')
             elif value == "next":
-                systex('xdotool key XF86AudioNext')
+                system('xdotool key XF86AudioNext')
             elif value == "previous":
-                systex('xdotool key XF86AudioPrev')
+                system('xdotool key XF86AudioPrev')
 
-        elif platform == 'windows':
-            from keyboard import send as press
+        elif platform == 'win32':
 
             if value == "volup":  
                 press('volume up')
@@ -51,54 +50,46 @@ def press_key(platform, todo, value):
         else:
             print('Not implemented.')
 
-    elif todo == "fn":
-        if platform == 'linux':
-            from os import system as systex
-            
-            systex(f'xdotool key F{value}')
+    elif action == "fn":
+        if platform == 'linux':           
+            system(f'xdotool key F{value}')
 
-        if platform == 'windows':
-            from keyboard import send as press
-            
+        if platform == 'win32':
             press(f'f{value}')
 
         else:
             print('Not implemented.')
 
-    elif todo == "other":
+    elif action == "other":
         if platform == "linux":
-            from os import system as systex
-
             if value == "psc":
-                systex('xdotool key Print')
+                system('xdotool key Print')
             elif value == "pos1":
-                systex('xdotool key Home')
+                system('xdotool key Home')
             elif value == "end":
-                systex('xdotool key End')
+                system('xdotool key End')
             elif value == "del":
-                systex('xdotool key Delete')
+                system('xdotool key Delete')
             elif value == "enter":
-                systex('xdotool key Return')
+                system('xdotool key Return')
             elif value == "backspace":
-                systex('xdotool key BackSpace')
+                system('xdotool key BackSpace')
             elif value == "tab":
-                systex('xdotool key Tab')
+                system('xdotool key Tab')
             elif value == "pup":
-                systex('xdotool key Page_Up')
+                system('xdotool key Page_Up')
             elif value == "pdown":
                 press('xdotool key Page_Down')
             elif value == "shift":
-                systex('xdotool key Shift_L')
+                system('xdotool key Shift_L')
             elif value == "ctrl":
-                systex('xdotool key Control_L')
+                system('xdotool key Control_L')
             elif value == "alt":
-                systex('xdotool key Alt_L')
+                system('xdotool key Alt_L')
             elif value == "super":
-                systex('xdotool key Super_L')
+                system('xdotool key Super_L')
 
-        elif platform == 'windows':
-            from keyboard import send as press
-
+        elif platform == 'win32':
             if value == "psc":
                 press('print screen')
             elif value == "pos1":
@@ -129,13 +120,17 @@ def press_key(platform, todo, value):
         else:
             print('Not implemented.')
 
-def type_text(platform, text):
+def type_text(text):
     if platform == 'linux':
-        from os import system as systex
+        system(f'xdotool type "{text}"')
 
-        systex(f'xdotool type "{text}"')
-
-    if platform == 'windows':
-        from keyboard import write
-
+    if platform == 'win32':
         write(text)
+
+
+def battery_level(level):
+    if platform == 'linux':
+        system(f"notify-send -a RaspiMote -i RaspiMote -t 5000 'There remains {level} % of power in the battery'")
+    
+    elif platform == 'win32':
+        system(f"powershell -Command \"&'.\\toast.ps1' 'Raspimote' 'There remains {level} % of power in the battery.'")
