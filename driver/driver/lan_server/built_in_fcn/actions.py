@@ -145,8 +145,8 @@ def change_volume(level):
     if platform == 'linux':
         current_vol = sub_run(["amixer", "get" ,"Master"], stdout=sub_PIPE) # Run the command "amixer get Master", and get its return, which contains the current volume level.
         current_vol = int(str(current_vol.stdout).split("[")[1].replace("]", "").replace("%", "")) # In the return of the function, isolate the current volume level (in %) as an integer.
-        current_vol = take_closest(sound_conf, current_vol) # Take the closest value to the current volume level in the sound_conf.
-        wanted_vol = take_closest(sound_conf, int(level)) # Take the closest value to the wanted volume in the sound_conf.
+        current_vol = closest(sound_conf, current_vol) # Take the closest value to the current volume level in the sound_conf.
+        wanted_vol = closest(sound_conf, int(level)) # Take the closest value to the wanted volume in the sound_conf.
         c = 1
         d = 1
         k = 0
