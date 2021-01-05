@@ -3,6 +3,7 @@
 
 from gpiozero import Button, LED
 from time import sleep, time
+import datetime
 from signal import pause
 import threading
 import requests
@@ -214,7 +215,7 @@ class Pi:
         t.start()
 
         if self.verbose:
-            self.log("Answered in "+str(time()-start)+'\n')
+            self.log(f"Answered in {str(time()-start)} at {datetime.datetime.now().time()}\n")
 
         return
 
