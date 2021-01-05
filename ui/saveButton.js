@@ -1,9 +1,17 @@
 function saveButtonKey() {
-    const Url='http://localhost:12345/';
-    var data={'yay': 'yeahyourright'};
-    console.log(data);
+    if (navigator['platform'].toLowerCase().includes('linux') == true) {
+        var protocol = 'https';
+    }
+    else if (navigator['platform'].toLowerCase().includes('win') == true) {
+        var protocol = 'http';
+    }
+    else {
+        window.alert('Platform not supoorted.')
+    }
+    const url = protocol + "://localhost:12345/"; // Must be replaced by the correct port when ready (still in localhost)! For testing purposes only.
+    var data = {'port': document.getElementById('element').value, 'action_type': 'press_key', 'key': document.getElementById('key').value};
     $.ajax({
-        url: Url,
+        url: url,
         type: "POST",
         data: JSON.stringify(data),
 	    dataType: "json",
@@ -11,7 +19,7 @@ function saveButtonKey() {
             window.alert(result)
         },
         error: function(error) {
-            window.alert(error)
+            window.alert('Something went wrong.')
         }
     })
 }

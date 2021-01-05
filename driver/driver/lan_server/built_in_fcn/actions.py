@@ -3,6 +3,13 @@
 from os import system
 from sys import platform
 from keyboard import send as press, write
+from subprocess import run as sub_run, PIPE as sub_PIPE
+from ancillary_fcn import closest
+
+
+"""
+`sound_conf` must be reimplemented!
+"""
 
 
 def press_key(action, value):
@@ -133,3 +140,38 @@ def battery_level(level):
     
     elif platform == 'win32':
         system(f"powershell -Command \"&'.\\toast.ps1' 'Raspimote' 'There remains {level} % of power in the battery.'")
+
+def change_volume(level):
+    if platform == 'linux':
+        current_vol = sub_run(["amixer", "get" ,"Master"], stdout=sub_PIPE) # Run the command "amixer get Master", and get its return, which contains the current volume level.
+        current_vol = int(str(current_vol.stdout).split("[")[1].replace("]", "").replace("%", "")) # In the return of the function, isolate the current volume level (in %) as an integer.
+        current_vol = closest(sound_conf, current_vol) # Take the closest value to the current volume level in the sound_conf.
+        wanted_vol = closest(sound_conf, int(level)) # Take the closest value to the wanted volume in the sound_conf.
+        c = 1
+        d = 1
+        k = 0
+        for step in sound_conf:
+            k = k + 1
+            if c == 1:
+                if step == wanted_vol:
+                    wanted_step = k # Find the step which corresponds to the wanted volume.
+                    c = 0
+            if d == 1:
+                if step == current_vol:
+                    actual_step = k # Find the step which corresponds to the current volume.
+                    d = 0
+        step_diff = wanted_step - actual_step
+        if step_diff > 0:
+            k = 0
+            while k < step_diff:
+                system("xdotool key XF86AudioRaiseVolume") # If the difference between the wanted step and the actual step is positive, increase the volume through the media keys.
+                k = k + 1
+        elif step_diff < 0:
+            k = 0
+            while k < abs(step_diff):
+                system("xdotool key XF86AudioLowerVolume") # If the difference between the wanted step and the actual step is negative, decrease the volume through the media keys.
+                k = k + 1
+
+    elif platform == 'win32':
+        level = round(int(level) * 65535 / 100)
+        system(f"nircmd.exe setsysvolume {level}")
