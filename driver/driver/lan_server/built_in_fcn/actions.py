@@ -4,7 +4,7 @@ from os import system
 from sys import platform
 from keyboard import send as press, write
 from subprocess import run as sub_run, PIPE as sub_PIPE
-from ancillary_fcn import closest
+from .ancillary_fcn import closest
 
 
 """
