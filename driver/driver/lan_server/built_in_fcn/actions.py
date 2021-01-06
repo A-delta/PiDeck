@@ -4,22 +4,8 @@ from os import system, getenv, chdir, path as os_path
 from sys import platform
 from keyboard import send as press, write
 from subprocess import run as sub_run, PIPE as sub_PIPE
-from .ancillary_fcn import closest
+from ancillary_fcn import closest
 from time import sleep
-
-
-if platform == 'linux':
-    home = getenv('HOME')
-    if os_path.isfile(f"{home}/.config/RaspiMote") != True:
-        try:
-            generate_sound_conf()
-            with open (f"{home}/.config/RaspiMote", "r") as sc_file:
-                sound_conf = sc_file.read()
-        except:
-            print("Couldn't calibrate sound for this device. Some functions may be indisponible.")
-    else:
-        with open (f"{home}/.config/RaspiMote", "r") as sc_file:
-            sound_conf = sc_file.read()
 
 
 def press_key(action, value):
@@ -153,6 +139,15 @@ def battery_level(level):
 
 def change_volume(level):
     if platform == 'linux':
+        system(f"amixer set Master {level}%")
+
+    elif platform == 'win32':
+        level = round(int(level) * 65535 / 100)
+        system(f"nircmd.exe setsysvolume {level}")
+
+
+"""
+    if platform == 'linux':
         current_vol = sub_run(["amixer", "get" ,"Master"], stdout=sub_PIPE) # Run the command "amixer get Master", and get its return, which contains the current volume level.
         current_vol = int(str(current_vol.stdout).split("[")[1].replace("]", "").replace("%", "")) # In the return of the function, isolate the current volume level (in %) as an integer.
         current_vol = closest(sound_conf, current_vol) # Take the closest value to the current volume level in the sound_conf.
@@ -181,11 +176,9 @@ def change_volume(level):
             while k < abs(step_diff):
                 system("xdotool key XF86AudioLowerVolume") # If the difference between the wanted step and the actual step is negative, decrease the volume through the media keys.
                 k = k + 1
+    """
 
-    elif platform == 'win32':
-        level = round(int(level) * 65535 / 100)
-        system(f"nircmd.exe setsysvolume {level}")
-
+"""
 def generate_sound_conf():
     print("Please wait while we are calibrating volume change for your device.") # A dialog box telling the user not to touch anything must be shown.
     c = 1
@@ -235,3 +228,19 @@ def generate_sound_conf():
     with open ("sound_conf.raspimote", "w") as scfile: # Save the sound_conf.
         scfile.write(str(sound_conf))
     print("Calibration completed and saved successfully!") # A dialog box telling the user that the calibration is completed must be shown.
+"""
+
+"""
+if platform == 'linux':
+    home = getenv('HOME')
+    if os_path.isfile(f"{home}/.config/RaspiMote") != True:
+        try:
+            generate_sound_conf()
+            with open (f"{home}/.config/RaspiMote", "r") as sc_file:
+                sound_conf = sc_file.read()
+        except:
+            print("Couldn't calibrate sound for this device. Some functions may be indisponible.")
+    else:
+        with open (f"{home}/.config/RaspiMote", "r") as sc_file:
+            sound_conf = sc_file.read()
+"""
