@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from os import system, getenv, chdir, path as os_path
+from os import system
+", getenv, chdir, path as os_path"
 from sys import platform
 from keyboard import send as press, write
-from subprocess import run as sub_run, PIPE as sub_PIPE
-from ancillary_fcn import closest
-from time import sleep
+"from subprocess import run as sub_run, PIPE as sub_PIPE"
+"from time import sleep"
 
 
 def press_key(action, value):
