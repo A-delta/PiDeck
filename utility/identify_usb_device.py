@@ -12,6 +12,7 @@ def find_device(event_number):
         if event.type == ecodes.EV_KEY:
             print(f"/dev/input/{event_number}")
 
+
 def main():
     chdir("/dev/input")
     devices = []
@@ -22,6 +23,7 @@ def main():
     for d in devices:
         t = Thread(target=find_device, args=[d])
         t.start()
+
 
 if __name__ == "__main__":
     main()
