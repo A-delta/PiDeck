@@ -144,3 +144,6 @@ def change_volume(level):
     elif platform == 'win32':
         level = round(int(level) * 65535 / 100)
         system(f"nircmd.exe setsysvolume {level}")
+
+def run_command(command):
+    system(command)
