@@ -45,6 +45,7 @@ class Pi:
 
         self.has_USB = False
         self.USB = None
+        self.USB_channels = []
 
         self.buttons = []
         self.pins = []
@@ -140,6 +141,7 @@ class Pi:
         from evdev import InputDevice
 
         self.USB = InputDevice(f"/dev/input/event{input_number}")
+        self.USB_channels.append(input_number)
         cnt = 0
 
         usb_device_thread = threading.Thread(name="USB Device Reading", target=self.usb_device_loop)
@@ -150,7 +152,8 @@ class Pi:
 
         for event in self.USB.read_loop():
             if event.type == ecodes.EV_KEY:
-                print(categorize(event))
+                self.send_data({"code": self.code, "request": {"type": "USB", "pin": self.USB_channels[0], "value": categorize(event)}})  # Need to add support for more USB Device at the same time
+                self.log(categorize(event))
 
     def run(self):
         if self.has_ADC:
