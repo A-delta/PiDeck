@@ -22,6 +22,10 @@ def parse_data(json):
     type_device = request["type"]
     pin = int(request["pin"])
     value = request["value"]
+    try:
+        extra = request["extra"]
+    except:
+        extra = None
 
     if type_device == "button":
         if pin == 26:

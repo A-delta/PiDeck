@@ -154,7 +154,13 @@ class Pi:
             if event.type == ecodes.EV_KEY:
                 self.send_data({
                     "code": self.code,
-                    "request": {"type": "USB", "pin": self.USB_channels[0], "value": ecodes.KEY[event.code]}
+
+                    "request": {
+                        "type": "USB", "pin": self.USB_channels[0],
+                        "value": ecodes.KEY[event.code],
+                        "extra": event.type
+                    }
+
                 })  # Need to add support for more USB Device at the same time
 
                 self.log(categorize(event))
