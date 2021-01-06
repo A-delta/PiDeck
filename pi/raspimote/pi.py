@@ -25,10 +25,20 @@ BOLD = '\033[1m'
 
 
 class Pi:
-    def __init__(self, config, verbose):  # user_supported_devices could be a json file
+    def __init__(self, config, verbose, connection_mode="WiFi"):  # user_supported_devices could be a json file
 
         self.verbose = verbose
         self.log(HEADER+"Verbose enabled"+ENDC)
+
+        if connection_mode == "WiFi":
+            self.connection_mode = connection_mode
+        elif connection_mode == "BT":
+            self.connection_mode = connection_mode
+        else:
+            print(FAIL, "Unknown connection mode", ENDC)
+
+        self.log(self.connection_mode)
+
 
         self.config_folder = os.getenv('HOME') + "/.config/RaspiMote/"
 
@@ -70,7 +80,6 @@ class Pi:
         :return:
         """
 
-
         pin = device["pin"]
         type_input = device["type_input"]
 
@@ -89,21 +98,27 @@ class Pi:
 
 
     def establish_connection(self):
-        self.log(f"{WARNING}Waiting for connection from pc{ENDC}")
-        led = threading.Thread(name='Connection Blink LED', target=self.show_connection)
-        led.start()
 
-        old_cwd = os.getcwd()
+        if self.connection_mode == "WiFi":
 
-        os.chdir(os.path.join("raspimote", "server_pi"))
-        run("gunicorn --certfile cert.pem --keyfile key.pem --bind 0.0.0.0:9876 wsgi:app".split())
-        os.chdir(old_cwd)
+            self.log(f"{WARNING}Waiting for connection from pc{ENDC}")
+            led = threading.Thread(name='Connection Blink LED', target=self.show_connection)
+            led.start()
 
-        with open(os.path.join(self.config_folder, "connection.raspimote"), 'r', encoding="utf-8") as f:
-            self.code = json.loads(f.read())["code"]
-            self.log("\n" + HEADER+str(self.code)+ENDC)
+            old_cwd = os.getcwd()
 
-        self.send_inventory()
+            os.chdir(os.path.join("raspimote", "server_pi"))
+            run("gunicorn --certfile cert.pem --keyfile key.pem --bind 0.0.0.0:9876 wsgi:app".split())
+            os.chdir(old_cwd)
+
+            with open(os.path.join(self.config_folder, "connection.raspimote"), 'r', encoding="utf-8") as f:
+                self.code = json.loads(f.read())["code"]
+                self.log("\n Connection code : " + HEADER+str(self.code)+ENDC)
+
+            self.send_inventory()
+
+        elif self.connection_mode == "BT":
+            print(FAIL, "Bluetooth unsupported", ENDC)
 
     def send_inventory(self):
 
@@ -144,6 +159,8 @@ class Pi:
         self.USB_channels.append(input_number)
         cnt = 0
 
+        self.log(f"USB Device added with input{input_number}")
+
         usb_device_thread = threading.Thread(name="USB Device Reading", target=self.usb_device_loop)
         usb_device_thread.start()
 
@@ -152,7 +169,17 @@ class Pi:
 
         for event in self.USB.read_loop():
             if event.type == ecodes.EV_KEY:
-                self.send_data({"code": self.code, "request": {"type": "USB", "pin": self.USB_channels[0], "value": categorize(event)}})  # Need to add support for more USB Device at the same time
+                self.send_data({
+                    "code": self.code,
+
+                    "request": {
+                        "type": "USB", "pin": self.USB_channels[0],
+                        "value": ecodes.KEY[event.code],
+                        "extra": event.value
+                    }
+
+                })  # Need to add support for more USB Device at the same time
+
                 self.log(categorize(event))
 
     def run(self):
