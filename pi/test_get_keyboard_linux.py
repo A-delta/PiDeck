@@ -7,7 +7,7 @@ from time import sleep
 # MY keyboard : 7
 # pavé numérique usb : 22
 
-device = InputDevice(f"/dev/input/event3")
+device = InputDevice(f"/dev/input/event2")
 cnt = 0
 for event in device.read_loop():
 
