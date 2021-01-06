@@ -35,13 +35,16 @@ class Pi:
         self.ip = "192.168.1.16"  # Get server request ip
         self.code = 0
 
-        self.disp_info = True  # NEED TO ADD CHOICE
+        self.display_info = True  # NEED TO ADD CHOICE
         self.error_led = LED(18)
         self.success_led = LED(23)
 
         self.has_ADC = False
         self.ADC = None
         self.ADC_channels = 0
+
+        self.has_USB = False
+        self.USB = None
 
         self.buttons = []
         self.pins = []
@@ -117,8 +120,6 @@ class Pi:
 
         self.send_data(request)
 
-
-
     def add_ADC_Device_PCF8591(self, number_channels):
         """
         I have no idea of how to support other ADCDevice for the moment.
@@ -135,9 +136,21 @@ class Pi:
         for channel in range(self.ADC_channels + 1):
             self.ADC_old_values.append(int(self.ADC.analogRead(channel)))
 
-    def add_USB_Device(self):
-        pass
+    def add_USB_Device(self, input_number):
+        from evdev import InputDevice
 
+        self.USB = InputDevice(f"/dev/input/event{input_number}")
+        cnt = 0
+
+        usb_device_thread = threading.Thread(name="USB Device Reading", target=self.usb_device_loop)
+        usb_device_thread.start()
+
+    def usb_device_loop(self):
+        from evdev import categorize, ecodes
+
+        for event in self.USB.read_loop():
+            if event.type == ecodes.EV_KEY:
+                print(categorize(event))
 
     def run(self):
         if self.has_ADC:
@@ -148,7 +161,6 @@ class Pi:
                 for channel in range(self.ADC_channels + 1):
                     old = self.ADC_old_values[channel]
                     new = int(self.ADC.analogRead(channel))
-
 
                     if old not in [new-1, new, new+1]:
 
@@ -173,7 +185,6 @@ class Pi:
         else:
             pause()
 
-
     def show_connection(self):
         for _ in range(3):
             self.success_led.on()
@@ -182,7 +193,6 @@ class Pi:
             self.error_led.on()
             sleep(0.1)
             self.error_led.off()
-
 
     def show_success(self):
         self.success_led.on()
@@ -202,14 +212,13 @@ class Pi:
         sleep(0.1)
         self.error_led.off()
 
-
-
     def event_button(self, button):
         pin = self.pins[self.buttons.index(button)]
         self.log(f"Button{pin}")
         self.send_data({"code": self.code, "request": {"type": "button", "pin": pin, "value": 1}})
 
     def send_data(self, data):
+        start = 0
         if self.verbose:
             start = time()
 

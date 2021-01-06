@@ -5,7 +5,7 @@ from evdev import InputDevice, categorize, ecodes
 from time import sleep
 
 # MY keyboard : 7
-# pavé numérique usb : 22
+# pavé numérique usb on pc : 22 ||| on pi : 1
 
 device = InputDevice(f"/dev/input/event1")
 cnt = 0
