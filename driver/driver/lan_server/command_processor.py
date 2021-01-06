@@ -3,6 +3,7 @@
 
 from built_in_fcn.actions import type_text
 from built_in_fcn.actions import battery_level
+import subprocess
 
 
 def process(json):
@@ -36,3 +37,7 @@ def parse_data(json):
             type_text('δ')
         elif pin == 6:
             battery_level(str(37))
+
+    elif type_device == "USB" and pin == 1:
+        if value == "KEY_KP1" and int(extra) == 1:
+            subprocess.call(["gio", "open", "https://google.fr"])
