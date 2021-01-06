@@ -8,10 +8,18 @@ from .ancillary_fcn import closest
 from time import sleep
 
 
-
-"""
-`sound_conf` must be reimplemented!
-"""
+if platform == 'linux':
+    home = getenv('HOME')
+    if os.path.isfile(f"{home}/.config/RaspiMote") != True:
+        try:
+            generate_sound_conf()
+            with open (f"{home}/.config/RaspiMote", "r") as sc_file:
+                sound_conf = sc.read()
+        except:
+            print("Couldn't calibrate sound for this device. Some functions may be indisponible.")
+    else:
+        with open (f"{home}/.config/RaspiMote", "r") as sc_file:
+            sound_conf = sc.read()
 
 
 def press_key(action, value):
