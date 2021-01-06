@@ -101,6 +101,9 @@ class Pi:
 
         if self.connection_mode == "WiFi":
 
+            if self.verbose:
+                log_level = "--log-level critical"
+
             self.log(f"{WARNING}Waiting for connection from pc{ENDC}")
             led = threading.Thread(name='Connection Blink LED', target=self.show_connection)
             led.start()
@@ -108,7 +111,7 @@ class Pi:
             old_cwd = os.getcwd()
 
             os.chdir(os.path.join("raspimote", "server_pi"))
-            run("gunicorn --certfile cert.pem --keyfile key.pem --bind 0.0.0.0:9876 wsgi:app".split())
+            run(f"gunicorn  {log_level} --certfile cert.pem --keyfile key.pem --bind 0.0.0.0:9876 wsgi:app".split())
             os.chdir(old_cwd)
 
             with open(os.path.join(self.config_folder, "connection.raspimote"), 'r', encoding="utf-8") as f:

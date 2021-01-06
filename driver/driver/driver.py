@@ -66,6 +66,9 @@ class Driver:
     def run(self):
         chdir(path.join(self.driver_path, "lan_server"))
 
+        if self.verbose:
+            log_level = "--log-level critical"
+
         if self.platform == "win32":
             print("Only HTTP for the moment.")
             #system('python wsgi_waitress.py')
@@ -74,7 +77,7 @@ class Driver:
             print("System not supported for the moment.")
 
         elif self.platform == "linux":
-            system("gunicorn --certfile cert.pem --keyfile key.pem --bind 0.0.0.0:9876 wsgi_gunicorn:app")  # Run the HTTPS server.
+            system(f"gunicorn {log_level} --certfile cert.pem --keyfile key.pem --bind 0.0.0.0:9876 wsgi_gunicorn:app")  # Run the HTTPS server.
 
         else:
             print("System not supported.")
