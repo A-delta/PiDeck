@@ -67,9 +67,9 @@ class Driver:
         chdir(path.join(self.driver_path, "lan_server"))
 
         if self.verbose:
-            log_level = "--log-level critical"
-        else:
             log_level = ''
+        else:
+            log_level = "--log-level critical"
 
         if self.platform == "win32":
             print("Only HTTP for the moment.")
