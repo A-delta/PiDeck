@@ -3,6 +3,7 @@
 
 from gpiozero import Button, LED
 from time import sleep, time
+import datetime
 from signal import pause
 import threading
 import requests
@@ -13,11 +14,21 @@ import urllib3
 
 urllib3.disable_warnings()
 
+HEADER = '\033[95m'
+OKBLUE = '\033[94m'
+OKCYAN = '\033[96m'
+OKGREEN = '\033[92m'
+WARNING = '\033[93m'
+FAIL = '\033[91m'
+ENDC = '\033[0m'
+BOLD = '\033[1m'
+
 
 class Pi:
     def __init__(self, config, verbose):  # user_supported_devices could be a json file
 
         self.verbose = verbose
+        self.log(HEADER+"Verbose enabled"+ENDC)
 
         self.config_folder = os.getenv('HOME') + "/.config/RaspiMote/"
 
@@ -70,11 +81,11 @@ class Pi:
         # Here you can add support for a device to make it easier to setup (for json configuration files for example.
 
         else:
-            self.log(type_input + "in" + pin + "not supported, add your own code for it or verify given information")
+            self.log(WARNING + type_input + "in" + pin + "not supported, add your own code for it or verify given information" + ENDC)
 
 
     def establish_connection(self):
-        self.log("Waiting for connection from pc")
+        self.log(f"{WARNING}Waiting for connection from pc{ENDC}")
         led = threading.Thread(name='Connection Blink LED', target=self.show_connection)
         led.start()
 
@@ -86,7 +97,7 @@ class Pi:
 
         with open(os.path.join(self.config_folder, "connection.raspimote"), 'r', encoding="utf-8") as f:
             self.code = json.loads(f.read())["code"]
-            self.log(self.code)
+            self.log(HEADER+str(self.code)+ENDC)
 
         self.send_inventory()
 
@@ -202,19 +213,18 @@ class Pi:
         if self.verbose:
             start = time()
 
-
         success = self.send_request(data)
 
         if success:
-            self.log("Sent.")
+            self.log(f"Sent. at {BOLD}{datetime.datetime.now().time()}{ENDC}")
             t = threading.Thread(name='Blink LED', target=self.show_success)
         else:
+            self.log(f"{FAIL}Error. at {BOLD}{datetime.datetime.now().time()}{ENDC}")
             t = threading.Thread(name='Blink LED', target=self.show_error)
 
         t.start()
 
-        if self.verbose:
-            self.log("Answered in "+str(time()-start)+'\n')
+        self.log(f"Answered in {str(time()-start)} at {BOLD}{datetime.datetime.now().time()}{ENDC}\n")
 
         return
 

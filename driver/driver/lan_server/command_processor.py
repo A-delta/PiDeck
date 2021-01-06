@@ -2,6 +2,7 @@
 # https://github.com/A-delta
 
 from built_in_fcn.actions import type_text
+from built_in_fcn.actions import battery_level
 
 
 def process(json):
@@ -30,4 +31,4 @@ def parse_data(json):
         elif pin == 13:
             type_text('δ')
         elif pin == 6:
-            type_text('ε')
+            battery_level(str(37))

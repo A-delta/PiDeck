@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from os import system
+from os import system, getenv, chdir
 from sys import platform
 from keyboard import send as press, write
 from subprocess import run as sub_run, PIPE as sub_PIPE
-from ancillary_fcn import closest
+from .ancillary_fcn import closest
+from time import sleep
+
 
 
 """
@@ -145,8 +147,8 @@ def change_volume(level):
     if platform == 'linux':
         current_vol = sub_run(["amixer", "get" ,"Master"], stdout=sub_PIPE) # Run the command "amixer get Master", and get its return, which contains the current volume level.
         current_vol = int(str(current_vol.stdout).split("[")[1].replace("]", "").replace("%", "")) # In the return of the function, isolate the current volume level (in %) as an integer.
-        current_vol = take_closest(sound_conf, current_vol) # Take the closest value to the current volume level in the sound_conf.
-        wanted_vol = take_closest(sound_conf, int(level)) # Take the closest value to the wanted volume in the sound_conf.
+        current_vol = closest(sound_conf, current_vol) # Take the closest value to the current volume level in the sound_conf.
+        wanted_vol = closest(sound_conf, int(level)) # Take the closest value to the wanted volume in the sound_conf.
         c = 1
         d = 1
         k = 0
@@ -175,3 +177,53 @@ def change_volume(level):
     elif platform == 'win32':
         level = round(int(level) * 65535 / 100)
         system(f"nircmd.exe setsysvolume {level}")
+
+def generate_sound_conf():
+    print("Please wait while we are calibrating volume change for your device.") # A dialog box telling the user not to touch anything must be shown.
+    c = 1
+    while c == 1: # Mute the sound (level 0).
+        current_vol = sub_run(["amixer", "get" ,"Master"], stdout=sub_PIPE) # Run the command "amixer get Master", and get its return, which contains the current volume level.
+        current_vol = int(str(current_vol.stdout).split("[")[1].replace("]", "").replace("%", "")) # In the return of the function, isolate the current volume level (in %) as an integer.
+        print(current_vol)
+        if current_vol != 0: # Lower the volume until it's at 0 %.
+            print(1)
+            sleep(1)
+            system("xdotool key XF86AudioLowerVolume")
+            sleep(1)
+        else:
+            print(2)
+            sleep(1)
+            system("xdotool key XF86AudioLowerVolume")
+            sleep(1)
+            c = 0
+    c = 1
+    sound_conf = []
+    last_vol = -10
+    while c == 1:
+        current_vol = sub_run(["amixer", "get" ,"Master"], stdout=sub_PIPE) # Run the command "amixer get Master", and get its return, which contains the current volume level.
+        current_vol = int(str(current_vol.stdout).split("[")[1].replace("]", "").replace("%", "")) # In the return of the function, isolate the current volume level (in %) as an integer.
+        print(current_vol)
+        if last_vol < current_vol: # Increase the volume step by step and save each value possible for the volume in a list.
+            print(1)
+            last_vol = current_vol
+            sound_conf.append(current_vol)
+            sleep(1)
+            system("xdotool key XF86AudioRaiseVolume")
+            sleep(1)
+        else:
+            print(2)
+            sleep(1)
+            system("xdotool key XF86AudioRaiseVolume")
+            sleep(1)
+            current_vol = subrun(["amixer", "get" ,"Master"], stdout=sub_PIPE) # Run the command "amixer get Master", and get its return, which contains the current volume level.
+            current_vol = int(str(current_vol.stdout).split("[")[1].replace("]", "").replace("%", "")) # In the return of the function, isolate the current volume level (in %) as an integer.
+            if last_vol == current_vol:
+                c = 0
+            else:
+                sound_conf.append(last_vol)
+    home = getenv('HOME')
+    systex(f'mkdir -p "{home}/.config/RaspiMote"')
+    chdir(f'{home}/.config/RaspiMote')
+    with open ("sound_conf.raspimote", "w") as scfile: # Save the sound_conf.
+        scfile.write(str(sound_conf))
+    print("Calibration completed and saved successfully!") # A dialog box telling the user that the calibration is completed must be shown.

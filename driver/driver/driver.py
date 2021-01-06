@@ -10,16 +10,26 @@ from json import dumps, load
 
 
 class Driver:
-    def __init__(self):
+    def __init__(self, verbose):
 
         self.platform = platform
         self.driver_path = path.join(getcwd(), "driver")
+        self.verbose = verbose
 
         self.code = str(randint(0, 9999999))
         self.ip = ''
         self.port = 9876
 
+
+
         self.load_config()
+
+        self.log([self.platform, self.driver_path, self.code, self.ip, self.port])
+
+    def log(self, messages):
+        if self.verbose:
+            for m in messages:
+                print(m)
 
     def load_config(self):
         """Will check for saved config.
@@ -44,11 +54,6 @@ class Driver:
         with open(config_file_path, 'w') as pi_ip:
             pi_ip.write(dumps({"ip": self.ip, "code": self.code}))
 
-
-
-    def configure(self):
-        """Ask for IP and stuff and save it"""
-        pass
 
     def establish_connection(self):
 
