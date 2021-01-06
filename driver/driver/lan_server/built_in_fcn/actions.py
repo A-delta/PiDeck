@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from os import system, getenv, chdir
+from os import system, getenv, chdir, path as os_path
 from sys import platform
 from keyboard import send as press, write
 from subprocess import run as sub_run, PIPE as sub_PIPE
@@ -10,16 +10,16 @@ from time import sleep
 
 if platform == 'linux':
     home = getenv('HOME')
-    if os.path.isfile(f"{home}/.config/RaspiMote") != True:
+    if os_path.isfile(f"{home}/.config/RaspiMote") != True:
         try:
             generate_sound_conf()
             with open (f"{home}/.config/RaspiMote", "r") as sc_file:
-                sound_conf = sc.read()
+                sound_conf = sc_file.read()
         except:
             print("Couldn't calibrate sound for this device. Some functions may be indisponible.")
     else:
         with open (f"{home}/.config/RaspiMote", "r") as sc_file:
-            sound_conf = sc.read()
+            sound_conf = sc_file.read()
 
 
 def press_key(action, value):
@@ -223,14 +223,14 @@ def generate_sound_conf():
             sleep(1)
             system("xdotool key XF86AudioRaiseVolume")
             sleep(1)
-            current_vol = subrun(["amixer", "get" ,"Master"], stdout=sub_PIPE) # Run the command "amixer get Master", and get its return, which contains the current volume level.
+            current_vol = sub_run(["amixer", "get" ,"Master"], stdout=sub_PIPE) # Run the command "amixer get Master", and get its return, which contains the current volume level.
             current_vol = int(str(current_vol.stdout).split("[")[1].replace("]", "").replace("%", "")) # In the return of the function, isolate the current volume level (in %) as an integer.
             if last_vol == current_vol:
                 c = 0
             else:
                 sound_conf.append(last_vol)
     home = getenv('HOME')
-    systex(f'mkdir -p "{home}/.config/RaspiMote"')
+    system(f'mkdir -p "{home}/.config/RaspiMote"')
     chdir(f'{home}/.config/RaspiMote')
     with open ("sound_conf.raspimote", "w") as scfile: # Save the sound_conf.
         scfile.write(str(sound_conf))
