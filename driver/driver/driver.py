@@ -68,6 +68,8 @@ class Driver:
 
         if self.verbose:
             log_level = "--log-level critical"
+        else:
+            log_level = ''
 
         if self.platform == "win32":
             print("Only HTTP for the moment.")

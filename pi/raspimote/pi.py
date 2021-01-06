@@ -103,6 +103,8 @@ class Pi:
 
             if self.verbose:
                 log_level = "--log-level critical"
+            else:
+                log_level = ''
 
             self.log(f"{WARNING}Waiting for connection from pc{ENDC}")
             led = threading.Thread(name='Connection Blink LED', target=self.show_connection)
