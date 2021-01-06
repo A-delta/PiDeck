@@ -137,7 +137,7 @@ class Pi:
             inventory.update({"ADC_channels": self.ADC_channels})
 
         request = {"code": self.code, "inventory": inventory}
-        print(request)
+        self.log(request)
 
         self.send_data(request)
 
