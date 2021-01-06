@@ -2,8 +2,16 @@
 # https://github.com/A-delta
 
 from evdev import InputDevice, categorize, ecodes
+from time import sleep
 
-device = InputDevice("/dev/input/event7") # my keyboard
+# MY keyboard : 7
+# pavé numérique usb : 22
+
+device = InputDevice(f"/dev/input/event3")
+cnt = 0
 for event in device.read_loop():
+
     if event.type == ecodes.EV_KEY:
+
         print(categorize(event))
+

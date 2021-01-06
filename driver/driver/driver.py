@@ -54,7 +54,6 @@ class Driver:
         with open(config_file_path, 'w') as pi_ip:
             pi_ip.write(dumps({"ip": self.ip, "code": self.code}))
 
-
     def establish_connection(self):
 
         url = f"https://{self.ip}:{self.port}/connect"

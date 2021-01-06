@@ -97,7 +97,7 @@ class Pi:
 
         with open(os.path.join(self.config_folder, "connection.raspimote"), 'r', encoding="utf-8") as f:
             self.code = json.loads(f.read())["code"]
-            self.log(HEADER+str(self.code)+ENDC)
+            self.log("\n" + HEADER+str(self.code)+ENDC)
 
         self.send_inventory()
 
