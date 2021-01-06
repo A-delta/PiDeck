@@ -158,7 +158,7 @@ class Pi:
                     "request": {
                         "type": "USB", "pin": self.USB_channels[0],
                         "value": ecodes.KEY[event.code],
-                        "extra": event.type
+                        "extra": event.value
                     }
 
                 })  # Need to add support for more USB Device at the same time

@@ -14,4 +14,5 @@ for event in device.read_loop():
 
     if event.type == ecodes.EV_KEY:
         print(ecodes.KEY[event.code])
+        print(event.value)
 
