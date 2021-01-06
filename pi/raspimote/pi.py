@@ -37,6 +37,8 @@ class Pi:
         else:
             print(FAIL, "Unknown connection mode", ENDC)
 
+        self.log(self.connection_mode)
+
 
         self.config_folder = os.getenv('HOME') + "/.config/RaspiMote/"
 
@@ -78,7 +80,6 @@ class Pi:
         :return:
         """
 
-
         pin = device["pin"]
         type_input = device["type_input"]
 
@@ -112,7 +113,7 @@ class Pi:
 
             with open(os.path.join(self.config_folder, "connection.raspimote"), 'r', encoding="utf-8") as f:
                 self.code = json.loads(f.read())["code"]
-                self.log("\n" + HEADER+str(self.code)+ENDC)
+                self.log("\n Connection code : " + HEADER+str(self.code)+ENDC)
 
             self.send_inventory()
 
@@ -157,6 +158,8 @@ class Pi:
         self.USB = InputDevice(f"/dev/input/event{input_number}")
         self.USB_channels.append(input_number)
         cnt = 0
+
+        self.log(f"USB Device added with input{input_number}")
 
         usb_device_thread = threading.Thread(name="USB Device Reading", target=self.usb_device_loop)
         usb_device_thread.start()
