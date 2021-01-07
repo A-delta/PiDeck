@@ -16,7 +16,8 @@ app = Flask(__name__)
 def killme():
     sleep(2)
     #system("pkill gunicorn")
-    exit()
+    #exit()
+    system("sh ./stop_server.sh")
 
 @app.route('/connect', methods = ['CONNECT'])
 def connect():
