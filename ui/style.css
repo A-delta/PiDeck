@@ -45,6 +45,6 @@ option, select, input, button {
 p {
     font-size: 5px;
 }
-#typeButton, #buttonPressKey, #buttonKeyValidate, #buttonTypeText, #buttonTextValidate, #buttonCustomFunction, #buttonCustomValidate {
+#typeButton, #buttonPressKey, #buttonKeyValidate, #buttonTypeText, #buttonTextValidate, #buttonCommandFunction, #buttonCommandValidate, #buttonCustomFunction, #buttonCustomValidate {
     display: none;
 }

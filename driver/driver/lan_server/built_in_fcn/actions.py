@@ -9,7 +9,7 @@ from keyboard import send as press, write
 
 
 def press_key(action, value):
-    if action == "alphabet":
+    if action == "alphabet" or action == 'numeral':
         if platform == 'linux':
             system(f"xdotool key {value}")
 
@@ -55,10 +55,10 @@ def press_key(action, value):
 
     elif action == "fn":
         if platform == 'linux':           
-            system(f'xdotool key F{value}')
+            system(f'xdotool key {value.upper()}')
 
         if platform == 'win32':
-            press(f'f{value}')
+            press(f'{value}')
 
         else:
             print('Not implemented.')

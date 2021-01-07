@@ -11,10 +11,7 @@ from json import dumps as jdp
 import threading
 from time import sleep
 
-
 app = Flask(__name__)
-
-
 
 def killme():
     sleep(2)

@@ -34,6 +34,10 @@ function saveButtonText() {
     // Request
 }
 
+function saveButtonCommand() {
+    // Request
+}
+
 function saveButtonCustom() {
     // Request
 }

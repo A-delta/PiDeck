@@ -41,35 +41,16 @@
                             <option value="text">
                                 Type text
                             </option>
+                            <option value="command">
+                                Run command
+                            </option>
                             <option value="custom">
                                 Run custom function
                             </option>
                         </select>
                         <div id="buttonPressKey">
                             <p>&nbsp;</p>
-                            <select name="Key" id="key" onchange="buttonKeyValidation(this)">
-                                <option value="none">
-                                    &nbsp;
-                                </option>
-                                <option value="a">
-                                    A
-                                </option>
-                                <option value="b">
-                                    B
-                                </option>
-                                <option value="c">
-                                    C
-                                </option>
-                                <option value="d">
-                                    D
-                                </option>
-                                <option value="e">
-                                    E
-                                </option>
-                                <option value="flemme">
-                                    Flemme de faire plus, ça sera automatique...
-                                </option>
-                            </select>
+                            <select name="Key" id="key" onchange="buttonKeyValidation(this)"></select>
                             <div id="buttonKeyValidate">
                                 <p>&nbsp;</p>
                                 <button onclick="saveButtonKey()">
@@ -87,6 +68,15 @@
                                 </button>
                             </div>
                         </div>
+                        <div id="buttonCommandFunction">
+                            <p>&nbsp;</p>
+                            <input onchange="buttonCommandValidation(this)">
+                            <div id="buttonCommandValidate">
+                                <p>&nbsp;</p>
+                                <button onclick="saveButtonCommand()">
+                                    Save
+                                </button>
+                            </div>
                         <div id="buttonCustomFunction">
                             <p>&nbsp;</p>
                             <input onchange="buttonCustomValidation(this)">
