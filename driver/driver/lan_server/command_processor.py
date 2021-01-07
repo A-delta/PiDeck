@@ -28,16 +28,7 @@ def parse_data(json):
     except:
         extra = None
 
-    if type_device == "button":
-        if pin == 26:
-            type_text('α')
-        elif pin == 19:
-            type_text('β')
-        elif pin == 13:
-            type_text('δ')
-        elif pin == 6:
-            battery_level(str(37))
-
-    elif type_device == "USB" and pin == 1:
-        if value == "KEY_KP1" and int(extra) == 1:
-            subprocess.call(["gio", "open", "https://google.fr"])
+    translator = {"KEY_Q": "α", "KEY_Q": "β", "KEY_E": "π", "KEY_R": "ω", "KEY_T": "Δ", "KEY_Y": "≈", "KEY_U": "√", "KEY_I": "∞"}
+    if type_device == "USB" and pin == 4 and int(extra) == 1:
+        if value in translator:
+            type_text(translator[value])
