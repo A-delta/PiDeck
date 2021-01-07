@@ -32,8 +32,6 @@ class Pi:
 
         if connection_mode == "WiFi":
             self.connection_mode = connection_mode
-            self.server_url = f'https://{self.ip}:9876/action'
-            self.request_headers = {"Content-Type": "application/json"}
 
         elif connection_mode == "BT":
             self.connection_mode = connection_mode
@@ -47,6 +45,8 @@ class Pi:
 
         self.ip = "192.168.1.16"  # Get server request ip
         self.code = 0
+        self.server_url = f'https://{self.ip}:9876/action'
+        self.request_headers = {"Content-Type": "application/json"}
 
         self.display_info = True  # NEED TO ADD CHOICE
         self.error_led = LED(18)
