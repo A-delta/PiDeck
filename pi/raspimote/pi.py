@@ -253,28 +253,13 @@ class Pi:
         self.send_data({"code": self.code, "request": {"type": "button", "pin": pin, "value": 1}})
 
     def send_data(self, data):
-        start = 0
-        if self.verbose:
-            start = time()
 
         r = threading.Thread(name='Request', target=self.send_request, args=[data])
         r.start()
-        #success = self.send_request(data)
-
-        """if success:
-            self.log(f"Sent. at {BOLD}{datetime.datetime.now().time()}{ENDC}")
-            t = threading.Thread(name='Blink LED', target=self.show_success)
-        else:
-            self.log(f"{FAIL}Error. at {BOLD}{datetime.datetime.now().time()}{ENDC}")
-            t = threading.Thread(name='Blink LED', target=self.show_error)
-
-        t.start()"""
-
-        self.log(f"Answered in {str(time()-start)} at {BOLD}{datetime.datetime.now().time()}{ENDC}\n")
-
-        return
 
     def send_request(self, data):
+        if self.verbose:
+            start = time()
 
         url = f'https://{self.ip}:9876/action'
         headers = {"Content-Type": "application/json"}
@@ -282,5 +267,13 @@ class Pi:
 
         r = requests.post(url, data=content, headers=headers, verify=False)
 
-        return r.status_code == requests.codes.ok
+        if r.status_code == requests.codes.ok:
+            self.log(f"Sent. at {BOLD}{datetime.datetime.now().time()}{ENDC}")
+            t = threading.Thread(name='Blink LED', target=self.show_success)
+        else:
+            self.log(f"{FAIL}Error. at {BOLD}{datetime.datetime.now().time()}{ENDC}")
+            t = threading.Thread(name='Blink LED', target=self.show_error)
+
+        self.log(f"Answered in {str(time() - start)} at {BOLD}{datetime.datetime.now().time()}{ENDC}\n")
+        t.start()
 
