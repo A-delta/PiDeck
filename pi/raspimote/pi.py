@@ -257,7 +257,7 @@ class Pi:
         if self.verbose:
             start = time()
 
-        r = threading.Thread(name='Request', target=self.send_request, args=(data))
+        r = threading.Thread(name='Request', target=self.send_request, args=[data])
         r.start()
         #success = self.send_request(data)
 
