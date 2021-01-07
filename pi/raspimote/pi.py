@@ -257,16 +257,18 @@ class Pi:
         if self.verbose:
             start = time()
 
-        success = self.send_request(data)
+        r = threading.Thread(name='Blink LED', target=self.send_request, arg=(data))
+        r.start()
+        #success = self.send_request(data)
 
-        if success:
+        """if success:
             self.log(f"Sent. at {BOLD}{datetime.datetime.now().time()}{ENDC}")
             t = threading.Thread(name='Blink LED', target=self.show_success)
         else:
             self.log(f"{FAIL}Error. at {BOLD}{datetime.datetime.now().time()}{ENDC}")
             t = threading.Thread(name='Blink LED', target=self.show_error)
 
-        t.start()
+        t.start()"""
 
         self.log(f"Answered in {str(time()-start)} at {BOLD}{datetime.datetime.now().time()}{ENDC}\n")
 
