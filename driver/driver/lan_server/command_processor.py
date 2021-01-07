@@ -28,7 +28,18 @@ def parse_data(json):
     except:
         extra = None
 
-    translator = {"KEY_Q": "α", "KEY_Q": "β", "KEY_E": "π", "KEY_R": "ω", "KEY_T": "Δ", "KEY_Y": "≈", "KEY_U": "√", "KEY_I": "∞"}
+    translator = {
+        "KEY_Q": "α",
+        "KEY_W": "β",
+        "KEY_E": "π",
+        "KEY_R": "ω",
+        "KEY_T": "Δ",
+        "KEY_Y": "≈",
+        "KEY_U": "√",
+        "KEY_I": "∞",
+        "KEY_O": "≠",
+    }
+
     if type_device == "USB" and pin == 4 and int(extra) == 1:
         if value in translator:
             type_text(translator[value])
