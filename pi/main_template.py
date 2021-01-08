@@ -4,17 +4,25 @@
 from raspimote.pi import Pi
 
 
-IP = "Your IP"
-pi = Pi(IP, "WiFi")        # Create Pi object (WiFi only for now)
+def main():
+    """This file is a template for your main.py that runs on your Raspberry Pi."""
 
-pi.add_config([{"pin": "21", "type_input": "button"}])  # Add a button on GPIO 21
+    IP = "Your IP"
+    pi = Pi(IP, "WiFi")        # Create Pi object (WiFi only for now)
 
-pi.add_USB_Device(1)
-"""
-Add a USB Device, see https://github.com/A-delta/RaspiMote/blob/main/utility/identify_usb_device.py
-to know which number you must write.
-"""
+    pi.add_config([{"pin": "21", "type_input": "button"}])  # Add a button on GPIO 21
 
-pi.establish_connection()  # Create connection and get connection code from Driver on your computer
+    pi.add_USB_Device(1)
+    """
+    Add a USB Device, see https://github.com/A-delta/RaspiMote/blob/main/utility/identify_usb_device.py
+    to know which number you must write.
+    """
 
-pi.run()  # Start sending data
+    pi.establish_connection()  # Create connection and get connection code from Driver on your computer
+
+    pi.run()  # Start sending data
+
+
+if __name__ == "__main__":
+    main()
+

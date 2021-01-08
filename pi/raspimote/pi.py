@@ -265,6 +265,8 @@ class Pi:
     def send_request(self, data):
         if not self.ready:
             self.log(f"{FAIL}Error. Request not sent : program not ready.{ENDC}")
+            t = threading.Thread(name='Blink LED', target=self.show_error)
+            t.start()
             return
 
         if self.verbose:
