@@ -261,22 +261,22 @@ class Pi:
         r.start()
 
     def send_request(self, data):
-        """if self.verbose:
+        if self.verbose:
             start = time()
         else:
-            start = 0"""
+            start = 0
 
         content = json.dumps(data)
 
         r = requests.post(self.server_url, data=content, headers=self.request_headers, verify=False)
 
-        """if r.status_code == requests.codes.ok:
+        if r.status_code == requests.codes.ok:
             self.log(f"Sent. at {BOLD}{datetime.datetime.now().time()}{ENDC}")
             t = threading.Thread(name='Blink LED', target=self.show_success)
         else:
             self.log(f"{FAIL}Error. at {BOLD}{datetime.datetime.now().time()}{ENDC}")
-            t = threading.Thread(name='Blink LED', target=self.show_error)"""
+            t = threading.Thread(name='Blink LED', target=self.show_error)
 
-        """self.log(f"Answered in {str(time() - start)} at {BOLD}{datetime.datetime.now().time()}{ENDC}\n")
-        t.start()"""
+        self.log(f"Answered in {str(time() - start)} at {BOLD}{datetime.datetime.now().time()}{ENDC}\n")
+        t.start()
 
