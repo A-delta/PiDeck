@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+# 2021 Adelta
+# https://github.com/A-delta
 
 """
 Build a web server to receive RaspiMote's requests.

@@ -1,3 +1,7 @@
+# 2021 Adelta
+# https://github.com/A-delta
+
+
 from lan_server import app
 from waitress import serve
 
