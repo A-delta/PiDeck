@@ -25,7 +25,7 @@ BOLD = '\033[1m'
 
 
 class Pi:
-    def __init__(self, config, verbose, connection_mode="WiFi"):  # user_supported_devices could be a json file
+    def __init__(self, config, ip, connection_mode, verbose):  # user_supported_devices could be a json file
 
         self.verbose = verbose
         self.log(HEADER+"Verbose enabled"+ENDC)
@@ -43,7 +43,7 @@ class Pi:
 
         self.config_folder = os.getenv('HOME') + "/.config/RaspiMote/"
 
-        self.ip = "192.168.1.16"  # Get server request ip
+        self.ip = ip
         self.code = 0
         self.server_url = f'https://{self.ip}:9876/action'
         self.request_headers = {"Content-Type": "application/json"}

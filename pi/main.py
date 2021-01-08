@@ -21,7 +21,7 @@ def main(argv):
         {"pin": "13", "type_input": "button"},
         {"pin": "19", "type_input": "button"},
         {"pin": "26", "type_input": "button"},
-    ], verbose)
+    ], "192.168.1.16", "WiFi", verbose)
 
     pi.add_ADC_Device_PCF8591(2)
 
@@ -36,4 +36,4 @@ if __name__ == '__main__':
     try:
         main(argv)
     except KeyboardInterrupt:
-        pass
+        print("Program ended")
