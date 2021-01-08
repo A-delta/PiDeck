@@ -26,7 +26,6 @@ def main(argv):
     pi.add_ADC_Device_PCF8591(2)
 
     pi.add_USB_Device(1)
-    pi.add_USB_Device(4)
 
     pi.establish_connection()
     pi.run()
