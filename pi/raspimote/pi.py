@@ -25,7 +25,7 @@ BOLD = '\033[1m'
 
 
 class Pi:
-    def __init__(self, config, ip, connection_mode, verbose):  # user_supported_devices could be a json file
+    def __init__(self, ip, connection_mode, verbose):  # user_supported_devices could be a json file
 
         self.verbose = verbose
         self.log(HEADER+"Verbose enabled"+ENDC)
@@ -39,7 +39,6 @@ class Pi:
             print(FAIL, "Unknown connection mode", ENDC)
 
         self.log(self.connection_mode)
-
 
         self.config_folder = os.getenv('HOME') + "/.config/RaspiMote/"
 
@@ -62,12 +61,12 @@ class Pi:
 
         self.buttons = []
         self.pins = []
+
+    def add_config(self, config):
         for device in config:
             device, pin = self.get_input_device(device)
             self.buttons.append(device)
             self.pins.append(pin)
-
-
 
     def log(self, message, newline=True):
         if self.verbose:
