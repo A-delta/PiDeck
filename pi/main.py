@@ -3,8 +3,6 @@
 
 from raspimote.pi import Pi
 from sys import argv
-from subprocess import run
-import subprocess
 
 
 def main(argv):
@@ -14,6 +12,7 @@ def main(argv):
         verbose = False
 
     pi = Pi("192.168.1.16", "WiFi", verbose)
+
     pi.add_config([
         {"pin": "21", "type_input": "button"},
         {"pin": "20", "type_input": "button"},

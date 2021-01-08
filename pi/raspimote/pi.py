@@ -25,7 +25,7 @@ BOLD = '\033[1m'
 
 
 class Pi:
-    def __init__(self, ip, connection_mode, verbose):  # user_supported_devices could be a json file
+    def __init__(self, ip, connection_mode, verbose=False):  # user_supported_devices could be a json file
 
         self.verbose = verbose
         self.log(HEADER+"Verbose enabled"+ENDC)
@@ -40,6 +40,7 @@ class Pi:
 
         self.log(self.connection_mode)
 
+        self.ready = False
         self.config_folder = os.getenv('HOME') + "/.config/RaspiMote/"
 
         self.ip = ip
@@ -190,6 +191,8 @@ class Pi:
                 self.log(categorize(event))
 
     def run(self):
+        self.ready = True
+
         if self.has_ADC:
             idle = 0
             time_sleep = 0.15
@@ -260,6 +263,10 @@ class Pi:
         r.start()
 
     def send_request(self, data):
+        if not self.ready:
+            self.log(f"{FAIL}Error. Request not sent : program not ready.{ENDC}")
+            return
+
         if self.verbose:
             start = time()
         else:
