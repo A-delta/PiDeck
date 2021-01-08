@@ -1,9 +1,7 @@
 # 2021 Adelta
 # https://github.com/A-delta
 
-from built_in_fcn.actions import type_text
-from built_in_fcn.actions import battery_level
-import subprocess
+from built_in_fcn.actions import type_text, run_command
 
 
 def process(json):
@@ -41,6 +39,14 @@ def parse_data(json):
         "KEY_O": "≠",
     }
 
-    if type_device == "USB" and pin == 4 and int(extra) == 1:
+    key_to_browser = {
+        "KEY_P": "https://pronote.larmand.fr/pronote/eleve.html",
+        "KEY_SEMICOLON": "https://mail.google.com/mail/u/1/#inbox",
+        "KEY_L": "https://drive.google.com/drive/u/1/my-drive",
+    }
+
+    if type_device == "USB" and pin == 1 and int(extra) == 1:
         if value in key_to_char:
             type_text(key_to_char[value])
+        elif value in key_to_browser:
+            run_command(f"gio open {key_to_browser[value]}")
