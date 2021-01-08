@@ -7,6 +7,9 @@ from os import system, path, chdir, getcwd, getenv
 from requests import request
 from random import randint
 from json import dumps, load
+import urllib3
+
+urllib3.disable_warnings()
 
 
 class Driver:
