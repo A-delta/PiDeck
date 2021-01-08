@@ -124,6 +124,7 @@ class Pi:
                 self.log("\n Connection code : " + HEADER+str(self.code)+ENDC)
 
             self.send_inventory()
+            self.ready = True
 
         elif self.connection_mode == "BT":
             print(FAIL, "Bluetooth unsupported", ENDC)
@@ -191,8 +192,6 @@ class Pi:
                 self.log(categorize(event))
 
     def run(self):
-        self.ready = True
-
         if self.has_ADC:
             idle = 0
             time_sleep = 0.15
