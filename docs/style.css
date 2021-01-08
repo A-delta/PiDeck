@@ -1,0 +1,60 @@
+@font-face {
+    font-family: "CaviarDreams";
+    src: url(CaviarDreams.ttf);
+}
+
+@font-face {
+    font-family: "Comfortaa";
+    src: url(Comfortaa.ttf);
+}
+
+@font-face {
+    font-family: "LinuxLibertine";
+    src: url(LnxLibertine.ttf);
+}
+
+@font-face {
+    font-family: "CallingCode";
+    src: url(CallingCode.ttf);
+}
+
+body {
+    font-family: 'Segoe UI', 'Arial';
+}
+
+.center {
+    text-align: center;
+}
+
+.timg {
+    width: 15%;
+}
+
+h1 {
+    font-family: "CaviarDreams";
+    font-size: 300%;
+}
+
+h2 {
+    font-family: "Comfortaa";
+    font-size: 230%;
+}
+
+h3 {
+    font-family: "Comfortaa";
+    font-weight: lighter;
+    font-size: 170%;
+}
+
+p, li {
+    font-family: "LinuxLibertine";
+    font-size: 110%;
+}
+
+code {
+    font-family: "CallingCode";
+    background-color: #36363a;
+    color: white;
+    border: solid 1px #36363a;
+    font-size: 90%
+}
