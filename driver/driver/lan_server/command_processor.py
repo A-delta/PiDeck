@@ -18,6 +18,7 @@ def process(json):
 def makeInventory(json):
     print("Got inventory :", json)
 
+
 def parse_data(json):
     request = json["request"]
     type_device = request["type"]
@@ -28,7 +29,7 @@ def parse_data(json):
     except:
         extra = None
 
-    translator = {
+    key_to_char = {
         "KEY_Q": "α",
         "KEY_W": "β",
         "KEY_E": "π",
@@ -41,5 +42,5 @@ def parse_data(json):
     }
 
     if type_device == "USB" and pin == 4 and int(extra) == 1:
-        if value in translator:
-            type_text(translator[value])
+        if value in key_to_char:
+            type_text(key_to_char[value])
