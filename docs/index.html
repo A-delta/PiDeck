@@ -13,7 +13,31 @@
             <p>&nbsp;</p>
         </div>
 
-        <h2>Description</h2>
+
+        <div id="summary">
+            <p><a href="#description">Description</a></p>
+            <p>
+                <a href="#basic_setup">Basic setup</a>
+                <ul>
+                    <li>Pi</li>
+                    <li>Driver</li>
+                    <li>Built-in functions</li>
+                </ul>
+            </p>
+            <p>
+                <a href="#running">Running</a>
+                    <ul>
+                        <li>Pi</li>
+                        <li>Driver</li>
+                    </ul>
+            </p>
+        </div>
+
+
+
+
+
+        <h2 id="description">Description</h2>
         <p>
             You want to turn your Raspberry Pi into a programmable keyboard / controller / remote control? RaspiMote is what you need!
         </p>
@@ -34,19 +58,8 @@
             <li><code>lnx_install.sh</code> / <code>deb_install.sh</code> <b>(TBD)</b> for (Debian-based) Linux distributions;</li>
         </ul>
 
-        <h3 id="builtinfunct">Built-in functions</h3>
 
-        <p>
-            With these functions, you can already perform multiple actions:
-        </p>
-
-        <ul>
-            <li>simulate keystroke and key combinaison (any character and function key);</li>
-            <li>change sound level;</li>
-            <li>etc...</li>
-        </ul>
-
-        <h2>Basic setup</h2>
+        <h2 id="basic_setup">Basic setup</h2>
 
         <p>
             The main purpose of RaspiMote is to allow you to create your own functions that will fit your needs (for provided functions, see <a href="#builtinfunct">Built-in functions</a>).<br/>
@@ -60,7 +73,7 @@
 
         <h3>Pi</h3>
         <p>
-            You will need to customise your RaspiMote Pi script to add your physical inputs.<br>The <code>Pi</code> class comes with some premade inputs methods:
+            You will need to customise your RaspiMote Pi script to add your physical inputs.<br>The <code>Pi</code> class comes with some premade input methods (check methods' docstring to see the parameters) :
         </p>
         <ul>
             <li>buttons;</li>
@@ -96,7 +109,7 @@
 
         <h3>Driver</h3>
         <p>
-            After having added your input to the Raspberry Pi, you need to decide what they will do on your PC. You must customise <code>./driver/lan_server/command_processor.py</code>, in <code>parse_data()</code> function, you can write your code. See <a href="#builtinfunct">Built-in functions</a> section to see what features are available or write your own ones.
+            After having added your inputs to the Raspberry Pi, you need to decide what they will do on your PC. You must customise <code>./driver/lan_server/command_processor.py</code>, in <code>parse_data()</code> function, you can write your code. See <a href="#builtinfunct">Built-in functions</a> section to see what features are available or write your own ones.
         </p>
         <p>
             Example of a USB keyboard that writes mathematical symbols:
@@ -120,8 +133,19 @@
                     &nbsp; &nbsp; type_text(key_to_char[value])
         </code>
 
+        <h3 id="builtinfunct">Built-in functions</h3>
 
-    <h2>Running</h2>
+        <p>
+            With these functions, you can already perform multiple actions but don't forget to check the function's docstring :
+        </p>
+
+        <ul>
+            <li>simulate keystroke and key combinaison (any character and function key);</li>
+            <li>change sound level;</li>
+            <li>etc...</li>
+        </ul>
+
+    <h2 id="running">Running</h2>
     <h3>Pi</h3>
     <p>
         Before the system runs, you need to execute <code>pi.establish_connection(server_IP)</code> to initiate connection with driver then <code>pi.run()</code>.
