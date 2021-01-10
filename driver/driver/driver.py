@@ -30,16 +30,6 @@ class Driver:
         self.log([self.platform, self.driver_path, self.code, self.ip, self.port])
 
 
-
-
-        self.socket_host = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.ping_port = 15555
-
-        self.socket_host.bind(('', self.ping_port))
-        self.socket_host.connect((self.ip, self.ping_port))
-
-        ping_thread = threading.Thread(target=self.pong)
-
     def log(self, messages):
         if self.verbose:
             for m in messages:
@@ -77,16 +67,6 @@ class Driver:
         content = dumps(content)
         connection = request('CONNECT', url, data=content, headers=headers, verify=False)
         return connection.text == "True"
-
-    def pong(self):
-        self.socket_host.listen(5)
-        client, address = self.socket_host.accept()
-
-        response = client.recv(255)
-        if response != "":
-            print(response)
-            socket.send("Ping")
-
 
     def run(self):
         chdir(path.join(self.driver_path, "lan_server"))
