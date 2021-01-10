@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # 2021 Adelta
 # https://github.com/A-delta
 

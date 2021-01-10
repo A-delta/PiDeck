@@ -3,11 +3,13 @@
 
 
 from sys import platform
-from os import system, path, chdir, getcwd, getenv
+from os import system, path, chdir, getcwd, getenv, kill
 from requests import request
 from random import randint
 from json import dumps, load
 import urllib3, threading, socket
+import time
+import subprocess
 
 urllib3.disable_warnings()
 
@@ -68,7 +70,26 @@ class Driver:
         connection = request('CONNECT', url, data=content, headers=headers, verify=False)
         return connection.text == "True"
 
+
+    def watchdog(self):
+        time.sleep(5)
+        command = f"ps ax | grep gunicorn | grep {self.port} | awk {'{'}split($0,a,\" \"); print a[1]}}' | head -n 1"
+        try:
+            output = subprocess.check_output(command, shell=True)
+        except subprocess.CalledProcessError as e:
+            pid = int(e.output)
+
+        while True:
+            time.sleep(3)
+            try:
+                kill(pid, 0)
+            except OSError:
+                self.log("Server crashed")
+
     def run(self):
+        watchdog = threading.Thread(name="Server Watchdog", target=self.watchdog)
+        watchdog.start()
+
         chdir(path.join(self.driver_path, "lan_server"))
 
         if self.verbose:
