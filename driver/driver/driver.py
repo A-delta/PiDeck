@@ -9,7 +9,7 @@ from random import randint
 from json import dumps, load
 import urllib3, threading, socket
 import time
-import subprocess
+import subprocess, psutil
 
 urllib3.disable_warnings()
 
@@ -71,7 +71,20 @@ class Driver:
         return connection.text == "True"
 
 
-    def watchdog(self):
+    """def watchdog(self):
+        listOfProcessObjects = []
+        for proc in psutil.process_iter():
+            try:
+                pinfo = proc.as_dict(attrs=['pid', 'name', 'create_time'])
+
+                if "gunicorn".lower() in pinfo['name'].lower():
+                    listOfProcessObjects.append(pinfo)
+            except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+                pass
+
+
+
+
         time.sleep(5)
         command = f"ps ax | grep gunicorn | grep {self.port} | awk {'{'}split($0,a,\" \"); print a[1]}}' | head -n 1"
         try:
@@ -84,11 +97,11 @@ class Driver:
             try:
                 kill(pid, 0)
             except OSError:
-                self.log("Server crashed")
+                self.log("Server crashed")"""
 
     def run(self):
-        watchdog = threading.Thread(name="Server Watchdog", target=self.watchdog)
-        watchdog.start()
+        """watchdog = threading.Thread(name="Server Watchdog", target=self.watchdog)
+        watchdog.start()"""
 
         chdir(path.join(self.driver_path, "lan_server"))
 
