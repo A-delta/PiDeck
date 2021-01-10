@@ -278,7 +278,12 @@ class Pi:
 
         content = json.dumps(data)
 
-        r = requests.post(self.server_url, data=content, headers=self.request_headers, verify=False)
+        try:
+            r = requests.post(self.server_url, data=content, headers=self.request_headers, verify=False)
+        except:
+            print(f"{FAIL}Server not responding{ENDC}")
+            self.reconnect()
+            return
 
         if r.status_code == requests.codes.ok:
             self.log(f"Sent. at {BOLD}{datetime.datetime.now().time()}{ENDC}")
