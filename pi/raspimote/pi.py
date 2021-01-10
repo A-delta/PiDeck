@@ -281,8 +281,8 @@ class Pi:
         try:
             r = requests.post(self.server_url, data=content, headers=self.request_headers, verify=False)
         except:
-            print(f"{FAIL}Server not responding{ENDC}")
-            self.reconnect()
+            print(f"{FAIL}Server not responding, driver might have stopped or encountered error{ENDC}")
+            #self.reconnect()
             return
 
         if r.status_code == requests.codes.ok:
@@ -294,4 +294,3 @@ class Pi:
 
         self.log(f"Answered in {str(time() - start)} at {BOLD}{datetime.datetime.now().time()}{ENDC}\n")
         t.start()
-
