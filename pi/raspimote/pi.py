@@ -128,7 +128,6 @@ class Pi:
             self.ready = True
             self.send_inventory()
 
-            self.create_ping_socket()
 
         elif self.connection_mode == "BT":
             print(FAIL, "Bluetooth unsupported", ENDC)
