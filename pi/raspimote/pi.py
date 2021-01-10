@@ -123,8 +123,9 @@ class Pi:
                 self.code = json.loads(f.read())["code"]
                 self.log("\n Connection code : " + HEADER+str(self.code)+ENDC)
 
-            self.send_inventory()
             self.ready = True
+            self.send_inventory()
+
 
         elif self.connection_mode == "BT":
             print(FAIL, "Bluetooth unsupported", ENDC)
@@ -166,7 +167,7 @@ class Pi:
         try:
             usb = InputDevice(f"/dev/input/event{input_number}")
         except:
-            print(f"{FAIL}Device doesn't exist. Skipped.{ENDC}")
+            print(f"{FAIL}USB Device {input_number} doesn't exist. Skipped.{ENDC}")
             return
         self.usb_devices.append(usb)
         self.usb_channels.append(input_number)
