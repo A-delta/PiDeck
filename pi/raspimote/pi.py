@@ -163,8 +163,11 @@ class Pi:
 
     def add_USB_Device(self, input_number):
         from evdev import InputDevice
-
-        usb = InputDevice(f"/dev/input/event{input_number}")
+        try:
+            usb = InputDevice(f"/dev/input/event{input_number}")
+        except:
+            print(f"{FAIL}Device doesn't exist. Skipped.{ENDC}")
+            return
         self.usb_devices.append(usb)
         self.usb_channels.append(input_number)
 
