@@ -7,7 +7,7 @@ from os import system, path, chdir, getcwd, getenv
 from requests import request
 from random import randint
 from json import dumps, load
-import urllib3
+import urllib3, threading, socket
 
 urllib3.disable_warnings()
 
@@ -28,6 +28,17 @@ class Driver:
         self.load_config()
 
         self.log([self.platform, self.driver_path, self.code, self.ip, self.port])
+
+
+
+
+        self.socket_host = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.ping_port = 15555
+
+        self.socket_host.bind(('', self.ping_port))
+        self.socket_host.connect((self.ip, self.ping_port))
+
+        ping_thread = threading.Thread(target=self.pong)
 
     def log(self, messages):
         if self.verbose:
@@ -57,6 +68,7 @@ class Driver:
         with open(config_file_path, 'w') as pi_ip:
             pi_ip.write(dumps({"ip": self.ip, "code": self.code}))
 
+
     def establish_connection(self):
 
         url = f"https://{self.ip}:{self.port}/connect"
@@ -65,6 +77,16 @@ class Driver:
         content = dumps(content)
         connection = request('CONNECT', url, data=content, headers=headers, verify=False)
         return connection.text == "True"
+
+    def pong(self):
+        self.socket_host.listen(5)
+        client, address = self.socket_host.accept()
+
+        response = client.recv(255)
+        if response != "":
+            print(response)
+            socket.send("Ping")
+
 
     def run(self):
         chdir(path.join(self.driver_path, "lan_server"))

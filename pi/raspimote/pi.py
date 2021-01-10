@@ -11,6 +11,7 @@ import os
 from subprocess import run, check_output
 import json
 import urllib3
+import socket
 
 urllib3.disable_warnings()
 
@@ -62,6 +63,23 @@ class Pi:
 
         self.buttons = []
         self.pins = []
+
+        self.socket_host = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.ping_port = 15555
+
+        self.socket_host.bind(('', self.ping_port))
+        self.socket_host.connect((self.ip, self.ping_port))
+
+        ping_thread = threading.Thread(target=self.pong)
+
+    def pong(self):
+        self.socket_host.listen(5)
+        client, address = self.socket_host.accept()
+
+        response = client.recv(255)
+        if response != "":
+            print(response)
+            socket.send("Pong")
 
     def add_config(self, config):
         for device in config:
@@ -126,9 +144,11 @@ class Pi:
             self.ready = True
             self.send_inventory()
 
+            self.create_ping_socket()
 
         elif self.connection_mode == "BT":
             print(FAIL, "Bluetooth unsupported", ENDC)
+
 
     def send_inventory(self):
 
@@ -285,6 +305,7 @@ class Pi:
             print(f"{FAIL}Server not responding, driver might have stopped or encountered error{ENDC}")
             self.log(f"{FAIL}Error. at {BOLD}{datetime.datetime.now().time()}{ENDC}")
             t = threading.Thread(name='Blink LED', target=self.show_error)
+            t.start()
             #self.reconnect()
             return
 
