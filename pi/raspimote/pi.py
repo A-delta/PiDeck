@@ -282,6 +282,8 @@ class Pi:
             r = requests.post(self.server_url, data=content, headers=self.request_headers, verify=False)
         except:
             print(f"{FAIL}Server not responding, driver might have stopped or encountered error{ENDC}")
+            self.log(f"{FAIL}Error. at {BOLD}{datetime.datetime.now().time()}{ENDC}")
+            t = threading.Thread(name='Blink LED', target=self.show_error)
             #self.reconnect()
             return
 
