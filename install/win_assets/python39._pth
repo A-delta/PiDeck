@@ -1,0 +1,11 @@
+python39.zip
+.
+
+C:\Program Files\RaspiMote\py
+C:\Program Files\RaspiMote\py\DLLs
+C:\Program Files\RaspiMote\py\lib
+C:\Program Files\RaspiMote\py\lib\plat-win
+C:\Program Files\RaspiMote\py\lib\site-packages
+
+# Uncomment to run site.main() automatically
+#import site
