@@ -18,6 +18,8 @@ goto check_Permissions
     )
 
 :main
+
+    Rem The command below must be moved in the future.
     powershell -command "Set-ExecutionPolicy -ExecutionPolicy Bypass"
 
     curl -s -L -o raspimote.zip "https://github.com/A-delta/RaspiMote/archive/main.zip"
