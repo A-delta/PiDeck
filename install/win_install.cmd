@@ -27,6 +27,8 @@ goto check_Permissions
 
     powershell -command "Remove-Item 'C:\Program Files\RaspiMote' -Recurse -erroraction 'silentlycontinue'"
 
+    powershell -command "Remove-Item 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\RaspiMote - driver.vbs' -erroraction 'silentlycontinue'"
+    
     powershell -command "Add-Type -A 'System.IO.Compression.FileSystem';[IO.Compression.ZipFile]::ExtractToDirectory('C:\Users\%USERNAME%\Downloads\raspimote.zip', 'C:\Users\%USERNAME%\Downloads\')"
 
     echo [[92mv[0m] RaspiMote code extracted.
@@ -69,7 +71,9 @@ goto check_Permissions
 
     echo [[92mv[0m] Dependencies installed.
     
-    
+    powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_assets\init.cmd' 'C:\Program Files\RaspiMote' -erroraction 'silentlycontinue'"
+
+    powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_assets\RaspiMote - driver.vbs' 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp' -erroraction 'silentlycontinue'"
     
     
     
