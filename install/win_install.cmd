@@ -55,17 +55,17 @@ goto check_Permissions
 
     echo [[92mv[0m] Python embeddable environment extracted to installation folder.
 
-    timeout /t 2 /nobreak
+    timeout /t 2 /nobreak > nul
 
-    echo [94mi[0m Building and installing dependencies...
+    echo [[94mi[0m] Building and installing dependencies...
 
     powershell -command "Set-ExecutionPolicy -ExecutionPolicy Bypass"
 
     curl -s -L -o "C:\Users\%USERNAME%\Downloads\get-pip.py" "https://bootstrap.pypa.io/get-pip.py"
 
-    "C:\Program Files\RaspiMote\py\python.exe" "C:\Users\%USERNAME%\Downloads\get-pip.py"
+    "C:\Program Files\RaspiMote\py\python.exe" "C:\Users\%USERNAME%\Downloads\get-pip.py" -q 1> nul 2> nul
 
-    "C:\Program Files\RaspiMote\py\python.exe" -m pip install urllib3 requests waitress flask flask-cors keyboard
+    "C:\Program Files\RaspiMote\py\python.exe" -m pip install urllib3 requests waitress flask flask-cors keyboard > nul
 
     echo [[92mv[0m] Dependencies installed.
     
@@ -77,7 +77,7 @@ goto check_Permissions
     
 
 
-    
+
     powershell -command "Remove-Item 'C:\Program Files\RaspiMote\py\Lib\site-packages\pip*' -Recurse -erroraction 'silentlycontinue'"
 
     powershell -command "Remove-Item 'C:\Program Files\RaspiMote\py\Lib\site-packages\setuptools*' -Recurse -erroraction 'silentlycontinue'"
@@ -91,6 +91,8 @@ goto check_Permissions
     powershell -command "Remove-Item 'C:\Program Files\RaspiMote\py\Lib\site-packages\easy_install*' -erroraction 'silentlycontinue'"
     
     powershell -command "Remove-Item 'C:\Users\%USERNAME%\Downloads\raspimote.zip' -erroraction 'silentlycontinue'"
+
+    powershell -command "Remove-Item 'C:\Users\%USERNAME%\Downloads\get-pip.py' -erroraction 'silentlycontinue'"
 
     powershell -command "Remove-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main' -Recurse -erroraction 'silentlycontinue'"
 
