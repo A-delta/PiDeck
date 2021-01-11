@@ -18,16 +18,20 @@
     src: url(CallingCode.ttf);
 }
 
-body {
-    font-family: 'Segoe UI', 'Arial';
+html, body {
+    height: 99%;
 }
 
-.center {
+table {
+    height: 62%;
+}
+
+.title {
     text-align: center;
 }
 
 .timg {
-    width: 15%;
+    width: 10%;
 }
 
 h1 {
@@ -57,4 +61,41 @@ code {
     color: white;
     border: solid 1px #36363a;
     font-size: 90%
+}
+
+a {
+    color: #1A5276;
+}
+
+a.no {
+    color:  #000000;
+    text-decoration: none;
+}
+
+thead {
+    height: 20%;
+}
+
+tbody, td {
+    height: 80%
+}
+
+.left_panel {
+    width: 200px;
+    height: 100%;
+}
+
+.right_panel {
+    width: calc(100% - 200px);
+    height: 100%;
+}
+
+#summary {
+    height: 100%;
+    overflow: scroll;
+}
+
+#docs_content {
+    height: 100%;
+    overflow: scroll;
 }
