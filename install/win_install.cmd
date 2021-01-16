@@ -61,7 +61,7 @@ goto check_Permissions
 
     echo [[94mi[0m] Building and installing dependencies...
 
-    powershell -command "Set-ExecutionPolicy -ExecutionPolicy Bypass"
+    powershell -command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned"
 
     curl -s -L -o "C:\Users\%USERNAME%\Downloads\get-pip.py" "https://bootstrap.pypa.io/get-pip.py"
 
