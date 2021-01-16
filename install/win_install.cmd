@@ -19,7 +19,7 @@ goto check_Permissions
 
 :main
 
-    curl -s -L -o "C:\Users\%USERNAME%\Downloads\raspimote.zip" "https://github.com/A-delta/RaspiMote/archive/main.zip"
+    powershell -command "Invoke-WebRequest ""https://github.com/A-delta/RaspiMote/archive/main.zip"" -OutFile ""C:\Users\%USERNAME%\Downloads\raspimote.zip"""
 
     echo [[92mv[0m] RaspiMote code downloaded.
 
