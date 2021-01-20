@@ -2,7 +2,7 @@
 # https://github.com/A-delta
 
 from gpiozero import Device, Button, LED
-from gpiozero.pins.rpigpio import RPiGPIOFactory
+#from gpiozero.pins.rpigpio import RPiGPIOFactory
 
 from time import sleep, time
 import datetime
@@ -15,7 +15,7 @@ import json
 import urllib3
 import socket
 
-Device.pin_factory = RPiGPIOFactory()
+#Device.pin_factory = RPiGPIOFactory()
 urllib3.disable_warnings()
 
 HEADER = '\033[95m'
