@@ -108,6 +108,7 @@ class Pi:
 
             if self.verbose:
                 log_level = ''
+                self.log("test")
             else:
                 log_level = "--log-level critical"
 
