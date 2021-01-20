@@ -1,7 +1,9 @@
 # 2021 Adelta
 # https://github.com/A-delta
 
-from gpiozero import Button, LED
+from gpiozero import Device, Button, LED
+from gpiozero.pins.native import NativeFactory
+
 from time import sleep, time
 import datetime
 from signal import pause
@@ -13,6 +15,7 @@ import json
 import urllib3
 import socket
 
+Device.pin_factory = NativeFactory()
 urllib3.disable_warnings()
 
 HEADER = '\033[95m'
