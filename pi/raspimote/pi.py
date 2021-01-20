@@ -125,6 +125,10 @@ class Pi:
                 self.code = json.loads(f.read())["code"]
                 self.log("\n Connection code : " + HEADER+str(self.code)+ENDC)
 
+            self.ready = True
+            self.send_inventory()
+
+            pause()
         elif self.connection_mode == "BT":
             print(FAIL, "Bluetooth unsupported", ENDC)
 
@@ -229,13 +233,6 @@ class Pi:
                             self.log("Sleep mode")
                             time_sleep = 0.2
                             idle = 0
-
-    def run(self):
-        self.ready = True
-        self.send_inventory()
-
-        pause()
-
     def show_connection(self):
         for _ in range(3):
             self.success_led.on()
