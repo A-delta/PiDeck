@@ -14,7 +14,7 @@ def main(argv):
 
     pi = Pi("192.168.1.16", "WiFi", verbose)
 
-    pi.add_config([
+    """pi.add_config([
         {"pin": "21", "type_input": "button"},
         {"pin": "20", "type_input": "button"},
         {"pin": "16", "type_input": "button"},
@@ -22,7 +22,12 @@ def main(argv):
         {"pin": "13", "type_input": "button"},
         {"pin": "19", "type_input": "button"},
         {"pin": "26", "type_input": "button"},
-    ])
+    ])"""
+
+    pi.add_config([
+        {"pin": "20", "type_input": "button"},
+        {"pin": "16", "type_input": "button"},
+        ])
 
     pi.add_ADC_Device_PCF8591(2)
 
