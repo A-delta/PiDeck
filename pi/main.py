@@ -24,12 +24,14 @@ def main(argv):
         {"pin": "26", "type_input": "button"},
     ])
 
-    pi.add_ADC_Device_PCF8591(2)
+    #pi.add_ADC_Device_PCF8591(2)
 
     pi.add_USB_Device(1)
 
     pi.establish_connection()
+    pi.run_ADC()
     pi.run()
+
 
 if __name__ == '__main__':
     try:

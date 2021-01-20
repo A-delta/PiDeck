@@ -125,10 +125,6 @@ class Pi:
                 self.code = json.loads(f.read())["code"]
                 self.log("\n Connection code : " + HEADER+str(self.code)+ENDC)
 
-            self.ready = True
-            self.send_inventory()
-
-
         elif self.connection_mode == "BT":
             print(FAIL, "Bluetooth unsupported", ENDC)
 
@@ -165,6 +161,9 @@ class Pi:
         for channel in range(self.ADC_channels + 1):
             self.ADC_old_values.append(int(self.ADC.analogRead(channel)))
 
+        adc_device_thread = threading.Thread(name="USB Device Reading", target=self.usb_device_loop, args=(run_ADC))
+        adc_device_thread.start()
+
     def add_USB_Device(self, input_number):
         from evdev import InputDevice
         try:
@@ -198,17 +197,19 @@ class Pi:
 
                 self.log(categorize(event))
 
-    def run(self):
-        if self.has_ADC:
+
+    def run_ADC(self):
+        if not self.has_ADC:
+            print("NO ADC") # need to clean errors
+        else:
             idle = 0
             time_sleep = 0.15
             while True:
-
                 for channel in range(self.ADC_channels + 1):
                     old = self.ADC_old_values[channel]
                     new = int(self.ADC.analogRead(channel))
 
-                    if old not in [new-1, new, new+1]:
+                    if old not in [new - 1, new, new + 1]:
 
                         idle = 1
                         time_sleep = 0.1
@@ -228,8 +229,12 @@ class Pi:
                             self.log("Sleep mode")
                             time_sleep = 0.2
                             idle = 0
-        else:
-            pause()
+
+    def run(self):
+        self.ready = True
+        self.send_inventory()
+
+        pause()
 
     def show_connection(self):
         for _ in range(3):
