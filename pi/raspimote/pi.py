@@ -1,8 +1,7 @@
 # 2021 Adelta
 # https://github.com/A-delta
 
-from gpiozero import Device, Button, LED
-#from gpiozero.pins.rpigpio import RPiGPIOFactory
+from gpiozero import Button, LED
 
 from time import sleep, time
 import datetime
@@ -10,12 +9,10 @@ from signal import pause
 import threading
 import requests
 import os
-from subprocess import run, check_output
+from subprocess import run
 import json
 import urllib3
-import socket
 
-#Device.pin_factory = RPiGPIOFactory()
 urllib3.disable_warnings()
 
 HEADER = '\033[95m'
