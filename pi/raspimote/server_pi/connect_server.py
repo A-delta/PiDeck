@@ -29,14 +29,11 @@ def connect():
     if not path.isdir(config_folder):
         mkdir(config_folder)
 
-    try:
-        connection_file = open(path.join(config_folder, "connection.raspimote"), "w+", encoding="utf-8")
+    connection_file = open(path.join(config_folder, "connection.raspimote"), "w+", encoding="utf-8")
 
-        data = jdp({"ip": ip, "code": request.json["code"]})
-        connection_file.write(data)
-        connection_file.close()
-    except:
-        print("can't write")
+    data = jdp({"ip": ip, "code": request.json["code"]})
+    connection_file.write(data)
+    connection_file.close()
 
     k.start()
     return "True"
