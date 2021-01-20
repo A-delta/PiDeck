@@ -24,7 +24,7 @@ def main(argv):
         {"pin": "26", "type_input": "button"},
     ])
 
-    #pi.add_ADC_Device_PCF8591(2)
+    pi.add_ADC_Device_PCF8591(2)
 
     #pi.add_USB_Device(1)
 
