@@ -15,7 +15,7 @@ import json
 import urllib3
 import socket
 
-Device.pin_factory = NativeFactory()
+Device.pin_factory = gpiozero.pins.rpigpio.RPiGPIOFactory
 urllib3.disable_warnings()
 
 HEADER = '\033[95m'
