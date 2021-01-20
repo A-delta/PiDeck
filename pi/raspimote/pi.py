@@ -164,7 +164,7 @@ class Pi:
         for channel in range(self.ADC_channels + 1):
             self.ADC_old_values.append(int(self.ADC.analogRead(channel)))
 
-        adc_device_thread = threading.Thread(name="USB Device Reading", target=self.usb_device_loop, args=(self.run_ADC))
+        adc_device_thread = threading.Thread(name="USB Device Reading", target=self.run_ADC)
         adc_device_thread.start()
 
     def add_USB_Device(self, input_number):
