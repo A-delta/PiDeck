@@ -8,7 +8,7 @@ Build a web server to establish connection between the driver and the Pi.
 from flask import Flask, request
 from os import getenv, path, mkdir, system
 from json import dumps as jdp
-import threading
+from threading import Thread
 from time import sleep
 
 app = Flask(__name__)
@@ -19,7 +19,7 @@ def killme():
 
 @app.route('/connect', methods = ['CONNECT'])
 def connect():
-    k = threading.Thread(name='Kill server', target=killme)
+    k = Thread(name='Kill server', target=killme)
 
     ip = request.remote_addr
     home = getenv('HOME')
