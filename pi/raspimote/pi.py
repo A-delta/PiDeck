@@ -2,18 +2,17 @@
 # https://github.com/A-delta
 
 from gpiozero import Button, LED
-
+from signal import pause
 from time import sleep, time
 import datetime
-from signal import pause
-import threading
-import requests
-import os
+from threading import Thread
+from requests import post, codes
+from os import getenv, getcwd, chdir, path
 from subprocess import run
-import json
-import urllib3
+from json import loads, dumps
+from urllib3 import disable_warnings as urllib_disable_warnings
 
-urllib3.disable_warnings()
+urllib_disable_warnings()
 
 HEADER = '\033[95m'
 OKBLUE = '\033[94m'
@@ -42,7 +41,7 @@ class Pi:
         self.log(self.connection_mode)
 
         self.ready = False
-        self.config_folder = os.getenv('HOME') + "/.config/RaspiMote/"
+        self.config_folder = getenv('HOME') + "/.config/RaspiMote/"
 
         self.ip = ip
         self.code = 0
@@ -112,17 +111,17 @@ class Pi:
                 log_level = "--log-level critical"
 
             self.log(f"{WARNING}Waiting for connection from pc{ENDC}")
-            led = threading.Thread(name='Connection Blink LED', target=self.show_connection)
+            led = Thread(name='Connection Blink LED', target=self.show_connection)
             led.start()
 
-            old_cwd = os.getcwd()
+            old_cwd = getcwd()
 
-            os.chdir(os.path.join("raspimote", "server_pi"))
+            chdir(path.join("raspimote", "server_pi"))
             run(f"gunicorn3 {log_level} --certfile cert.pem --keyfile key.pem --bind 0.0.0.0:9876 wsgi:app".split())
-            os.chdir(old_cwd)
+            chdir(old_cwd)
 
-            with open(os.path.join(self.config_folder, "connection.raspimote"), 'r', encoding="utf-8") as f:
-                self.code = json.loads(f.read())["code"]
+            with open(path.join(self.config_folder, "connection.raspimote"), 'r', encoding="utf-8") as f:
+                self.code = loads(f.read())["code"]
                 self.log("\n Connection code : " + HEADER+str(self.code)+ENDC)
 
             self.ready = True
@@ -165,7 +164,7 @@ class Pi:
         for channel in range(self.ADC_channels + 1):
             self.ADC_old_values.append(int(self.ADC.analogRead(channel)))
 
-        adc_device_thread = threading.Thread(name="USB Device Reading", target=self.run_ADC)
+        adc_device_thread = Thread(name="USB Device Reading", target=self.run_ADC)
         adc_device_thread.start()
 
     def add_USB_Device(self, input_number):
@@ -180,7 +179,7 @@ class Pi:
 
         self.log(f"USB Device added with input{input_number}")
 
-        usb_device_thread = threading.Thread(name="USB Device Reading", target=self.usb_device_loop, args=(usb, input_number))
+        usb_device_thread = Thread(name="USB Device Reading", target=self.usb_device_loop, args=(usb, input_number))
         usb_device_thread.start()
 
     def usb_device_loop(self, usb, input_number):
@@ -267,13 +266,13 @@ class Pi:
 
     def send_data(self, data):
 
-        r = threading.Thread(name='Request', target=self.send_request, args=[data])
+        r = Thread(name='Request', target=self.send_request, args=[data])
         r.start()
 
     def send_request(self, data):
         if not self.ready:
             self.log(f"{FAIL}Error. Request not sent : program not ready.{ENDC}")
-            t = threading.Thread(name='Blink LED', target=self.show_error)
+            t = Thread(name='Blink LED', target=self.show_error)
             t.start()
             return
 
@@ -282,24 +281,24 @@ class Pi:
         else:
             start = 0
 
-        content = json.dumps(data)
+        content = dumps(data)
 
         try:
-            r = requests.post(self.server_url, data=content, headers=self.request_headers, verify=False)
+            r = post(self.server_url, data=content, headers=self.request_headers, verify=False)
         except:
             print(f"{FAIL}Server not responding, driver might have stopped or encountered error{ENDC}")
             self.log(f"{FAIL}Error. at {BOLD}{datetime.datetime.now().time()}{ENDC}")
-            t = threading.Thread(name='Blink LED', target=self.show_error)
+            t = Thread(name='Blink LED', target=self.show_error)
             t.start()
             #self.reconnect()
             return
 
-        if r.status_code == requests.codes.ok:
+        if r.status_code == codes.ok:
             self.log(f"Sent. at {BOLD}{datetime.datetime.now().time()}{ENDC}")
-            t = threading.Thread(name='Blink LED', target=self.show_success)
+            t = Thread(name='Blink LED', target=self.show_success)
         else:
             self.log(f"{FAIL}Error. at {BOLD}{datetime.datetime.now().time()}{ENDC}")
-            t = threading.Thread(name='Blink LED', target=self.show_error)
+            t = Thread(name='Blink LED', target=self.show_error)
 
         self.log(f"Answered in {str(time() - start)} at {BOLD}{datetime.datetime.now().time()}{ENDC}\n")
         t.start()
