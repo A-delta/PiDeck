@@ -1,14 +1,19 @@
 # -*- coding: utf-8 -*-
 
 from os import system
-", getenv, chdir, path as os_path"
 from sys import platform
 from keyboard import send as press, write
-"from subprocess import run as sub_run, PIPE as sub_PIPE"
-"from time import sleep"
 
 
 def press_key(action, value):
+    """
+    Do the specified action or simulate keystroke.
+    action : "alphabet" or "numeral" for keypress simulation or "media" for other (see list)
+
+    :param action: alphabet, numeral or media
+    :param value: see allowed value in documentation
+    :return:
+    """
     if action == "alphabet" or action == 'numeral':
         if platform == 'linux':
             system(f"xdotool key {value}")
@@ -124,18 +129,44 @@ def press_key(action, value):
             print('Not implemented.')
 
 def type_text(text):
+    """
+    Write the specified text in the current window.
+
+    :param text: A string
+    :return:
+    """
     if platform == 'linux':
         system(f'xdotool type "{text}"')
 
     if platform == 'win32':
         write(text)
 
-def battery_level(level):
+
+def send_notification(title, text):
+    """
+    Display a notification with the specified title and text.
+
+    :param title: Notification's title
+    :param text: Notification's text
+    :return:
+    """
+
     if platform == 'linux':
-        system(f"notify-send -a RaspiMote -i RaspiMote -t 5000 'There remains {level} % of power in the battery'")
-    
+        system(f"notify-send -a {title} -i RaspiMote -t 5000 '{text}'")
+
     elif platform == 'win32':
-        system(f"powershell -Command \"&'.\\toast.ps1' 'Raspimote' 'There remains {level} % of power in the battery.'")
+        system(f"powershell -Command \"&'.\\toast.ps1' '{title}' '{text}'")
+
+
+def battery_level(level):
+    """
+    Display Raspberry Pi current battery level.
+    :param level:
+    :return:
+    """
+
+    send_notification("Raspimote", f"There remains {int(level)} % of power in the battery")
+
 
 def change_volume(level):
     if platform == 'linux':

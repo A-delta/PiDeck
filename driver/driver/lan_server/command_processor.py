@@ -43,4 +43,4 @@ def parse_data(json):
 
     if type_device == "USB" and pin == 1 and int(extra) == 1:  # This is custom code that works for me.
         if value in key_to_char:
-            type_text(key_to_char[value])
+            type_text(key_to_char[value])  # functions from ./built_in_fcn folder
