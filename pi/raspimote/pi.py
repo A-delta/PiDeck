@@ -117,8 +117,8 @@ class Pi:
 
     def establish_connection(self):
         """
-        This method establish connection with the driver.
-        It triggers the driver to listen to post requests sent by the Raspberry Pi while reading inputs.
+        This method will make the Pi wait for a request from the driver.
+        After receiving it, the driver will listen to post requests sent by the Raspberry Pi while reading inputs.
         This should the last line of your main file.
 
         :return:

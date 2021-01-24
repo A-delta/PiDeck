@@ -5,8 +5,6 @@ from built_in_fcn.actions import type_text, run_command
 
 
 def process(json):
-    print("Processing", json)
-
     if "inventory" in json.keys():
         makeInventory(json)
     else:
@@ -14,10 +12,14 @@ def process(json):
 
 
 def makeInventory(json):
-    print("Got inventory :", json)
+    print("Got Pi's inventory :", json)
 
 
 def parse_data(json):
+    """
+    Here you will add your code to suit your needs.
+    Do not delete the first chunk of code below.
+    """
     request = json["request"]
     type_device = request["type"]
     pin = int(request["pin"])
@@ -27,7 +29,7 @@ def parse_data(json):
     except:
         extra = None
 
-    key_to_char = {
+    key_to_char = {  # Example of a USB keyboard that writes custom characters
         "KEY_Q": "α",
         "KEY_W": "β",
         "KEY_E": "π",
@@ -39,14 +41,6 @@ def parse_data(json):
         "KEY_O": "≠",
     }
 
-    key_to_browser = {
-        "KEY_P": "https://pronote.larmand.fr/pronote/eleve.html",
-        "KEY_SEMICOLON": "https://mail.google.com/mail/u/1/#inbox",
-        "KEY_L": "https://drive.google.com/drive/u/1/my-drive",
-    }
-
-    if type_device == "USB" and pin == 1 and int(extra) == 1:
+    if type_device == "USB" and pin == 1 and int(extra) == 1:  # This is custom code that works for me.
         if value in key_to_char:
             type_text(key_to_char[value])
-        elif value in key_to_browser:
-            run_command(f"gio open {key_to_browser[value]}")

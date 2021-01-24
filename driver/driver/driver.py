@@ -16,6 +16,11 @@ urllib3.disable_warnings()
 
 class Driver:
     def __init__(self, verbose):
+        """
+        Creates a Driver object.
+
+        :param verbose: for development purposes only.
+        """
 
         self.platform = platform
         self.driver_path = path.join(getcwd(), "driver")
@@ -38,8 +43,10 @@ class Driver:
                 print(m)
 
     def load_config(self):
-        """Will check for saved config.
-        If none, -> self.configure()"""
+        """
+        Check for saved config.
+        The first time, it will ask you for Pi's IP and save it in file.
+        """
 
         if self.platform == "linux":
             config_folder = "HOME"
@@ -62,6 +69,12 @@ class Driver:
 
 
     def establish_connection(self):
+        """
+        This method establish connection with the Raspberry Pi by sending it a request.
+
+
+        :return:
+        """
 
         url = f"https://{self.ip}:{self.port}/connect"
         content = {"code": self.code}
@@ -87,6 +100,11 @@ class Driver:
 
 
     def run(self):
+        """
+        This make the driver listen to post request from the Raspberry Pi and process it.
+
+        :return:
+        """
         watchdog = threading.Thread(name="Server Watchdog", target=self.watchdog)
 
         chdir(path.join(self.driver_path, "lan_server"))
