@@ -26,6 +26,13 @@ BOLD = '\033[1m'
 
 class Pi:
     def __init__(self, ip, connection_mode, verbose=False):  # user_supported_devices could be a json file
+        """
+        Creates a Pi object.
+
+        :param ip: IP of the pc that runs the driver.
+        :param connection_mode: "WifI" : Only WiFi is functional for the moment.
+        :param verbose: for development purposes only.
+        """
 
         self.verbose = verbose
         self.log(HEADER+"Verbose enabled"+ENDC)
@@ -64,7 +71,14 @@ class Pi:
         self.pins = []
 
 
-    def add_config(self, config):
+    def add_buttons_configuration(self, config):
+        """
+        Add buttons configuration. You should run this methods only once.
+        Only buttons type devices can be added with this method.
+
+        :param config: list of dictionaries : [{"pin": "GPIO_PIN, "type_device": "button"}]
+        :return:
+        """
         for device in config:
             device, pin = self.get_input_device(device)
             self.buttons.append(device)
@@ -102,6 +116,13 @@ class Pi:
 
 
     def establish_connection(self):
+        """
+        This method establish connection with the driver.
+        It triggers the driver to listen to post requests sent by the Raspberry Pi while reading inputs.
+        This should the last line of your main file.
+
+        :return:
+        """
 
         if self.connection_mode == "WiFi":
 
@@ -168,6 +189,13 @@ class Pi:
         adc_device_thread.start()
 
     def add_USB_Device(self, input_number):
+        """
+        Add one or multiple USB devices, such as mouses (buttons) or keyboards.
+        input_number can be found by running the provided script : /utility/identify_usb_device.py
+
+        :param input_number: Number found by running the script. Also event number in /dev/input/ on UNIX systems.
+        :return:
+        """
         from evdev import InputDevice
         try:
             usb = InputDevice(f"/dev/input/event{input_number}")

@@ -5,12 +5,16 @@ from raspimote.pi import Pi
 
 
 def main():
-    """This file is a template for your main.py that runs on your Raspberry Pi."""
+    """
+    This file is a template for your main.py that will be running on your Raspberry Pi.
+    It is an example of minimal code that adds various devices to be read by the Pi.
+    Please read docstrings before using a method from the Pi class.
+    """
 
-    IP = "Your IP"
+    IP = "192.168.1.16"  # IP example
     pi = Pi(IP, "WiFi")        # Create Pi object (WiFi only for now)
 
-    pi.add_config([{"pin": "21", "type_input": "button"}])  # Add a button on GPIO 21
+    pi.add_buttons_configuration([{"pin": "21", "type_input": "button"}])  # Add a button on GPIO 21
 
     pi.add_USB_Device(1)
     """
@@ -20,7 +24,6 @@ def main():
 
     pi.establish_connection()  # Create connection and get connection code from Driver on your computer
 
-    pi.run()  # Start sending data
 
 
 if __name__ == "__main__":
