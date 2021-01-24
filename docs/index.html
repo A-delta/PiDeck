@@ -1,178 +1,177 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <link rel="stylesheet" href="style.css">
-        <meta charset="UTF-8">
-        <title>RaspiMote documentation</title>
-    </head>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Scribbler Documentation - a code documentation page template for codrops</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="style2.css">
+  </head>
+  <body>
+    <div class="doc__bg"></div>
+    <nav class="header">
+      <h1 class="logo">Raspimote <span class="logo__thin">Documentation</span></h1>
+      <ul class="menu">
+        <div class="menu__item toggle"><span></span></div>
+        <li class="menu__item"><a href="https://github.com/A-delta/RaspiMote" target="_blank"
+           class="link link--dark"><i class="fa fa-github"></i> Github</a></li>
+        <li class="menu__item"><a href="https://raspimote.tk/" class="link link--dark"><i class="fa fa-home"></i> Home</a></li>
+      </ul>
+    </nav>
+    <div class="wrapper">
+      <aside class="doc__nav">
+        <ul>
+          <li class="js-btn selected">Description</li>
+          <li class="js-btn">Getting started</li>
+          <li class="js-btn">Basic setup</li>
+          <li class="js-btn">Running</li>
+        </ul>
+      </aside>
+      <article class="doc__content">
+        <section class="js-section">
+          <h3 class="section__title">Description</h3>
+          
+
+          <p>
+            You want to turn your Raspberry Pi into a programmable keyboard / controller / remote control? RaspiMote is what you need!
+        </p>
+        <p>
+            In this documentation, you will learn to install RaspiMote on your Raspberry Pi (we recommend to use a Raspberry Pi Zero W / WH) and the driver to configure and use it on your computer running Windows or Linux.
+        </p>
+      </section>
+        <section class="js-section">
+
+        <h3 class="section__title">Getting started</h3>
+
+        <p>
+            To install RaspiMote on your PC, transfer the <code class="micro_code">pi</code> folder to your Raspberry Pi and the <code class="micro_code">driver</code> folder to your computer, then you can run the provided scripts:
+        </p>
+
+        <ul>
+            <li><code class="micro_code">win_install.cmd</code> / <code class="micro_code">win_install.ps1</code> <b>(TBD)</b> for Windows;</li>
+            <li><code class="micro_code">lnx_install.sh</code> / <code class="micro_code">deb_install.sh</code> <b>(TBD)</b> for (Debian-based) Linux distributions;</li>
+        </ul>
+
+            </pre>
+          </section>
+          <section class="js-section">
+            <h3 class="section__title">Basic setup</h3>
+
+            <p>
+              The main purpose of RaspiMote is to allow you to create your own functions that will fit your needs (for provided functions, see <a href="#builtinfunct">Built-in functions</a>).<br/>
+              The process is divided in two parts:
+          </p>
   
-    <body>
-        <table>
-            <thead>
-                <div class="title">
-                    <img src="../logo/RaspiMote_logo_500px.png" class="timg">
-                    <h1><a class="no" href="https://github.com/A-delta/RaspiMote">RaspiMote ─ documentation</a></h1>
-                </div>
-            </thead>  
+          <ul>
+              <li>writing Pi's code to add your inputs;</li>
+              <li>writing driver's code to connect those inputs to functions.</li>
+          </ul>
+  
+          <h4>&nbsp;&nbsp; Pi</h4>
+          <p>
+              You will need to customise your RaspiMote Pi script to add your physical inputs.<br>The <code>Pi</code> class comes with some premade input methods (check methods' docstring to see the parameters) :
+          </p>
+          <ul>
+              <li>buttons;</li>
+              <li>USB HID devices (keyboards, mice);</li>
+              <li>Analog Digital Converters (ADC).</li>
+          </ul>
+  
+          <p>
+              When creating the <code class="micro_code">Pi</code> object, you can add a configuration dictionary, see the following example:
+          </p>
+  
+          <code class="micro_code">
+              pi = Pi([<br/>
+                  &nbsp; {"pin": "21", "type_input": "button"},<br/>
+                  &nbsp; {"pin": "20", "type_input": "button"},<br/>
+                  &nbsp; {"pin": "16", "type_input": "button"},<br/>
+                  &nbsp; {"pin": "6", "type_input": "button"},<br/>
+                  &nbsp; {"pin": "13", "type_input": "button"},<br/>
+                  &nbsp; {"pin": "19", "type_input": "button"},<br/>
+                  &nbsp; {"pin": "26", "type_input": "button"},<br/>
+              ])
+          </code>
+  
+          <p>
+              This only works for buttons for the moment.<br>If you want to add USB and ADC devices, use the dedicated methods with this code (this is only an example):
+          </p>
+  
+          <code class="micro_code">
+              pi.add_ADC_Device_PCF8591(2)<br/>
+              pi.add_USB_Device(1)<br/>
+              pi.add_USB_Device(4)
+          </code>
+  
+          <h4>&nbsp;&nbsp; Driver</h4>
+          <p>
+              After having added your inputs to the Raspberry Pi, you need to decide what they will do on your PC. You must customise <code class="micro_code">./driver/lan_server/command_processor.py</code>, in <code class="micro_code">parse_data()</code> function, you can write your code. See <a href="#builtinfunct">Built-in functions</a> section to see what features are available or write your own ones.
+          </p>
+          <p>
+              Example of a USB keyboard that writes mathematical symbols:
+          </p>
 
+          <code class="micro_code">
+            key_to_char = {<br/>
+                &nbsp; "KEY_Q": "α", <br/>
+                &nbsp; "KEY_W": "β", <br/>
+                &nbsp; "KEY_E": "π", <br/>
+                &nbsp; "KEY_R": "ω", <br/>
+                &nbsp; "KEY_T": "Δ", <br/>
+                &nbsp; "KEY_Y": "≈", <br/>
+                &nbsp; "KEY_U": "√", <br/>
+                &nbsp; "KEY_I": "∞", <br/>
+                &nbsp; "KEY_O": "≠", <br/>
+            }<br/>
+
+            if type_device == "USB" and pin == 4 and int(extra) == 1:<br/>
+                &nbsp; if value in key_to_char:<br/>
+                    &nbsp; &nbsp; type_text(key_to_char[value])
+        </code>
+
+        <h4 id="builtinfunct">&nbsp;&nbsp; Built-in functions</h4>
+
+        <p>
+            With these functions, you can already perform multiple actions but don't forget to check the function's docstring :
+        </p>
+
+        <ul>
+            <li>simulate keystroke and key combinaison (any character and function key);</li>
+            <li>change sound level;</li>
+            <li>etc...</li>
+        </ul>
+
+
+
+
+          </section>
+
+
+          <section class="js-section">
+
+            <h3 class="section__title">Running</h3>
+
+
+            <h4>Pi</h4>
+            <p>
+                Before the system runs, you need to execute <code class="micro_code">pi.establish_connection(server_IP)</code> to initiate connection with driver then <code class="micro_code">pi.run()</code>.
+            </p>
         
-            <tbody>
-                <td class="left_panel">
-
-                    <div id="summary">
-                        <p><a href="#description">Description</a></p>
-                        <p>
-                            <a href="#basic_setup">Basic setup</a>
-                            <ul>
-                                <li>Pi</li>
-                                <li>Driver</li>
-                                <li>Built-in functions</li>
-                            </ul>
-                        </p>
-                        <p>
-                            <a href="#running">Running</a>
-                                <ul>
-                                    <li>Pi</li>
-                                    <li>Driver</li>
-                                </ul>
-                        </p>
-                    </div>
-                    
-                </td>
-                <td class="right_panel">
-
-                    <div id="docs_content">
-
-                        <h2 id="description">Description</h2>
-                        <p>
-                            You want to turn your Raspberry Pi into a programmable keyboard / controller / remote control? RaspiMote is what you need!
-                        </p>
-                        <p>
-                            In this documentation, you will learn to install RaspiMote on your Raspberry Pi (we recommend to use a Raspberry Pi Zero W / WH) and the driver to configure and use it on your computer running Windows or Linux.
-                        </p>
-                
-                        <h2>Getting Started</h2>
-                
-                        <h3>How to install</h3>
-                
-                        <p>
-                            To install RaspiMote on your hardware, transfer the <code>pi</code> folder to your Raspberry Pi and the <code>driver</code> folder to your computer, then you can run the provided scripts:
-                        </p>
-                
-                        <ul>
-                            <li><code>win_install.cmd</code> / <code>win_install.ps1</code> <b>(TBD)</b> for Windows;</li>
-                            <li><code>lnx_install.sh</code> / <code>deb_install.sh</code> <b>(TBD)</b> for (Debian-based) Linux distributions;</li>
-                        </ul>
-                
-                
-                        <h2 id="basic_setup">Basic setup</h2>
-                
-                        <p>
-                            The main purpose of RaspiMote is to allow you to create your own functions that will fit your needs (for provided functions, see <a href="#builtinfunct">Built-in functions</a>).<br/>
-                            The process is divided in two parts:
-                        </p>
-                
-                        <ul>
-                            <li>writing Pi's code to add your inputs;</li>
-                            <li>writing driver's code to connect those inputs to functions.</li>
-                        </ul>
-                
-                        <h3>Pi</h3>
-                        <p>
-                            You will need to customise your RaspiMote Pi script to add your physical inputs.<br>The <code>Pi</code> class comes with some premade input methods (check methods' docstring to see the parameters) :
-                        </p>
-                        <ul>
-                            <li>buttons;</li>
-                            <li>USB HID devices (keyboards, mice);</li>
-                            <li>Analog Digital Converters (ADC).</li>
-                        </ul>
-                
-                        <p>
-                            When creating the <code>Pi</code>> object, you can add a configuration dictionary, see the following example:
-                        </p>
-                
-                        <code>
-                            pi = Pi([<br/>
-                                &nbsp; {"pin": "21", "type_input": "button"},<br/>
-                                &nbsp; {"pin": "20", "type_input": "button"},<br/>
-                                &nbsp; {"pin": "16", "type_input": "button"},<br/>
-                                &nbsp; {"pin": "6", "type_input": "button"},<br/>
-                                &nbsp; {"pin": "13", "type_input": "button"},<br/>
-                                &nbsp; {"pin": "19", "type_input": "button"},<br/>
-                                &nbsp; {"pin": "26", "type_input": "button"},<br/>
-                            ])
-                        </code>
-                
-                        <p>
-                            This only works for buttons for the moment.<br>If you want to add USB and ADC devices, use the dedicated methods with this code (this is only an example):
-                        </p>
-                
-                        <code>
-                            pi.add_ADC_Device_PCF8591(2)<br/>
-                            pi.add_USB_Device(1)<br/>
-                            pi.add_USB_Device(4)
-                        </code>
-                
-                        <h3>Driver</h3>
-                        <p>
-                            After having added your inputs to the Raspberry Pi, you need to decide what they will do on your PC. You must customise <code>./driver/lan_server/command_processor.py</code>, in <code>parse_data()</code> function, you can write your code. See <a href="#builtinfunct">Built-in functions</a> section to see what features are available or write your own ones.
-                        </p>
-                        <p>
-                            Example of a USB keyboard that writes mathematical symbols:
-                        </p>
-                
-                        <code>
-                            key_to_char = {<br/>
-                                &nbsp; "KEY_Q": "α", <br/>
-                                &nbsp; "KEY_W": "β", <br/>
-                                &nbsp; "KEY_E": "π", <br/>
-                                &nbsp; "KEY_R": "ω", <br/>
-                                &nbsp; "KEY_T": "Δ", <br/>
-                                &nbsp; "KEY_Y": "≈", <br/>
-                                &nbsp; "KEY_U": "√", <br/>
-                                &nbsp; "KEY_I": "∞", <br/>
-                                &nbsp; "KEY_O": "≠", <br/>
-                            }<br/>
-                
-                            if type_device == "USB" and pin == 4 and int(extra) == 1:<br/>
-                                &nbsp; if value in key_to_char:<br/>
-                                    &nbsp; &nbsp; type_text(key_to_char[value])
-                        </code>
-                
-                        <h3 id="builtinfunct">Built-in functions</h3>
-                
-                        <p>
-                            With these functions, you can already perform multiple actions but don't forget to check the function's docstring :
-                        </p>
-                
-                        <ul>
-                            <li>simulate keystroke and key combinaison (any character and function key);</li>
-                            <li>change sound level;</li>
-                            <li>etc...</li>
-                        </ul>
-                
-                        <h2 id="running">Running</h2>
-                        <h3>Pi</h3>
-                        <p>
-                            Before the system runs, you need to execute <code>pi.establish_connection(server_IP)</code> to initiate connection with driver then <code>pi.run()</code>.
-                        </p>
-                    
-                        <h3>Driver</h3>
-                        <p>Simultaneously, ...</b></p>
-
-                    </div>
+            <h4>Driver</h4>
+            <p>Simultaneously, ...</b></p>
 
 
+          </section>
 
-                </td>
-            </tbody>
-        </table>
-        
 
-        
-            
+      </article>
+    </div>
 
-        
-
-</body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="scribbler.js"></script>
+  </body>
 </html>
