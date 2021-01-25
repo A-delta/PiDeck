@@ -9,7 +9,7 @@ function saveButtonKey() {
         window.alert('Platform not supoorted.')
     }
     var protocol = 'http'; // This must be removed. Only for testing purposes.
-    const url = protocol + "://localhost:12345/"; // Must be replaced by the correct port when ready (still in localhost)! For testing purposes only.
+    const url = protocol + "://127.0.0.1:12345/config";
     var data = {'port': document.getElementById('element').value, 'action_type': 'press_key', 'key': document.getElementById('key').value};
     $.ajax({
         url: url,

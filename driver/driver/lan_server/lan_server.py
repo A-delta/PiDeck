@@ -15,11 +15,11 @@ from time import time
 app = Flask(__name__)
 CORS(app)
 
-config_path = path.join(getenv("HOME"), ".config","RaspiMote")
+"""config_path = path.join(getenv("HOME"), ".config","RaspiMote")
 
 file = load(open(path.join(config_path, "pi_ip.raspimote")))
 pi_ip = file["ip"]
-connection_code = file["code"]
+connection_code = file["code"]"""
 
 
 @app.route('/action', methods = ['POST'])
@@ -44,6 +44,8 @@ def action():
 def config():
     if request.remote_addr == "127.0.0.1":
         conf_req = loads(list(request.form.to_dict().keys())[0])
-        print(conf_req)
+        with open ("trigger_actions.raspimote", "r") as trigger_actions:        
+            trigger_actions = loads(trigger_actions.read())
+        
     else:
         return '<h1>Not authorized.</h1><h2>Only localhost can configure RaspiMote.</h2>', 403
