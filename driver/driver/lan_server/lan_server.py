@@ -26,15 +26,22 @@ def action():
     ip = request.remote_addr
 
     if pi_ip != ip:
-        return '<h1>Not authorized.</h1><h2>IPs do not match.</h2>', 401
+        return '<h1>Not authorized.</h1><h2>IPs do not match.</h2>', 403
     else:
         json = request.json
         code = json["code"]
 
         if code != connection_code:
-            return '<h1>Not authorized.</h1><h2>Codes do not match.</h2>', 401
+            return '<h1>Not authorized.</h1><h2>Codes do not match.</h2>', 403
         else:
             processor = threading.Thread(name='Processor', target=process, args=[json])
             processor.start()
 
             return "True"
+
+@app.route('/config', methods = ['POST'])
+def config():
+    if request.remote_addr == "127.0.0.1":
+        print('Request will be processed.')
+    else:
+        return '<h1>Not authorized.</h1><h2>Only localhost can configure RaspiMote.</h2>', 403
