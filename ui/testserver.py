@@ -1,6 +1,6 @@
 from flask import Flask, request
 from flask_cors import CORS
-from json import loads, load
+from json import loads
 from waitress import serve
 
 app = Flask(__name__)
