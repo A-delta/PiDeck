@@ -1,6 +1,6 @@
 from flask import Flask, request
 from flask_cors import CORS
-from json import loads
+from json import loads, load
 from waitress import serve
 
 app = Flask(__name__)
@@ -9,7 +9,7 @@ CORS(app)
 
 @app.route('/', methods=['POST'])
 def hello():
-    print(loads(list(request.form.to_dict().keys())[0]))
+    print(type(loads(list(request.form.to_dict().keys())[0])))
     return "This is a response."
 
 

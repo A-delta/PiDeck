@@ -6,13 +6,14 @@ Build a web server to receive RaspiMote's requests.
 """
 from command_processor import process
 import threading
-
+from flask_cors import CORS
 from flask import Flask, request
-from json import load
+from json import load, loads
 from os import path, getenv
 from time import time
 
 app = Flask(__name__)
+CORS(app)
 
 config_path = path.join(getenv("HOME"), ".config","RaspiMote")
 
@@ -42,6 +43,7 @@ def action():
 @app.route('/config', methods = ['POST'])
 def config():
     if request.remote_addr == "127.0.0.1":
-        print('Request will be processed.')
+        conf_req = loads(list(request.form.to_dict().keys())[0])
+        print(conf_req)
     else:
         return '<h1>Not authorized.</h1><h2>Only localhost can configure RaspiMote.</h2>', 403
