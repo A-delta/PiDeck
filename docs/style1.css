@@ -95,6 +95,26 @@ html, body {
   padding: 0 0 5rem 1rem;
 }
 
+violet {
+  color: #9932CC;
+}
+
+blue {
+  color: #318CE7;
+}
+
+yellow {
+  color: #FFFF00;
+}
+
+marron {
+  color: #AE8964;
+}
+
+green {
+  color: #32CD32;
+}
+
 @media (max-width: 750px) {
   .wrapper {
     flex-direction: column;

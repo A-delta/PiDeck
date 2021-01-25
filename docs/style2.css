@@ -11,6 +11,7 @@
   --dark-gray-color: #444D56; 
   --bg-color: #F8F8FA;
   --code-bg-color: #F0E8E8;
+  --amazing-color: #36363a;
 }
 
 /* normalized */
@@ -107,6 +108,8 @@ hr {
 .code--block {
   white-space: pre-line;
   padding: 0 1.5rem;
+  background-color: #36363a;
+  color: #FFFFFF;
 }
 
 .code--inline {

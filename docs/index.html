@@ -116,18 +116,24 @@
               Example of a USB keyboard that writes mathematical symbols:
           </p>
 
-          <code class="micro_code">
-            key_to_char = {<br/>
-                &nbsp; "KEY_Q": "α", <br/>
-                &nbsp; "KEY_W": "β", <br/>
-                &nbsp; "KEY_E": "π", <br/>
-                &nbsp; "KEY_R": "ω", <br/>
-                &nbsp; "KEY_T": "Δ", <br/>
-                &nbsp; "KEY_Y": "≈", <br/>
-                &nbsp; "KEY_U": "√", <br/>
-                &nbsp; "KEY_I": "∞", <br/>
-                &nbsp; "KEY_O": "≠", <br/>
-            }<br/>
+          <div class="code__block code__block--notabs">
+            <pre class="code code--block">
+              <code>
+                key_to_char = {
+                  &nbsp; "KEY_Q": "α",
+                  &nbsp; "KEY_W": "β",
+                  &nbsp; "KEY_E": "π",
+                  &nbsp; "KEY_R": "ω",
+                  &nbsp; "KEY_T": "Δ",
+                  &nbsp; "KEY_Y": "≈",
+                  &nbsp; "KEY_U": "√",
+                  &nbsp; "KEY_I": "∞",
+                  &nbsp; "KEY_O": "≠",
+              }
+              </code>
+            </pre>
+          </div>
+            
 
             if type_device == "USB" and pin == 4 and int(extra) == 1:<br/>
                 &nbsp; if value in key_to_char:<br/>
@@ -173,9 +179,24 @@
 
             <h3 class="section__title">Creating custom functions</h3>
 
+            <p>You can create your own custom functions modifying the file <code class=micro_code>custom_actions.py</code> in <code class=micro_code>/usr/bin/RaspiMote/driver/driver/lan_server/custom_fcn</code> (Linux) or <code class=micro_code>C:\Program&nbsp;Files\RaspiMote\driver\driver\lan_server\custom_fcn</code> (Windows).</p>
 
-            
+            <p>For example, this function will open an alert box when triggered:</p>
 
+            <div class="code__block code__block--notabs">
+              <pre class="code code--block">
+                <code>
+                  <violet>import</violet> pyautogui&nbsp; <green># This line imports the "pyautogui" module, useful to open dialogboxes.</green>
+
+                  <blue>def</blue> <yellow>alert</yellow>():
+                  &nbsp;&nbsp;&nbsp; pyautogui.alert(<marron>"You just made a custom function!"</marron>, <marron>"Wow!"</marron>)&nbsp; <green># This line opens an alert box.</green>
+                </code>
+              </pre>
+            </div>
+
+            <p>Once the above function is linked to a button, pressing the button will open this alert box:</p>
+
+            <p>If the function is dedicated to a GPIO button, no argument is passed. However, if the function is dedicated to an ADC device (potentiometer, joystick), the position of the knob / axis, in percents, is the only argument passed. You can add extra arguments to the function, after the required one(s), if there is any.</p>
 
           </section>
 
