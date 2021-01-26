@@ -115,6 +115,14 @@ green {
   color: #32CD32;
 }
 
+lgreen {
+  color: #90EE90;
+}
+
+blgreen {
+  color: #26d2b6;
+}
+
 @media (max-width: 750px) {
   .wrapper {
     flex-direction: column;
