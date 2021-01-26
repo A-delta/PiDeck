@@ -41,7 +41,7 @@
             You want to turn your Raspberry Pi into a programmable keyboard / controller / remote control? RaspiMote is what you need!
         </p>
         <p>
-            In this documentation, you will learn to install RaspiMote on your Raspberry Pi (we recommend to use a Raspberry Pi Zero W / WH) and the driver to configure and use it on your computer running Windows or Linux.
+            In this documentation, you will learn to install RaspiMote on your Raspberry Pi (we recommend to use a Raspberry Pi Zero W / WH) and the driver to configure and use it <text title="macOS is not supported yet, but we definitely want to support it in the future!">on your computer running Windows or Linux</text>.
         </p>
       </section>
         <section class="js-section">
@@ -195,6 +195,9 @@
             </div>
 
             <p>Once the above function is linked to a button, pressing the button will open this alert box:</p>
+            
+            <img src="pyautogui_example.png" title="The messagebox generated with the code above." alt="The messagebox generated with the code above."/>
+
 
             <p>If the function is dedicated to a GPIO button, no argument is passed. However, if the function is dedicated to an ADC device (potentiometer, joystick), the position of the knob / axis, in percents, is the only argument passed. You can add extra arguments to the function, after the required one(s), if there is any.</p>
 
