@@ -6,7 +6,8 @@ function saveButtonKey() {
         var protocol = 'http';
     }
     else {
-        window.alert('Platform not supoorted.')
+        window.alert('Platform not supported.');
+        return "PLATFORM_NOT_SUPPORTED";
     }
     var protocol = 'http'; // This must be removed. Only for testing purposes.
     const url = protocol + "://127.0.0.1:9876/config";
