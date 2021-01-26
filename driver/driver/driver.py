@@ -49,13 +49,10 @@ class Driver:
         """
 
         if self.platform == "linux":
-            config_folder = "HOME"
+            config_file_path = f"{getenv('HOME')}/.config/RaspiMote/pi_ip.raspimote"
         elif self.platform == "win32":
-            config_folder = "APPDATA"
-        config_path = path.join(getenv(config_folder), ".config", "RaspiMote")
-
-        config_file_path = path.join(config_path, "pi_ip.raspimote")
-
+            config_file_path = f"{getenv('APPDATA')}\\RaspiMote\\pi_ip.raspimote"
+        
         if path.isfile(config_file_path):
             pi_ip = open(config_file_path, 'r')
             self.ip = load(pi_ip)["ip"]
@@ -122,7 +119,7 @@ class Driver:
             print("System not supported for the moment.")
 
         elif self.platform == "linux":
-            system(f"gunicorn {log_level} --certfile cert.pem --keyfile key.pem --bind 0.0.0.0:9876 wsgi_gunicorn:app")  # Run the HTTPS server.
+            system(f"gunicorn3 {log_level} --certfile cert.pem --keyfile key.pem --bind 0.0.0.0:9876 wsgi_gunicorn:app")  # Run the HTTPS server.
 
         else:
             print("System not supported.")

@@ -8,18 +8,22 @@ from command_processor import process
 import threading
 from flask_cors import CORS
 from flask import Flask, request
-from json import load, loads
+from json import load, loads, dumps
 from os import path, getenv
 from time import time
+from sys import platform
 
 app = Flask(__name__)
 CORS(app)
 
-"""config_path = path.join(getenv("HOME"), ".config","RaspiMote")
+if platform == "linux":
+    config_file_path = f"{getenv('HOME')}/.config/RaspiMote"
+elif platform == "win32":
+    config_file_path = f"{getenv('APPDATA')}\\RaspiMote"
 
-file = load(open(path.join(config_path, "pi_ip.raspimote")))
+file = load(open(path.join(config_file_path, "pi_ip.raspimote")))
 pi_ip = file["ip"]
-connection_code = file["code"]"""
+connection_code = file["code"]
 
 
 @app.route('/action', methods = ['POST'])
@@ -44,8 +48,30 @@ def action():
 def config():
     if request.remote_addr == "127.0.0.1":
         conf_req = loads(list(request.form.to_dict().keys())[0])
-        with open ("trigger_actions.raspimote", "r") as trigger_actions:        
-            trigger_actions = loads(trigger_actions.read())
+        try:
+            with open(path.join(config_file_path, "trigger_actions.raspimote"), "r") as trg_actions:        
+                trigger_actions = loads(trg_actions.read())
+        except FileNotFoundError:
+            trigger_actions = []
+        new_trigger_actions = trigger_actions
+
+        for action in trigger_actions:
+            if action["port"] == conf_req["port"]:
+                new_trigger_actions.remove(action)
+        
+        new_trigger_actions.append(conf_req)
+
+
+        with open(path.join(config_file_path, "trigger_actions.raspimote"), "w") as trg_actions:
+            trg_actions.write(dumps(new_trigger_actions))
+
+
+        return "Configuration modified successfully."
+        
         
     else:
         return '<h1>Not authorized.</h1><h2>Only localhost can configure RaspiMote.</h2>', 403
+
+@app.route('/test')
+def test():
+    return 'UP !'
