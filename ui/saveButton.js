@@ -42,7 +42,8 @@ function saveButtonText() {
         var protocol = 'http';
     }
     else {
-        window.alert('Platform not supoorted.')
+        window.alert('Platform not supported.');
+        return "PLATFORM_NOT_SUPPORTED";
     }
     var protocol = 'http'; // This must be removed. Only for testing purposes.
     const url = protocol + "://localhost:12345/"; // Must be replaced by the correct port when ready (still in localhost)! For testing purposes only.
@@ -77,7 +78,8 @@ function saveButtonCommand() {
         var protocol = 'http';
     }
     else {
-        window.alert('Platform not supoorted.')
+        window.alert('Platform not supported.');
+        return "PLATFORM_NOT_SUPPORTED";
     }
     var protocol = 'http'; // This must be removed. Only for testing purposes.
     const url = protocol + "://localhost:12345/"; // Must be replaced by the correct port when ready (still in localhost)! For testing purposes only.
@@ -111,7 +113,8 @@ function saveButtonCustom() {
         var protocol = 'http';
     }
     else {
-        window.alert('Platform not supoorted.')
+        window.alert('Platform not supported.');
+        return "PLATFORM_NOT_SUPPORTED";
     }
     var protocol = 'http'; // This must be removed. Only for testing purposes.
     const url = protocol + "://localhost:12345/"; // Must be replaced by the correct port when ready (still in localhost)! For testing purposes only.
