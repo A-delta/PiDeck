@@ -123,6 +123,10 @@ blgreen {
   color: #26d2b6;
 }
 
+.in_text_img {
+  max-width: 100%;
+}
+
 @media (max-width: 750px) {
   .wrapper {
     flex-direction: column;
@@ -147,3 +151,4 @@ blgreen {
     display: none;
   }
 }
+

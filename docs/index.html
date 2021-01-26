@@ -195,11 +195,17 @@
 
             <p>Once the above function is linked to a button, pressing the button will open this alert box:</p>
             
-            <img src="pyautogui_example.png" title="The messagebox generated with the code above." alt="The messagebox generated with the code above."/>
+            <img src="pyautogui_example.png" title="The messagebox generated with the code above." alt="The messagebox generated with the code above." class="in_text_img"/>
 
             <p>This is, of course, a very simple (and boring) example. Much complex and interesting things can be made; your imagination is the only limit!</p>
 
             <p>If the function is dedicated to a GPIO button, no argument is passed. However, if the function is dedicated to an ADC device (potentiometer, joystick), the position of the knob / axis, in percents, is the only argument passed. You can add extra arguments to the function, after the required one(s), if there is any.</p>
+
+            <p>To associate the function with a button, simply use the web-based configuration UI.</p>
+
+            <p>For example, the following configuration, once saved, will associate the button plugged on <code class="micro_code">GPIO 13</code> with the function <code class="micro_code">alert()</code>:</p>
+
+            <img src="conf_alert_example.png" title="Configuration to run the function “alert()” with “GPIO 13”." alt="Configuration to run the function “alert()” with “GPIO 13”." class="in_text_img"/>
 
           </section>
 
