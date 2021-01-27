@@ -9,8 +9,7 @@ function saveButtonKey() {
         window.alert('Platform not supported.');
         return "PLATFORM_NOT_SUPPORTED";
     }
-    var protocol = 'http'; // This must be removed. Only for testing purposes.
-    const url = protocol + "://127.0.0.1:9876/config";
+    const url = protocol + "://localhost:9876/config";
     var data = {'port': document.getElementById('element').value, 'action_type': 'press_key', 'key': document.getElementById('key').value};
     $.ajax({
         url: url,
@@ -45,8 +44,7 @@ function saveButtonText() {
         window.alert('Platform not supported.');
         return "PLATFORM_NOT_SUPPORTED";
     }
-    var protocol = 'http'; // This must be removed. Only for testing purposes.
-    const url = protocol + "://localhost:12345/"; // Must be replaced by the correct port when ready (still in localhost)! For testing purposes only.
+    const url = protocol + "://localhost:9876/config";
     var data = {'port': document.getElementById('element').value, 'action_type': 'type_text', 'text': document.getElementById('text').value};
     $.ajax({
         url: url,
@@ -81,8 +79,7 @@ function saveButtonCommand() {
         window.alert('Platform not supported.');
         return "PLATFORM_NOT_SUPPORTED";
     }
-    var protocol = 'http'; // This must be removed. Only for testing purposes.
-    const url = protocol + "://localhost:12345/"; // Must be replaced by the correct port when ready (still in localhost)! For testing purposes only.
+    const url = protocol + "://localhost:9876/config";
     var data = {'port': document.getElementById('element').value, 'action_type': 'run_command', 'command': document.getElementById('command').value};
     $.ajax({
         url: url,
@@ -116,8 +113,7 @@ function saveButtonCustom() {
         window.alert('Platform not supported.');
         return "PLATFORM_NOT_SUPPORTED";
     }
-    var protocol = 'http'; // This must be removed. Only for testing purposes.
-    const url = protocol + "://localhost:12345/"; // Must be replaced by the correct port when ready (still in localhost)! For testing purposes only.
+    const url = protocol + "://localhost:9876/config";
     var data = {'port': document.getElementById('element').value, 'action_type': 'run_custom_function', 'function_name': document.getElementById('functionName').value};
     $.ajax({
         url: url,
