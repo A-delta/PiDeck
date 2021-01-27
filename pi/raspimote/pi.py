@@ -138,7 +138,7 @@ class Pi:
             old_cwd = getcwd()
 
             chdir(path.join("raspimote", "server_pi"))
-            run(f"gunicorn3 {log_level} --certfile cert.pem --keyfile key.pem --bind 0.0.0.0:9876 wsgi:app".split())
+            run(f"gunicorn3 {log_level} --certfile cert.pem --keyfile key.key --bind 0.0.0.0:9876 wsgi:app".split())
             chdir(old_cwd)
 
             with open(path.join(self.config_folder, "connection.raspimote"), 'r', encoding="utf-8") as f:
