@@ -14,14 +14,14 @@ from urllib3 import disable_warnings as urllib_disable_warnings
 
 urllib_disable_warnings()
 
-HEADER = '\033[95m'
-OKBLUE = '\033[94m'
-OKCYAN = '\033[96m'
-OKGREEN = '\033[92m'
-WARNING = '\033[93m'
-FAIL = '\033[91m'
-ENDC = '\033[0m'
-BOLD = '\033[1m'
+term_header = '\033[95m'
+term_blue_ok = '\033[94m'
+term_cyan_ok = '\033[96m'
+term_ok_green = '\033[92m'
+term_warning = '\033[93m'
+term_fail = '\033[91m'
+term_endc = '\033[0m'
+term_bold = '\033[1m'
 
 
 class Pi:
@@ -35,7 +35,8 @@ class Pi:
         """
 
         self.verbose = verbose
-        self.log(HEADER+"Verbose enabled"+ENDC)
+
+        self.log(term_header + "Verbose enabled" + term_endc)
 
         if connection_mode == "WiFi":
             self.connection_mode = connection_mode
@@ -43,7 +44,7 @@ class Pi:
         elif connection_mode == "BT":
             self.connection_mode = connection_mode
         else:
-            print(FAIL, "Unknown connection mode", ENDC)
+            print(term_fail, "Unknown connection mode", term_endc)
 
         self.log(self.connection_mode)
 
@@ -69,7 +70,6 @@ class Pi:
 
         self.buttons = []
         self.pins = []
-
 
     def add_buttons_configuration(self, config):
         """
@@ -112,8 +112,8 @@ class Pi:
         # Here you can add support for a device to make it easier to setup (for json configuration files for example.
 
         else:
-            self.log(WARNING + type_input + "in" + pin + "not supported, add your own code for it or verify given information" + ENDC)
-
+            self.log(
+                term_warning + type_input + "in" + pin + "not supported, add your own code for it or verify given information" + term_endc)
 
     def establish_connection(self):
         """
@@ -131,7 +131,7 @@ class Pi:
             else:
                 log_level = "--log-level critical"
 
-            self.log(f"{WARNING}Waiting for connection from pc{ENDC}")
+            self.log(f"{term_warning}Waiting for connection from pc{term_endc}")
             led = Thread(name='Connection Blink LED', target=self.show_connection)
             led.start()
 
@@ -143,15 +143,14 @@ class Pi:
 
             with open(path.join(self.config_folder, "connection.raspimote"), 'r', encoding="utf-8") as f:
                 self.code = loads(f.read())["code"]
-                self.log("\n Connection code : " + HEADER+str(self.code)+ENDC)
+                self.log("\n Connection code : " + term_header + str(self.code) + term_endc)
 
             self.ready = True
             self.send_inventory()
 
             pause()
         elif self.connection_mode == "BT":
-            print(FAIL, "Bluetooth unsupported", ENDC)
-
+            print(term_fail, "Bluetooth unsupported", term_endc)
 
     def send_inventory(self):
 
@@ -200,7 +199,7 @@ class Pi:
         try:
             usb = InputDevice(f"/dev/input/event{input_number}")
         except:
-            print(f"{FAIL}USB Device {input_number} doesn't exist. Skipped.{ENDC}")
+            print(f"{term_fail}USB Device {input_number} doesn't exist. Skipped.{term_endc}")
             return
         self.usb_devices.append(usb)
         self.usb_channels.append(input_number)
@@ -228,10 +227,9 @@ class Pi:
 
                 self.log(categorize(event))
 
-
     def run_ADC(self):
         if not self.has_ADC:
-            print("NO ADC") # need to clean errors
+            print("NO ADC")  # need to clean errors
         else:
             idle = 0
             time_sleep = 0.15
@@ -260,6 +258,7 @@ class Pi:
                             self.log("Sleep mode")
                             time_sleep = 0.2
                             idle = 0
+
     def show_connection(self):
         for _ in range(3):
             self.success_led.on()
@@ -299,7 +298,7 @@ class Pi:
 
     def send_request(self, data):
         if not self.ready:
-            self.log(f"{FAIL}Error. Request not sent : program not ready.{ENDC}")
+            self.log(f"{term_fail}Error. Request not sent : program not ready.{term_endc}")
             t = Thread(name='Blink LED', target=self.show_error)
             t.start()
             return
@@ -314,19 +313,19 @@ class Pi:
         try:
             r = post(self.server_url, data=content, headers=self.request_headers, verify=False)
         except:
-            print(f"{FAIL}Server not responding, driver might have stopped or encountered error{ENDC}")
-            self.log(f"{FAIL}Error. at {BOLD}{datetime.datetime.now().time()}{ENDC}")
+            print(f"{term_fail}Server not responding, driver might have stopped or encountered error{term_endc}")
+            self.log(f"{term_fail}Error. at {term_bold}{datetime.datetime.now().time()}{term_endc}")
             t = Thread(name='Blink LED', target=self.show_error)
             t.start()
-            #self.reconnect()
+            # self.reconnect()
             return
 
         if r.status_code == codes.ok:
-            self.log(f"Sent. at {BOLD}{datetime.datetime.now().time()}{ENDC}")
+            self.log(f"Sent. at {term_bold}{datetime.datetime.now().time()}{term_endc}")
             t = Thread(name='Blink LED', target=self.show_success)
         else:
-            self.log(f"{FAIL}Error. at {BOLD}{datetime.datetime.now().time()}{ENDC}")
+            self.log(f"{term_fail}Error. at {term_bold}{datetime.datetime.now().time()}{term_endc}")
             t = Thread(name='Blink LED', target=self.show_error)
 
-        self.log(f"Answered in {str(time() - start)} at {BOLD}{datetime.datetime.now().time()}{ENDC}\n")
+        self.log(f"Answered in {str(time() - start)} at {term_bold}{datetime.datetime.now().time()}{term_endc}\n")
         t.start()
