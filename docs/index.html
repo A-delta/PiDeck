@@ -54,8 +54,60 @@
 
         <ul>
             <li><code class="micro_code">win_install.cmd</code> for Windows;</li>
-            <li><code class="micro_code">deb_install.sh</code> for Debian-based Linux distributions;</li>
+            <li><code class="micro_code">deb_install.sh</code> for Debian-based Linux distributions (and then follow the part <a href="#post_inst_deb">Debian post-install</a>);</li>
         </ul>
+
+        <h4 id="post_inst_deb">Debian post-install</h4>
+
+        <p>On Debian-based systems, you should additionnaly add our certification authority to your trusted certification authorities on your web browser.</p>
+
+        <p>This will allow you to use our web-based configuration UI. Else, it won't be able to send any requests to the driver server.</p>
+
+        <p>Not adding our certification authority means that the browser will encounter the following error each time you are trying to modify something. But it would just fail without event prompting you this error message!</p>
+
+        <img src="CA_not_trusted.png" class="in_text_img" alt="Here, our CA is not trusted." title="Here, our CA is not trusted."/>
+
+        <p>However, if you add our certification authority, the browser will “trust” our driver, just like you could see in the following example:</p>
+
+        <img src="CA_trusted.png" class="in_text_img" alt="Here, our CA is trusted." title="Here, our CA is trusted."/>
+
+        <h5>Chrome / Chromium</h5>
+
+        <p>On Chrome / Chromium, navigate to <a href="chrome://settings/certificates">chrome://settings/certificates</a>. The following page should display:</p>
+
+        <img src="Chrome_certs.png" class="in_text_img" alt="Chrome / Chromium ─ “Manage certificates”" title="Chrome / Chromium ─ “Manage certificates”"/>
+
+        <p>Once you are there, click on “Authorities” and then on “Import”. On your home folder (<code class="micro_code">~</code> / <code class="micro_code">/home/username</code>), you should find the file <code class="micro_code">raspimote_ca.pem</code> (only if you have already executed the installation script!). Select this file.</p>
+
+        <p>This window should display:</p>
+
+        <img src="Chrome_add_CA.png" class="in_text_img" alt="Chrome / Chromium ─ “Add a CA”" title="Chrome / Chromium ─ “Add a CA”"/>
+
+        <p>Simply tick the checkbox “Trust this certificate for identifying websites” and click “OK”.</p>
+
+        <p>Our certification authority (“RaspiMote certification authority”) should appear in the list, under “org-RaspiMote”, as shown below.</p>
+
+        <img src="Chrome_RSP_CA.png" class="in_text_img" alt="Chrome / Chromium ─ RaspiMote certification authority added" title="Chrome / Chromium ─ RaspiMote certification authority added"/>
+
+        <h5>Firefox</h5>
+
+        <p>On firefox, navigate to <a href="about:preferences#privacy">about:preferences#privacy</a>. In the part called “Certificates”, click on “View <u>C</u>ertificates...”</p>
+
+        <p>This window should display:</p>
+
+        <img src="Firefox_cert_manager.png" class="in_text_img" alt="Firefox ─ “Certificate manager”" title="Firefox ─ “Certificate manager”"/>
+
+        <p>Make sure you are on the tab “Authorities” (it should be the one displayed by default) and click on “Import”. On your home folder (<code class="micro_code">~</code> / <code class="micro_code">/home/username</code>), you should find the file <code class="micro_code">raspimote_ca.pem</code> (only if you have already executed the installation script!). Select this file.</p>
+
+        <p>This window should display:</p>
+
+        <img src="Firefox_add_CA.png" class="in_text_img" alt="Firefox ─ “Add a CA”" title="Firefox ─ “Add a CA”"/>
+
+        <p>Simply tick the checkbox “Trust this CA to identify websites” and click “OK”.</p>
+
+        <p>Our certification authority (“RaspiMote certification authority”) should appear in the list, under “RaspiMote”, as shown below.</p>
+
+        <img src="Firefox_RSP_CA.png" class="in_text_img" alt="Firefox ─ RaspiMote certification authority added" title="Firefox ─ RaspiMote certification authority added"/>
 
             </pre>
           </section>
