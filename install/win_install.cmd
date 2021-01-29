@@ -52,9 +52,9 @@ goto check_Permissions
 
     powershell -command "Add-Type -A 'System.IO.Compression.FileSystem';[IO.Compression.ZipFile]::ExtractToDirectory('C:\Users\%USERNAME%\Downloads\python_embeddable.zip', 'C:\Program Files\RaspiMote\py')"
     
-    powershell -command "Remove-Item 'C:\Program Files\RaspiMote\py\python39._pth' -erroraction 'silentlycontinue'"
+    powershell -command "Remove-Item 'C:\Program Files\RaspiMote\py\python38._pth' -erroraction 'silentlycontinue'"
 
-    powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_assets\python39._pth' 'C:\Program Files\RaspiMote\py' -erroraction 'silentlycontinue'"
+    powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_assets\python38._pth' 'C:\Program Files\RaspiMote\py' -erroraction 'silentlycontinue'"
 
     echo [[92mv[0m] Python embeddable environment extracted to installation folder.
 
