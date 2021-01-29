@@ -26,4 +26,5 @@ def main():
 
 
 if __name__ == "__main__":
+    print("This script needs to run on your Raspberry Pi, hits any button of the target USB device ")
     main()
