@@ -112,8 +112,7 @@ class Pi:
         # Here you can add support for a device to make it easier to setup (for json configuration files for example.
 
         else:
-            self.log(
-                term_warning + type_input + "in" + pin + "not supported, add your own code for it or verify given information" + term_endc)
+            self.log(term_warning + type_input + "in" + pin + "not supported, add your own code for it or verify given information" + term_endc)
 
     def establish_connection(self):
         """

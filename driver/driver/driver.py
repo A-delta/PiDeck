@@ -113,7 +113,7 @@ class Driver:
 
         if self.platform == "win32":
             print("Only HTTP for the moment.")
-            #system('python wsgi_waitress.py')
+            system('python wsgi_waitress.py')
 
         elif self.platform == "darwin":
             print("System not supported for the moment.")
