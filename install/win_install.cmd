@@ -1,6 +1,7 @@
 @echo off
 cls
-echo [95mRaspiMote - version 0.1 beta[0m
+echo [95mRaspiMote - version 1.0[0m
+echo [95m!!! This installer only works on Windows 10 1706+ !!![0m
 echo(
 echo(
 
