@@ -44,6 +44,8 @@ goto check_Permissions
 
     powershell -command "mkdir 'C:\Program Files\RaspiMote\py' -erroraction 'silentlycontinue' | Out-Null"
 
+    mkdir C:\Users\%USERNAME%\AppData\Roaming\RaspiMote
+
     echo [[92mv[0m] RaspiMote code copied to installation folder.
 
     curl -s -L -o "C:\Users\%USERNAME%\Downloads\python_embeddable.zip" "https://www.python.org/ftp/python/3.9.1/python-3.9.1-embed-amd64.zip"
