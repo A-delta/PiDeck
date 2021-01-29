@@ -65,6 +65,23 @@ class Driver:
             pi_ip.write(dumps({"ip": self.ip, "code": self.code}))
 
 
+    def new_ip(self):
+        if self.platform == "linux":
+            config_file_path = f"{getenv('HOME')}/.config/RaspiMote/pi_ip.raspimote"
+        elif self.platform == "win32":
+            config_file_path = f"{getenv('APPDATA')}\\RaspiMote\\pi_ip.raspimote"
+        
+        self.ip = input("Raspberry Pi's IP address : ")
+
+
+        with open(config_file_path, 'w') as pi_ip:
+            pi_ip.write(dumps({"ip": self.ip, "code": self.code}))
+        
+        return_to_est = self.establish_connection()
+        
+        return return_to_est
+
+
     def establish_connection(self):
         """
         This method establish connection with the Raspberry Pi by sending it a request.
@@ -77,8 +94,19 @@ class Driver:
         content = {"code": self.code}
         headers = {"Content-Type": "application/json"}
         content = dumps(content)
-        connection = request('CONNECT', url, data=content, headers=headers, verify=False)
-        return connection.text == "True"
+        try:
+            connection = request('CONNECT', url, data=content, headers=headers, verify=False)
+            return connection.text == "True"
+        except requests.exceptions.ConnectionError:
+            new_ip = input(f"The driver is unable to connect to your Pi.\nDo you want to modidy the Pi's IP adress?\nCurrently, the IP adress is \"{self.ip}\".\n\n(Y/n)  ")
+            new_ip = new_ip.lower()
+            if new_ip == "y" or new_ip == "" or new_ip == "yes":
+                return_to_main = self.new_ip()
+                return return_to_main
+            else:
+                print("Aborting process.")
+                exit()
+        
 
     def watchdog(self):
         time.sleep(2)
