@@ -6,11 +6,11 @@ from signal import pause
 from time import sleep, time
 import datetime
 from threading import Thread
-from requests import post, codes
+from requests import post, codes, exceptions as requests_exceptions
 from os import getenv, getcwd, chdir, path
 from subprocess import run
 from json import loads, dumps
-from urllib3 import disable_warnings as urllib_disable_warnings
+from urllib3 import disable_warnings as urllib_disable_warnings, exceptions as urllib3_exceptions
 
 urllib_disable_warnings()
 
@@ -174,7 +174,7 @@ class Pi:
             content = dumps({"code": self.code, "request": {"type": "ping"}})
             try:
                 response = post(self.server_url, data=content, headers=self.request_headers, verify=False)
-            except ConnectionRefusedError:
+            except ConnectionError or urllib3_exceptions.MaxRetryError or urllib3_exceptions.NewConnectionError or requests_exceptions.ConnectionError:
                 self.log("Timeout! Restarting connection procedure")
                 break
         print("I ended")
