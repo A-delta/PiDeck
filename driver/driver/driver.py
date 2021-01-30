@@ -147,7 +147,7 @@ class Driver:
             print("System not supported for the moment.")
 
         elif self.platform == "linux":
-            system(f"gunicorn3 {log_level} --certfile cert.pem --keyfile key.key --bind 0.0.0.0:9876 wsgi_gunicorn:app")  # Run the HTTPS server.
+            system(f"gunicorn {log_level} --certfile cert.pem --keyfile key.key --bind 0.0.0.0:9876 wsgi_gunicorn:app")  # Run the HTTPS server.
 
         else:
             print("System not supported.")

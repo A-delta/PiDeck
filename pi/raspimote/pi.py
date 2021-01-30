@@ -172,8 +172,12 @@ class Pi:
                 self.log(f"{term_warning}{time()-start} ms{term_endc}")
 
             content = dumps({"code": self.code, "request": {"type": "ping"}})
-            response = post(self.server_url, data=content, headers=self.request_headers, verify=False)
-            print(response.content)
+            try:
+                response = post(self.server_url, data=content, headers=self.request_headers, verify=False)
+            except ConnectionError:
+                self.log("Timeout! Restarting connection procedure")
+                self.establish_connection()
+                return
 
 
 
