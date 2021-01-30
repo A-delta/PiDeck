@@ -5,14 +5,14 @@ from built_in_fcn.actions import type_text, run_command
 
 
 def process(json):
-    """if "inventory" in json.keys():
+    if json["request"]["type"] in "inventory":
         makeInventory(json)
-    else:"""
-    parse_data(json)
+    else:
+        parse_data(json)
 
 
-"""def makeInventory(json):
-    print("Got Pi's inventory :", json)"""
+def makeInventory(json):
+    print("Got Pi's inventory :", json)
 
 
 def parse_data(json):
