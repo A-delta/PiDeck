@@ -104,8 +104,11 @@ class Driver:
                 time.sleep(1)
 
 
-        new_ip = input(f"The driver is unable to connect to your Pi.\nDo you want to modidy the Pi's IP adress?\nCurrently, the IP adress is \"{self.ip}\".\n\n(Y/n)  ")
-        new_ip = new_ip.lower()
+        print("The driver is unable to connect to your Pi.")
+        print("Please verify that Pi is running his software and hasn't encountered any error.")
+        print("Do you want to modidy the Pi's IP adress?")
+        new_ip = input(f"Currently, the IP adress saved is \"{self.ip}\".\n\n(Y/n)  ").lower()
+
         if new_ip == "y" or new_ip == "" or new_ip == "yes":
             return_to_main = self.new_ip()
             return return_to_main
