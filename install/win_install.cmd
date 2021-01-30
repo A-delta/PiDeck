@@ -44,17 +44,19 @@ goto check_Permissions
 
     powershell -command "mkdir 'C:\Program Files\RaspiMote\py' -erroraction 'silentlycontinue' | Out-Null"
 
+    mkdir C:\Users\%USERNAME%\AppData\Roaming\RaspiMote
+
     echo [[92mv[0m] RaspiMote code copied to installation folder.
 
-    curl -s -L -o "C:\Users\%USERNAME%\Downloads\python_embeddable.zip" "https://www.python.org/ftp/python/3.6.8/python-3.6.8-embed-amd64.zip"
+    curl -s -L -o "C:\Users\%USERNAME%\Downloads\python_embeddable.zip" "https://www.python.org/ftp/python/3.9.1/python-3.9.1-embed-amd64.zip"
 
     echo [[92mv[0m] Python embeddable environment downloaded.
 
     powershell -command "Add-Type -A 'System.IO.Compression.FileSystem';[IO.Compression.ZipFile]::ExtractToDirectory('C:\Users\%USERNAME%\Downloads\python_embeddable.zip', 'C:\Program Files\RaspiMote\py')"
     
-    powershell -command "Remove-Item 'C:\Program Files\RaspiMote\py\python36._pth' -erroraction 'silentlycontinue'"
+    powershell -command "Remove-Item 'C:\Program Files\RaspiMote\py\python39._pth' -erroraction 'silentlycontinue'"
 
-    powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_assets\python36._pth' 'C:\Program Files\RaspiMote\py' -erroraction 'silentlycontinue'"
+    powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_assets\python39._pth' 'C:\Program Files\RaspiMote\py' -erroraction 'silentlycontinue'"
 
     echo [[92mv[0m] Python embeddable environment extracted to installation folder.
 
