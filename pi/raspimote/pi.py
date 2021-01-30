@@ -175,7 +175,8 @@ class Pi:
             try:
                 response = post(self.server_url, data=content, headers=self.request_headers, verify=False)
             #except ConnectionError or urllib3_exceptions.MaxRetryError or urllib3_exceptions.NewConnectionError or requests_exceptions.ConnectionError:
-            except ConnectionRefusedError:
+            except Exception as error:
+                print(error)
                 self.log("Timeout! Restarting connection procedure")
                 break
         print("I ended")
