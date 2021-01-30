@@ -14,7 +14,7 @@ def main(argv):
 
     pi = Pi("192.168.1.16", "WiFi", verbose)
 
-    pi.add_config([
+    pi.add_buttons_configuration([
         {"pin": "21", "type_input": "button"},
         {"pin": "20", "type_input": "button"},
         {"pin": "16", "type_input": "button"},
