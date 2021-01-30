@@ -176,8 +176,9 @@ class Pi:
                 response = post(self.server_url, data=content, headers=self.request_headers, verify=False)
             except ConnectionError:
                 self.log("Timeout! Restarting connection procedure")
-                self.establish_connection()
-                return
+                break
+        self.establish_connection()
+
 
 
 
@@ -192,7 +193,7 @@ class Pi:
         if self.has_ADC:
             inventory.update({"ADC_channels": self.ADC_channels})
 
-        request = {"code": self.code, "inventory": inventory}
+        request = {"code": self.code, "request": {"type": "inventory", "inventory": inventory}}
         self.log(request)
 
         self.send_data(request)
