@@ -39,6 +39,10 @@ def action():
         if code != connection_code:
             return '<h1>Not authorized.</h1><h2>Codes do not match.</h2>', 403
         else:
+            if json["request"] == "ping":
+                print("It's a ping!")
+                return "True"
+
             processor = threading.Thread(name='Processor', target=process, args=[json])
             processor.start()
 

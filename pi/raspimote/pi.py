@@ -24,6 +24,9 @@ term_endc = '\033[0m'
 term_bold = '\033[1m'
 
 
+"""note à moi-même : tous les 10min, tenter un ping au serveur, si pas de réponse, lancer establish_connection() de nouveau"""
+
+
 class Pi:
     def __init__(self, ip, connection_mode, verbose=False):  # user_supported_devices could be a json file
         """
@@ -114,7 +117,7 @@ class Pi:
         else:
             self.log(term_warning + type_input + "in" + pin + "not supported, add your own code for it or verify given information" + term_endc)
 
-    def establish_connection(self):
+    def establish_connection(self, timeout=False):
         """
         This method will make the Pi wait for a request from the driver.
         After receiving it, the driver will listen to post requests sent by the Raspberry Pi while reading inputs.
@@ -129,6 +132,11 @@ class Pi:
                 log_level = ''
             else:
                 log_level = "--log-level critical"
+
+            if timeout:
+                self.ready = False
+                self.log(f"{term_fail}Timeout!{term_endc}")
+
 
             self.log(f"{term_warning}Waiting for connection from pc{term_endc}")
             led = Thread(name='Connection Blink LED', target=self.show_connection)
@@ -147,9 +155,27 @@ class Pi:
             self.ready = True
             self.send_inventory()
 
+            ping_thread = Thread(name="Ping server", target=self.ping_server)
+            ping_thread.start()
+
             pause()
+
         elif self.connection_mode == "BT":
             print(term_fail, "Bluetooth unsupported", term_endc)
+
+    def ping_server(self):
+        while True:
+            sleep(3)
+            if self.verbose:
+                start = time()
+                self.log("Testing server's response")
+                self.log(f"{term_warning}{time()-start} ms{term_endc}")
+
+            content = dumps({"code": self.code, "request": {"type": "ping"}})
+            response = post(self.server_url, data=content, headers=self.request_headers, verify=False)
+            print(response.content)
+
+
 
     def send_inventory(self):
 
@@ -314,17 +340,17 @@ class Pi:
         except:
             print(f"{term_fail}Server not responding, driver might have stopped or encountered error{term_endc}")
             self.log(f"{term_fail}Error. at {term_bold}{datetime.datetime.now().time()}{term_endc}")
-            t = Thread(name='Blink LED', target=self.show_error)
-            t.start()
+            error_LED_thread = Thread(name='Blink LED', target=self.show_error)
+            error_LED_thread.start()
             # self.reconnect()
             return
 
         if r.status_code == codes.ok:
             self.log(f"Sent. at {term_bold}{datetime.datetime.now().time()}{term_endc}")
-            t = Thread(name='Blink LED', target=self.show_success)
+            info_LED_thread = Thread(name='Blink LED', target=self.show_success)
         else:
             self.log(f"{term_fail}Error. at {term_bold}{datetime.datetime.now().time()}{term_endc}")
-            t = Thread(name='Blink LED', target=self.show_error)
+            info_LED_thread = Thread(name='Blink LED', target=self.show_error)
 
         self.log(f"Answered in {str(time() - start)} at {term_bold}{datetime.datetime.now().time()}{term_endc}\n")
-        t.start()
+        info_LED_thread.start()
