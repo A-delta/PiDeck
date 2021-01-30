@@ -169,7 +169,7 @@ class Pi:
             if self.verbose:
                 start = time()
                 self.log("Testing server's response")
-                self.log(f"{term_warning}{time()-start} ms{term_endc}")
+                self.log(f"{term_warning}{time()-start} ms{term_endc}\n")
 
             content = dumps({"code": self.code, "request": {"type": "ping"}})
             try:
