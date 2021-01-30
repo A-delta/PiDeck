@@ -165,7 +165,7 @@ class Pi:
 
     def ping_server(self):
         while True:
-            sleep(3)
+            sleep(9)
             if self.verbose:
                 start = time()
                 self.log("Testing server's response")

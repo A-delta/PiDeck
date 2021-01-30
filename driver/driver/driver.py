@@ -94,18 +94,24 @@ class Driver:
         content = {"code": self.code}
         headers = {"Content-Type": "application/json"}
         content = dumps(content)
-        try:
-            connection = request('CONNECT', url, data=content, headers=headers, verify=False)
-            return connection.text == "True"
-        except requests.exceptions.ConnectionError:
-            new_ip = input(f"The driver is unable to connect to your Pi.\nDo you want to modidy the Pi's IP adress?\nCurrently, the IP adress is \"{self.ip}\".\n\n(Y/n)  ")
-            new_ip = new_ip.lower()
-            if new_ip == "y" or new_ip == "" or new_ip == "yes":
-                return_to_main = self.new_ip()
-                return return_to_main
-            else:
-                print("Aborting process.")
-                exit()
+
+        for tries in range(10):
+            try:
+                connection = request('CONNECT', url, data=content, headers=headers, verify=False)
+                return connection.text == "True"
+            except requests.exceptions.ConnectionError:
+                print(f"Connection to Pi failed [{tries+1}/10]")
+                time.sleep(1)
+
+
+        new_ip = input(f"The driver is unable to connect to your Pi.\nDo you want to modidy the Pi's IP adress?\nCurrently, the IP adress is \"{self.ip}\".\n\n(Y/n)  ")
+        new_ip = new_ip.lower()
+        if new_ip == "y" or new_ip == "" or new_ip == "yes":
+            return_to_main = self.new_ip()
+            return return_to_main
+        else:
+            print("Aborting process.")
+            exit()
         
 
     def watchdog(self):
