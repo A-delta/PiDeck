@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 def killme():
     sleep(2)
-    system("sh ./stop_server.sh")
+    system("sh ./stop_server.sh > /dev/null")
 
 @app.route('/connect', methods = ['CONNECT'])
 def connect():

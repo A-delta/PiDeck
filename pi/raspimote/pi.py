@@ -176,7 +176,7 @@ class Pi:
             sleep(9)
             if self.verbose:
                 start = time()
-                self.log(f"[PING] {term_warning}{time()-start} s{term_endc}\n")
+                self.log(f"[PING] {term_warning}{str(time()-start)} s{term_endc}\n")
 
             content = dumps({"code": self.code, "request": {"type": "ping"}})
             try:
