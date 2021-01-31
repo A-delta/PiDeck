@@ -14,7 +14,7 @@ def main(argv):
 
     pi = Pi("192.168.1.16", "WiFi", verbose)
 
-    pi.add_buttons_configuration([
+    """pi.add_buttons_configuration([
         {"pin": "21", "type_input": "button"},
         {"pin": "20", "type_input": "button"},
         {"pin": "16", "type_input": "button"},
@@ -25,11 +25,10 @@ def main(argv):
     ])
 
 
-    pi.add_ADC_Device_PCF8591(2)
+    pi.add_ADC_Device_PCF8591(2)"""
 
     #pi.add_USB_Device(1)
     pi.establish_connection()
-
 
 
 if __name__ == '__main__':
