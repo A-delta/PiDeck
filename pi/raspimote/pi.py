@@ -176,7 +176,6 @@ class Pi:
             sleep(9)
             if self.verbose:
                 run("vcgencmd measure_temp".split())
-                print("\n")
 
                 start = time()
 
