@@ -11,8 +11,8 @@ def main():
     Please read docstrings before using a method from the Pi class.
     """
 
-    IP = "192.168.1.16"  # IP example
-    pi = Pi(IP, "WiFi")        # Create Pi object (WiFi only for now)
+    driver_computer_ip = "192.168.1.16"  # IP example
+    pi = Pi(driver_computer_ip, "WiFi")        # Create Pi object (WiFi only for now)
 
     pi.add_buttons_configuration([{"pin": "21", "type_input": "button"}])  # Add a button on GPIO 21
 
@@ -23,7 +23,6 @@ def main():
     """
 
     pi.establish_connection()  # Create connection and get connection code from Driver on your computer
-
 
 
 if __name__ == "__main__":
