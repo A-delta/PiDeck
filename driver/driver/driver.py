@@ -62,11 +62,12 @@ class Driver:
             if self.platform == "linux":
                 self.ip = input("Input Pi IP address (temporary): ")
             elif self.platform == "win32":
-                system("powershell -Command .\\driver\\dialogText.ps1 RaspiMote 'Raspberry Piʼs IP address:'")
+                system("powershell -Command \".\\driver\\dialogText.ps1 RaspiMote 'Raspberry Piʼs IP address:'\" > NUL")
                 try:
-                    with open(f"{appdata_path}\\tmp\\dialogTextOutput.txt", "r") as dialogTextOutput:
+                    with open(f"{appdata_path}\\tmp\\dialogTextOutput.txt", "r", encoding="utf-16") as dialogTextOutput:
                         self.ip = dialogTextOutput.read()
                     remove(f"{appdata_path}\\tmp\\dialogTextOutput.txt")
+                    print(self.ip)
                 except FileNotFoundError:
                     print("Aborting process.")
                     _exit(1)
