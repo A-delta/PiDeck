@@ -53,15 +53,24 @@ class Pi:
 
         self.ready = False
         self.config_folder = getenv('HOME') + "/.config/RaspiMote/"
+        self.log(f"Config folder : {self.config_folder}")
 
         self.ip = ip
+        self.log(f"Driver's IP : {ip}")
+
         self.code = 0
         self.server_url = f'https://{self.ip}:9876/action'
         self.request_headers = {"Content-Type": "application/json"}
 
         self.display_info = True  # NEED TO ADD CHOICE
+
+        error_led_pin = 18
+        success_led_pin = 23
+
         self.error_led = LED(18)
         self.success_led = LED(23)
+        if self.display_info:
+            self.log(f"Displaying infos on {error_led_pin} and {success_led_pin}")
 
         self.has_ADC = False
         self.ADC = None
@@ -137,7 +146,6 @@ class Pi:
                 self.ready = False
                 self.log(f"{term_fail}Timeout!{term_endc}")
 
-
             self.log(f"{term_warning}Waiting for connection from pc{term_endc}")
             led = Thread(name='Connection Blink LED', target=self.show_connection)
             led.start()
@@ -168,19 +176,15 @@ class Pi:
             sleep(9)
             if self.verbose:
                 start = time()
-                self.log("Testing server's response")
-                self.log(f"{term_warning}{time()-start} s{term_endc}\n")
+                self.log(f"[PING] {term_warning}{time()-start} s{term_endc}\n")
 
             content = dumps({"code": self.code, "request": {"type": "ping"}})
             try:
                 response = post(self.server_url, data=content, headers=self.request_headers, verify=False)
             except Exception as error:
-                self.log("Timeout! Restarting connection procedure")
+                self.log(f"{term_fail}[FAIL] Restarting connection procedure{term_endc}")
                 break
         self.establish_connection()
-
-
-
 
     def send_inventory(self):
 
