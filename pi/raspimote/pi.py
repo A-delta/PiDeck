@@ -182,8 +182,13 @@ class Pi:
             try:
                 response = post(self.server_url, data=content, headers=self.request_headers, verify=False)
             except Exception as error:
-                self.log(f"{term_fail}[FAIL] Restarting connection procedure{term_endc}")
-                break
+                self.log(f"{term_fail}[FAIL] Retrying in 5s{term_endc}")
+                sleep(5)
+                try:
+                    response = post(self.server_url, data=content, headers=self.request_headers, verify=False)
+                except:
+                    self.log(f"{term_fail}[FAIL] Restarting connection procedure{term_endc}")
+                    break
         self.establish_connection()
 
     def send_inventory(self):
