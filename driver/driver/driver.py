@@ -3,7 +3,7 @@
 
 
 from sys import platform
-from os import system, path, chdir, getcwd, getenv, kill
+from os import system, path, chdir, getcwd, getenv, kill, remove, _exit
 from requests import request
 from random import randint
 from json import dumps, load
@@ -51,14 +51,25 @@ class Driver:
         if self.platform == "linux":
             config_file_path = f"{getenv('HOME')}/.config/RaspiMote/pi_ip.raspimote"
         elif self.platform == "win32":
-            config_file_path = f"{getenv('APPDATA')}\\RaspiMote\\pi_ip.raspimote"
+            appdata_path = config_file_path = f"{getenv('APPDATA')}\\RaspiMote"
+            config_file_path = f"{appdata_path}\\pi_ip.raspimote"
         
         if path.isfile(config_file_path):
             pi_ip = open(config_file_path, 'r')
             self.ip = load(pi_ip)["ip"]
             pi_ip.close()
         else:
-            self.ip = input("Raspberry Pi's IP address : ")
+            if self.platform == "linux":
+                self.ip = input("Input Pi IP address (temporary): ")
+            elif self.platform == "win32":
+                system("powershell -Command .\\driver\\dialogText.ps1 RaspiMote 'Raspberry Piʼs IP address:'")
+                try:
+                    with open(f"{appdata_path}\\tmp\\dialogTextOutput.txt", "r") as dialogTextOutput:
+                        self.ip = dialogTextOutput.read()
+                    remove(f"{appdata_path}\\tmp\\dialogTextOutput.txt")
+                except FileNotFoundError:
+                    print("Aborting process.")
+                    _exit(1)
 
         with open(config_file_path, 'w') as pi_ip:
             pi_ip.write(dumps({"ip": self.ip, "code": self.code}))
@@ -112,7 +123,7 @@ class Driver:
             return return_to_main
         else:
             print("Aborting process.")
-            exit()
+            _exit(1)
         
 
     def watchdog(self):
