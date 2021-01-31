@@ -176,11 +176,12 @@ class Pi:
             sleep(9)
             if self.verbose:
                 start = time()
-                self.log(f"[PING] {term_warning}{str(time()-start)} s{term_endc}\n")
 
             content = dumps({"code": self.code, "request": {"type": "ping"}})
             try:
                 response = post(self.server_url, data=content, headers=self.request_headers, verify=False)
+                if self.verbose:
+                    self.log(f"[PING] {term_ok_green}{str(time() - start)} s{term_endc}\n")
             except Exception as error:
                 self.log(f"{term_fail}[FAIL] Retrying in 5s{term_endc}")
                 sleep(5)
