@@ -146,7 +146,7 @@ class Pi:
                 self.ready = False
                 self.log(f"{term_fail}Timeout!{term_endc}")
 
-            self.log(f"{term_warning}Waiting for connection from pc{term_endc}")
+            self.log(f"{term_warning}[WAITING] Connection from Driver{term_endc}")
             led = Thread(name='Connection Blink LED', target=self.show_connection)
             led.start()
 
