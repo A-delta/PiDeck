@@ -60,7 +60,6 @@ class Driver:
         else:
             self.ip = input("Raspberry Pi's IP address : ")
 
-
         with open(config_file_path, 'w') as pi_ip:
             pi_ip.write(dumps({"ip": self.ip, "code": self.code}))
 
@@ -103,11 +102,10 @@ class Driver:
                 print(f"Connection to Pi failed [{tries+1}/10]")
                 time.sleep(1)
 
-
         print("The driver is unable to connect to your Pi.")
         print("Please verify that Pi is running his software and hasn't encountered any error.")
-        print("Do you want to modidy the Pi's IP adress?")
-        new_ip = input(f"Currently, the IP adress saved is \"{self.ip}\".\n\n(Y/n)  ").lower()
+        print("Do you want to edit the Pi's IP address?")
+        new_ip = input(f"Currently, the IP address saved is \"{self.ip}\".\n\n(Y/n)  ").lower()
 
         if new_ip == "y" or new_ip == "" or new_ip == "yes":
             return_to_main = self.new_ip()
