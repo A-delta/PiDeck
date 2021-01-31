@@ -175,7 +175,6 @@ class Pi:
         while True:
             sleep(9)
             if self.verbose:
-                print("[CPU TEMP]", end=' ')
                 run("vcgencmd measure_temp".split())
                 print("\n")
 
