@@ -3,7 +3,7 @@
 # https://github.com/A-delta
 
 from sys import argv
-from driver.driver import Driver
+from driver.driver import driver as drv
 
 
 def main(argv):
@@ -12,7 +12,7 @@ def main(argv):
     else:
         verbose = False
 
-    driver = Driver(verbose)
+    driver = drv.Driver(verbose)
     driver.load_config()
     driver.establish_connection()
     driver.run()
