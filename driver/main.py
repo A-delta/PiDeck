@@ -3,8 +3,7 @@
 # https://github.com/A-delta
 
 from sys import argv
-from driver.driver import driver as drv
-
+from driver.driver import Driver
 
 def main(argv):
     if "-verbose" in argv or '-v' in argv:
@@ -12,7 +11,7 @@ def main(argv):
     else:
         verbose = False
 
-    driver = drv.Driver(verbose)
+    driver = Driver(verbose)
     driver.load_config()
     driver.establish_connection()
     driver.run()
