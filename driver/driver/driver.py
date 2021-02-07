@@ -3,7 +3,7 @@
 
 
 from sys import platform
-from os import system, path, chdir, getcwd, getenv, kill, remove, _exit
+from os import system, path, chdir, getcwd, getenv, kill, remove, _exit, mkdir
 from requests import request
 from random import randint
 from json import dumps, load
@@ -51,9 +51,13 @@ class Driver:
         if self.platform == "linux":
             config_file_path = f"{getenv('HOME')}/.config/RaspiMote/pi_ip.raspimote"
         elif self.platform == "win32":
-            appdata_path = config_file_path = f"{getenv('APPDATA')}\\RaspiMote"
-            config_file_path = f"{appdata_path}\\pi_ip.raspimote"
-        
+            appdata_path = getenv('APPDATA')
+            if not path.isdir(path.join(appdata_path, "RaspiMote")):
+                mkdir(path.join(appdata_path, "RaspiMote"))
+
+            appdata_path = path.join(appdata_path, "RaspiMote")
+            config_file_path = path.join(appdata_path, "pi_ip.raspimote")
+
         if path.isfile(config_file_path):
             pi_ip = open(config_file_path, 'r')
             self.ip = load(pi_ip)["ip"]
@@ -61,6 +65,7 @@ class Driver:
         else:
             if self.platform == "linux":
                 self.ip = input("Input Pi IP address (temporary): ")
+
             elif self.platform == "win32":
                 system("powershell -Command \".\\driver\\dialogText.ps1 RaspiMote 'Raspberry Piʼs IP address:'\" > NUL")
                 try:
@@ -100,6 +105,8 @@ class Driver:
 
         :return:
         """
+
+        self.log("Establishing connection")
 
         url = f"https://{self.ip}:{self.port}/connect"
         content = {"code": self.code}
