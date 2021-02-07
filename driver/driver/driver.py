@@ -49,17 +49,22 @@ class Driver:
         """
 
         if self.platform == "linux":
+
             config_file_path = f"{getenv('HOME')}/.config/RaspiMote/pi_ip.raspimote"
         elif self.platform == "win32":
+
             appdata_path = getenv('APPDATA')
             if not path.isdir(path.join(appdata_path, "RaspiMote")):
                 mkdir(path.join(appdata_path, "RaspiMote"))
 
-            appdata_path = path.join(appdata_path, "RaspiMote")
-            config_file_path = path.join(appdata_path, "pi_ip.raspimote")
+            self.appdata_path = path.join(appdata_path, "RaspiMote")
+            self.config_file_path = path.join(appdata_path, "pi_ip.raspimote")
 
-        if path.isfile(config_file_path):
-            pi_ip = open(config_file_path, 'r')
+
+
+
+        if path.isfile(self.config_file_path):
+            pi_ip = open(self.config_file_path, 'r')
             self.ip = load(pi_ip)["ip"]
             pi_ip.close()
         else:
@@ -67,17 +72,17 @@ class Driver:
                 self.ip = input("Input Pi IP address (temporary): ")
 
             elif self.platform == "win32":
-                system("powershell -Command \".\\driver\\dialogText.ps1 RaspiMote 'Raspberry Piʼs IP address:'\" > NUL")
+                system("powershell -Command \".\driver\dialogText.ps1 RaspiMote 'Raspberry Piʼs IP address:'\" > NUL")
                 try:
-                    with open(f"{appdata_path}\\tmp\\dialogTextOutput.txt", "r", encoding="utf-16") as dialogTextOutput:
+                    with open(path.join(self.appdata_path, "tmp", "dialogTextOutput.txt"), 'r', encoding="utf-16") as dialogTextOutput:
                         self.ip = dialogTextOutput.read()
-                    remove(f"{appdata_path}\\tmp\\dialogTextOutput.txt")
+                    remove(path.join(self.appdata_path, "tmp", "dialogTextOutput.txt"))
                     print(self.ip)
                 except FileNotFoundError:
                     print("Aborting process.")
                     _exit(1)
 
-        with open(config_file_path, 'w') as pi_ip:
+        with open(self.config_file_path, 'w') as pi_ip:
             pi_ip.write(dumps({"ip": self.ip, "code": self.code}))
 
 
@@ -90,7 +95,7 @@ class Driver:
         self.ip = input("Raspberry Pi's IP address : ")
 
 
-        with open(config_file_path, 'w') as pi_ip:
+        with open(self.config_file_path, 'w') as pi_ip:
             pi_ip.write(dumps({"ip": self.ip, "code": self.code}))
         
         return_to_est = self.establish_connection()
