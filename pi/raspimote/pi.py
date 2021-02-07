@@ -59,7 +59,7 @@ class Pi:
         self.log(f"Driver's IP : {ip}")
 
         self.code = 0
-        self.server_url = f'https://{self.ip}:9876/action'
+        self.server_url = f'http://{self.ip}:9876/action'
         self.request_headers = {"Content-Type": "application/json"}
 
         self.display_info = True  # NEED TO ADD CHOICE

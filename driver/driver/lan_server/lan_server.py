@@ -13,6 +13,9 @@ from os import path, getenv
 from time import time
 from sys import platform
 
+
+from built_in_fcn import actions
+
 app = Flask(__name__)
 CORS(app)
 
@@ -29,8 +32,7 @@ connection_code = file["code"]
 @app.route('/action', methods = ['POST'])
 def action():
     ip = request.remote_addr
-
-    print("test")
+    actions.send_notification("Working", "guess it's working")
     if pi_ip != ip:
         return '<h1>Not authorized.</h1><h2>IPs do not match.</h2>', 403
     else:
@@ -45,6 +47,7 @@ def action():
                 processor.start()
 
             return "True"
+
 
 @app.route('/config', methods = ['POST'])
 def config():
