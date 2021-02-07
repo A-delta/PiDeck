@@ -31,7 +31,7 @@ def connect():
 
     connection_file = open(path.join(config_folder, "connection.raspimote"), "w+", encoding="utf-8")
 
-    data = jdp({"ip": ip, "code": request.json["code"]})
+    data = jdp({"ip": ip, "code": request.json["code"], "platform": request.json["platform"]})
     connection_file.write(data)
     connection_file.close()
 
