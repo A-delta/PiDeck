@@ -158,14 +158,16 @@ class Pi:
             chdir(old_cwd)
 
             with open(path.join(self.config_folder, "connection.raspimote"), 'r', encoding="utf-8") as f:
-                self.code = loads(f.read())["code"]
-                self.driver_platform = loads(f.read())["platform"]
+                content = loads(f.read())
+                self.code = content["code"]
+                self.driver_platform = content["platform"]
                 self.log("\n Connection code : " + term_header + str(self.code) + term_endc)
 
             if self.driver_platform == "win32":
                 self.server_url = "http://" + self.server_url
             else:
                 self.server_url = "https://" + self.server_url
+            self.log(self.driver_platform)
 
             self.ready = True
             self.send_inventory()
