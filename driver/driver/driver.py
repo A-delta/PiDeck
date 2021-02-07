@@ -3,7 +3,7 @@
 
 
 from sys import platform
-from os import system, path, chdir, getcwd, getenv, kill, remove, _exit, mkdir
+from os import system, path, chdir, getcwd, getenv, kill, remove, _exit, mkdir, rmdir
 from requests import request
 from random import randint
 from json import dumps, load
@@ -50,15 +50,15 @@ class Driver:
 
         if self.platform == "linux":
 
-            config_file_path = f"{getenv('HOME')}/.config/RaspiMote/pi_ip.raspimote"
+            self.config_file_path = f"{getenv('HOME')}/.config/RaspiMote/pi_ip.raspimote"
         elif self.platform == "win32":
 
-            appdata_path = getenv('APPDATA')
-            if not path.isdir(path.join(appdata_path, "RaspiMote")):
-                mkdir(path.join(appdata_path, "RaspiMote"))
+            self.appdata_path = getenv('APPDATA')
+            if not path.isdir(path.join(self.appdata_path, "RaspiMote")):
+                mkdir(path.join(self.appdata_path, "RaspiMote"))
 
-            self.appdata_path = path.join(appdata_path, "RaspiMote")
-            self.config_file_path = path.join(appdata_path, "pi_ip.raspimote")
+            self.appdata_path = path.join(self.appdata_path, "RaspiMote")
+            self.config_file_path = path.join(self.appdata_path, "pi_ip.raspimote")
 
 
 
@@ -72,11 +72,13 @@ class Driver:
                 self.ip = input("Input Pi IP address (temporary): ")
 
             elif self.platform == "win32":
+                mkdir(path.join(self.appdata_path, "tmp"))
                 system("powershell -Command \".\driver\dialogText.ps1 RaspiMote 'Raspberry Piʼs IP address:'\" > NUL")
                 try:
                     with open(path.join(self.appdata_path, "tmp", "dialogTextOutput.txt"), 'r', encoding="utf-16") as dialogTextOutput:
                         self.ip = dialogTextOutput.read()
                     remove(path.join(self.appdata_path, "tmp", "dialogTextOutput.txt"))
+                    rmdir(path.join(self.appdata_path, "tmp"))
                     print(self.ip)
                 except FileNotFoundError:
                     print("Aborting process.")
@@ -111,7 +113,6 @@ class Driver:
         :return:
         """
 
-        self.log("Establishing connection")
 
         url = f"https://{self.ip}:{self.port}/connect"
         content = {"code": self.code}

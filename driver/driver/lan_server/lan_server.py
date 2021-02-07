@@ -30,6 +30,7 @@ connection_code = file["code"]
 def action():
     ip = request.remote_addr
 
+    print("test")
     if pi_ip != ip:
         return '<h1>Not authorized.</h1><h2>IPs do not match.</h2>', 403
     else:
