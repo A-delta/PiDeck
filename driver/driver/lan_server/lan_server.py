@@ -32,7 +32,6 @@ connection_code = file["code"]
 @app.route('/action', methods = ['POST'])
 def action():
     ip = request.remote_addr
-    actions.send_notification("Working", "guess it's working")
     if pi_ip != ip:
         return '<h1>Not authorized.</h1><h2>IPs do not match.</h2>', 403
     else:

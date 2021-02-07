@@ -115,7 +115,7 @@ class Driver:
 
 
         url = f"https://{self.ip}:{self.port}/connect"
-        content = {"code": self.code}
+        content = {"code": self.code, "plateform": platform}
         headers = {"Content-Type": "application/json"}
         content = dumps(content)
 

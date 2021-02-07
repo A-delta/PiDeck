@@ -56,10 +56,11 @@ class Pi:
         self.log(f"Config folder : {self.config_folder}")
 
         self.ip = ip
+        self.driver_platform = ''
         self.log(f"Driver's IP : {ip}")
 
         self.code = 0
-        self.server_url = f'http://{self.ip}:9876/action'
+        self.server_url = f'{self.ip}:9876/action'
         self.request_headers = {"Content-Type": "application/json"}
 
         self.display_info = True  # NEED TO ADD CHOICE
@@ -158,7 +159,13 @@ class Pi:
 
             with open(path.join(self.config_folder, "connection.raspimote"), 'r', encoding="utf-8") as f:
                 self.code = loads(f.read())["code"]
+                self.driver_platform = loads(f.read())["platform"]
                 self.log("\n Connection code : " + term_header + str(self.code) + term_endc)
+
+            if self.driver_platform == "win32":
+                self.server_url = "http://" + self.server_url
+            else:
+                self.server_url = "https://" + self.server_url
 
             self.ready = True
             self.send_inventory()
