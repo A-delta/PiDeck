@@ -201,6 +201,7 @@ class Pi:
                 except:
                     self.log(f"{term_fail}[FAIL] Restarting connection procedure{term_endc}")
                     break
+        self.server_url = f'{self.ip}:9876/action'
         self.establish_connection()
 
     def send_inventory(self):
@@ -362,7 +363,6 @@ class Pi:
         content = dumps(data)
 
         try:
-            print(self.server_url)
             r = post(self.server_url, data=content, headers=self.request_headers, verify=False)
         except:
             print(f"{term_fail}Server not responding, driver might have stopped or encountered error{term_endc}")
