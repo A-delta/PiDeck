@@ -363,8 +363,9 @@ class Pi:
 
         try:
             r = post(self.server_url, data=content, headers=self.request_headers, verify=False)
-        except:
+        except Exception as error:
             print(f"{term_fail}Server not responding, driver might have stopped or encountered error{term_endc}")
+            print(error)
             self.log(f"{term_fail}Error. at {term_bold}{datetime.datetime.now().time()}{term_endc}")
             error_LED_thread = Thread(name='Blink LED', target=self.show_error)
             error_LED_thread.start()
