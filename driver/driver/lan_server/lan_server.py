@@ -7,7 +7,7 @@ Build a web server to receive RaspiMote's requests.
 from command_processor import process
 import threading
 from flask_cors import CORS
-from flask import Flask, request
+from flask import Flask, request, send_file
 from json import load, loads, dumps
 from os import path, getenv
 from time import time
@@ -74,7 +74,70 @@ def config():
         
         
     else:
-        return '<h1>Not authorized.</h1><h2>Only localhost can configure RaspiMote.</h2>', 403
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
+
+@app.route('/')
+def config_ui():
+    if request.remote_addr == "127.0.0.1":
+        return send_file("ui/ui_model.html")
+    else:
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
+
+@app.route('/style.css')
+def config_css():
+    if request.remote_addr == "127.0.0.1":
+        return send_file("ui/style.css")
+    else:
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
+
+@app.route('/initElements.js')
+def config_js1():
+    if request.remote_addr == "127.0.0.1":
+        return send_file("ui/initElements.js")
+    else:
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
+
+@app.route('/saveButton.js')
+def config_js2():
+    if request.remote_addr == "127.0.0.1":
+        return send_file("ui/saveButton.js")
+    else:
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
+
+@app.route('/showHide.js')
+def config_js3():
+    if request.remote_addr == "127.0.0.1":
+        return send_file("ui/showHide.js")
+    else:
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
+
+@app.route('/jquery-3.5.1.min.js')
+def config_jquery():
+    if request.remote_addr == "127.0.0.1":
+        return send_file("ui/jquery-3.5.1.min.js")
+    else:
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
+
+@app.route('/RaspiMote_logo.ico')
+def config_rsp_ico():
+    if request.remote_addr == "127.0.0.1":
+        return send_file("../../../logo/RaspiMote_logo.ico")
+    else:
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
+
+@app.route('/RaspiMote_logo_500px.png')
+def config_rsp_png():
+    if request.remote_addr == "127.0.0.1":
+        return send_file("../../../logo/RaspiMote_logo_500px.png")
+    else:
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
+
+@app.route('/get_inventory')
+def config_get_inventory():
+    if request.remote_addr == "127.0.0.1":
+        return str([])
+    else:
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
 @app.route('/test')
 def test():
