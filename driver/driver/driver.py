@@ -72,13 +72,11 @@ class Driver:
                 self.ip = input("Input Pi IP address (temporary): ")
 
             elif self.platform == "win32":
-                mkdir(path.join(self.appdata_path, "tmp"))
                 system("powershell -Command \".\driver\dialogText.ps1 RaspiMote 'Raspberry Piʼs IP address:'\" > NUL")
                 try:
                     with open(path.join(self.appdata_path, "tmp", "dialogTextOutput.txt"), 'r', encoding="utf-16") as dialogTextOutput:
                         self.ip = dialogTextOutput.read()
                     remove(path.join(self.appdata_path, "tmp", "dialogTextOutput.txt"))
-                    rmdir(path.join(self.appdata_path, "tmp"))
                     print(self.ip)
                 except FileNotFoundError:
                     print("Aborting process.")
