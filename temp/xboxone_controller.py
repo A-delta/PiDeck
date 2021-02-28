@@ -4,6 +4,7 @@ CENTER_TOLERANCE = 350
 STICK_MAX = 65536
 
 dev = InputDevice( list_devices()[0] )
+dev.capabilities(verbose=True)
 axis = {
     ecodes.ABS_X: 'ls_x', # 0 - 65,536   the middle is 32768
     ecodes.ABS_Y: 'ls_y',
