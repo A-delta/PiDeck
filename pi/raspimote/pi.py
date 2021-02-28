@@ -157,7 +157,7 @@ class Pi:
             old_cwd = getcwd()
 
             chdir(path.join("raspimote", "server_pi"))
-            system("/usr/bin/python3 wsgi_cheroot.py")
+            run("/usr/bin/python3 wsgi_cheroot.py")
             chdir(old_cwd)
 
             with open(path.join(self.config_folder, "connection.raspimote"), 'r', encoding="utf-8") as f:
