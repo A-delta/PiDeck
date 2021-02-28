@@ -17,7 +17,7 @@ def killme():
     sleep(2)
     system("sh ./stop_server.sh > /dev/null")
 
-@app.route('/connect', methods = ['CONNECT'])
+@app.route('/connect', methods = ['POST'])
 def connect():
     k = Thread(name='Kill server', target=killme)
 
