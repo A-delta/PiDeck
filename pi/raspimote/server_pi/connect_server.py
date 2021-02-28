@@ -37,3 +37,7 @@ def connect():
 
     k.start()
     return "True"
+
+@app.route('/')
+def test():
+    return 'UP !'
