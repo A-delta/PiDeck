@@ -13,7 +13,7 @@ def main(argv):
 
     driver = Driver(verbose)
     driver.load_config()
-    driver.establish_connection()
+    print(driver.establish_connection())
     driver.run()
 
 if __name__ == "__main__":

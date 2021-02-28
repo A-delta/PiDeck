@@ -107,7 +107,6 @@ class Driver:
         """
         This method establish connection with the Raspberry Pi by sending it a request.
 
-
         :return:
         """
 
@@ -120,6 +119,7 @@ class Driver:
         for tries in range(10):
             try:
                 connection = request('CONNECT', url, data=content, headers=headers, verify=False)
+                print(connection.text)
                 return connection.text == "True"
             except requests.exceptions.ConnectionError:
                 print(f"Connection to Pi failed [{tries+1}/10]")
