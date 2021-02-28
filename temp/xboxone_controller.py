@@ -31,9 +31,19 @@ last = {
 }
 
 for event in dev.read_loop():
+    print(event.type)
+    try:
+        print((categorize(event).keycode[0]))
+    except:
+        pass
+    try:
+        print(event.code)
+    except:
+        pass
+
 
     # calibrate zero on Y button
-    if event.type == ecodes.EV_KEY:
+    """if event.type == ecodes.EV_KEY:
         if categorize(event).keycode[0] == "BTN_WEST":
             center['ls_x'] = last['ls_x']
             center['ls_y'] = last['ls_y']
@@ -63,4 +73,4 @@ for event in dev.read_loop():
                     print('foreward')
                 else:
                     print('backward')
-                print( value )
+                print( value )"""
