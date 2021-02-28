@@ -24,7 +24,6 @@ def connect():
     ip = request.remote_addr
     home = getenv('HOME')
 
-    print("got request from", ip)
 
     config_folder = path.join(home, ".config","RaspiMote")
 
@@ -36,7 +35,6 @@ def connect():
     data = jdp({"ip": ip, "code": request.json["code"], "platform": request.json["platform"]})
     connection_file.write(data)
     connection_file.close()
-    print("wrote data")
     k.start()
     return "True"
 

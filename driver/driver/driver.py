@@ -118,9 +118,8 @@ class Driver:
 
         for tries in range(10):
             try:
-                print(url, content, headers)
                 connection = request('POST', url, data=content, headers=headers, verify=False)
-                print(connection)
+                return connection.text == "True"
             except requests.exceptions.ConnectionError:
                 print(f"Connection to Pi failed [{tries+1}/10]")
                 time.sleep(1)
