@@ -168,7 +168,7 @@ class Driver:
             system('python wsgi_cheroot.py') # !!! Modify for release (python --> C:\Program Files\RaspiMote\py\python.exe) !!!
         
         elif self.platform == "linux":
-            system('/usr/bin/python3 wsgi_cheroot.py') # !!! Modify for release (python --> C:\Program Files\RaspiMote\py\python.exe) !!!
+            system('/usr/bin/python3 wsgi_cheroot.py')
 
         elif self.platform == "darwin":
             print("System not supported for the moment.")
