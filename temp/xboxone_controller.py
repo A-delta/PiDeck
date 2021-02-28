@@ -31,19 +31,9 @@ last = {
 }
 
 for event in dev.read_loop():
-    print(event.type)
-    try:
-        print((categorize(event).keycode[0]))
-    except:
-        pass
-    try:
-        print(event.code)
-    except:
-        pass
-
 
     # calibrate zero on Y button
-    """if event.type == ecodes.EV_KEY:
+    if event.type == ecodes.EV_KEY:
         if categorize(event).keycode[0] == "BTN_WEST":
             center['ls_x'] = last['ls_x']
             center['ls_y'] = last['ls_y']
@@ -53,24 +43,26 @@ for event in dev.read_loop():
 
     #read stick axis movement
     elif event.type == ecodes.EV_ABS:
-        if axis[ event.code ] in [ 'ls_x', 'ls_y', 'rs_x', 'rs_y' ]:
-            last[ axis[ event.code ] ] = event.value
+        if axis[event.code] in [ 'ls_x', 'ls_y', 'rs_x', 'rs_y' ]:
+            last[axis[ event.code]] = event.value
 
-            value = event.value - center[ axis[ event.code ] ]
+            value = event.value - center[axis[event.code]]
 
-            if abs( value ) <= CENTER_TOLERANCE:
+            if abs(value) <= CENTER_TOLERANCE:
                 value = 0
+                
+            print("value: ", value)
 
-            if axis[ event.code ] == 'rs_x':
+            """if axis[event.code] == 'rs_x':
                 if value < 0:
                     print('left')
                 else:
                     print('right')
-                print( value )
+                print(value)
 
-            elif axis[ event.code ] == 'ls_y':
+            elif axis[event.code] == 'ls_y':
                 if value < 0:
                     print('foreward')
                 else:
                     print('backward')
-                print( value )"""
+                print(value)"""
