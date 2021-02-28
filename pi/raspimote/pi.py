@@ -167,6 +167,7 @@ class Pi:
                 self.log("\n Connection code : " + term_header + str(self.code) + term_endc)
 
             self.server_url = "https://" + self.server_url
+            self.log(self.server_url)
             self.log(self.driver_platform)
 
             self.ready = True
