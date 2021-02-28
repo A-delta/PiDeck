@@ -164,20 +164,15 @@ class Driver:
 
         chdir(path.join(self.driver_path, "lan_server"))
 
-        if self.verbose:
-            log_level = ''
-        else:
-            log_level = "--log-level critical"
-
-        if self.platform == "win32":
+        if self.platform == "win32" or self.platform == "linux":
             print("Only HTTP for the moment.")
             system('python wsgi_cheroot.py') # !!! Modify for release (python --> C:\Program Files\RaspiMote\py\python.exe) !!!
+        
+        elif self.platform == "linux":
+            system('/usr/bin/python3 wsgi_cheroot.py') # !!! Modify for release (python --> C:\Program Files\RaspiMote\py\python.exe) !!!
 
         elif self.platform == "darwin":
             print("System not supported for the moment.")
-
-        elif self.platform == "linux":
-            system(f"gunicorn {log_level} --certfile cert.pem --keyfile key.key --bind 0.0.0.0:9876 wsgi_gunicorn:app")  # Run the HTTPS server.
 
         else:
             print("System not supported.")
