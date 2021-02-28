@@ -81,6 +81,9 @@ class Pi:
         self.usb_devices = []
         self.usb_channels = []
 
+        #self.has_gamepad = False
+        self.gamepads = []
+
         self.buttons = []
         self.pins = []
 
@@ -257,6 +260,50 @@ class Pi:
 
         usb_device_thread = Thread(name="USB Device Reading", target=self.usb_device_loop, args=(usb, input_number))
         usb_device_thread.start()
+
+
+        def add_gamepad_device(self, input_number):
+            from evdev import InputDevice
+
+            try:
+                gamepad = InputDevice(f"/dev/input/event{input_number}")
+            except:
+                print(f"{term_fail}Gamepad {input_number} doesn't exist. Skipped. Please verify number or Gamepad connection.{term_endc}")
+                return
+            self.gamepads.append(gamepad)
+
+            temp = {
+                ('EV_SYN', 0): [('SYN_REPORT', 0), ('SYN_CONFIG', 1), ('SYN_DROPPED', 3), ('?', 21)],
+                ('EV_KEY', 1): [(['BTN_A', 'BTN_GAMEPAD', 'BTN_SOUTH'], 304), (['BTN_B', 'BTN_EAST'], 305), (['BTN_NORTH', 'BTN_X'], 307), (['BTN_WEST', 'BTN_Y'], 308), ('BTN_TL', 310), ('BTN_TR', 311), ('BTN_SELECT', 314), ('BTN_START', 315), ('BTN_MODE', 316), ('BTN_THUMBL', 317), ('BTN_THUMBR', 318)],
+                ('EV_ABS', 3): [
+                    (('ABS_X', 0), AbsInfo(value=-405, min=-32768, max=32767, fuzz=0, flat=128, resolution=0)),
+                    (('ABS_Y', 1), AbsInfo(value=-483, min=-32768, max=32767, fuzz=0, flat=128, resolution=0)),
+                    (('ABS_Z', 2), AbsInfo(value=0, min=0, max=1023, fuzz=0, flat=0, resolution=0)),
+                    (('ABS_RX', 3), AbsInfo(value=-1637, min=-32768, max=32767, fuzz=16, flat=128, resolution=0)),
+                    (('ABS_RY', 4), AbsInfo(value=2608, min=-32768, max=32767, fuzz=16, flat=128, resolution=0)),
+                    (('ABS_RZ', 5), AbsInfo(value=0, min=0, max=1023, fuzz=0, flat=0, resolution=0)),
+                    (('ABS_HAT0X', 16), AbsInfo(value=0, min=-1, max=1, fuzz=0, flat=0, resolution=0)),
+                    (('ABS_HAT0Y', 17), AbsInfo(value=0, min=-1, max=1, fuzz=0, flat=0, resolution=0))
+                ],
+
+                ('EV_FF', 21): [(['FF_EFFECT_MIN', 'FF_RUMBLE'], 80), ('FF_PERIODIC', 81), (['FF_SQUARE', 'FF_WAVEFORM_MIN'], 88), ('FF_TRIANGLE', 89), ('FF_SINE', 90), (['FF_GAIN', 'FF_MAX_EFFECTS'], 96)]}
+
+
+
+            capabilities = gamepad.capabilities(verbose=True)
+
+
+            gamepad_device_thread = Thread(name="Gamepad Device Reading", target=self.gamepad_device_loop, args=(gamepad, input_number))
+            gamepad_device_thread.start()
+
+    def gamepad_device_loop(self, gamepad, input_number):
+        from evdev import categorize, ecodes
+
+        for event in gamepad.read_loop():
+            if event.type == ecodes.EV_ABS:
+                print(categorize(event))
+
+
 
     def usb_device_loop(self, usb, input_number):
         from evdev import categorize, ecodes
