@@ -165,7 +165,6 @@ class Driver:
         chdir(path.join(self.driver_path, "lan_server"))
 
         if self.platform == "win32" or self.platform == "linux":
-            print("Only HTTP for the moment.")
             system('python wsgi_cheroot.py') # !!! Modify for release (python --> C:\Program Files\RaspiMote\py\python.exe) !!!
         
         elif self.platform == "linux":
