@@ -7,7 +7,7 @@ from time import sleep, time
 import datetime
 from threading import Thread
 from requests import post, codes, exceptions as requests_exceptions
-from os import getenv, getcwd, chdir, path
+from os import getenv, getcwd, chdir, path, system
 from subprocess import run
 from json import loads, dumps
 from urllib3 import disable_warnings as urllib_disable_warnings, exceptions as urllib3_exceptions
@@ -157,7 +157,7 @@ class Pi:
             old_cwd = getcwd()
 
             chdir(path.join("raspimote", "server_pi"))
-            run(f"/usr/bin/python3 wsgi_cheroot.py".split())
+            system("/usr/bin/python3 wsgi_cheroot.py")
             chdir(old_cwd)
 
             with open(path.join(self.config_folder, "connection.raspimote"), 'r', encoding="utf-8") as f:
