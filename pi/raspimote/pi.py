@@ -163,10 +163,7 @@ class Pi:
                 self.driver_platform = content["platform"]
                 self.log("\n Connection code : " + term_header + str(self.code) + term_endc)
 
-            if self.driver_platform == "win32":
-                self.server_url = "http://" + self.server_url
-            else:
-                self.server_url = "https://" + self.server_url
+            self.server_url = "https://" + self.server_url
             self.log(self.driver_platform)
 
             self.ready = True

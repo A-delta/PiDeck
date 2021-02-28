@@ -72,7 +72,7 @@ goto check_Permissions
 
     "C:\Program Files\RaspiMote\py\python.exe" "C:\Users\%USERNAME%\Downloads\get-pip.py" -q 1> nul 2> nul
 
-    "C:\Program Files\RaspiMote\py\python.exe" -m pip install urllib3 requests waitress flask flask-cors keyboard psutil -q 1> nul 2> nul
+    "C:\Program Files\RaspiMote\py\python.exe" -m pip install urllib3 requests cheroot flask flask-cors keyboard psutil -q 1> nul 2> nul
 
     echo [[92mv[0m] Dependencies installed.
     

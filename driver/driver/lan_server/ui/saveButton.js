@@ -1,15 +1,9 @@
 function saveButtonKey() {
-    if (navigator['platform'].toLowerCase().includes('linux') == true) {
-        var protocol = 'https';
-    }
-    else if (navigator['platform'].toLowerCase().includes('win') == true) {
-        var protocol = 'http';
-    }
+    if (navigator['platform'].toLowerCase().includes('linux') || ['platform'].toLowerCase().includes('win')) {}
     else {
-        window.alert('Platform not supported.');
-        return "PLATFORM_NOT_SUPPORTED";
+        window.alert("Your platform doesn't seem to be supported.");
     }
-    const url = protocol + "://localhost:9876/config";
+    const url = "https://localhost:9876/config";
     var data = {'port': document.getElementById('element').value, 'action_type': 'press_key', 'key': document.getElementById('key').value};
     $.ajax({
         url: url,
