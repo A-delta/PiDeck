@@ -148,4 +148,4 @@ goto check_Permissions
 
 
 
-    pause
+    pause >nul
