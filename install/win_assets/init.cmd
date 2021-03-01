@@ -2,4 +2,4 @@
 
 cd "C:\Program Files\RaspiMote\driver"
 
-"C:\Program Files\RaspiMote\py\python.exe" main.py
+"C:\Program Files\RaspiMote\py\pythonw.exe" main.py
