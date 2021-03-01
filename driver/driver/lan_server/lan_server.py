@@ -132,10 +132,21 @@ def config_rsp_png():
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
-@app.route('/get_inventory')
+@app.route('/loading.gif')
+def gif_loading():
+    if request.remote_addr == "127.0.0.1":
+        return send_file("ui/loading.gif")
+    else:
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
+
+@app.route('/get_inventory', methods = ['POST'])
 def config_get_inventory():
     if request.remote_addr == "127.0.0.1":
-        return str([])
+        try:
+            with open (path.join(config_file_path, "inventory.raspimote"), "r") as inventory:
+                return inventory.read()
+        except FileNotFoundError:
+            return "INVENTORY_NOT_FOUND", 500
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
