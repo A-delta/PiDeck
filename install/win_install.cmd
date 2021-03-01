@@ -106,6 +106,16 @@ goto check_Permissions
 
     reg.exe add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RaspiMote /v UninstallString /t REG_SZ /d "C:\Program Files\RaspiMote\uninstall.cmd" > nul
 
+    setlocal enableextensions enabledelayedexpansion
+
+    powershell -command "Import-Certificate -FilePath 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\common_assets\raspimote_ca.pem' -CertStoreLocation Cert:\LocalMachine\Root"
+
+    powershell -command "mkdir 'C:\Program Files\Mozilla Firefox\distribution' -erroraction 'silentlycontinue' | Out-Null"
+
+    powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_assets\policies.json' 'C:\Program Files\Mozilla Firefox\distribution' -erroraction 'silentlycontinue'"
+
+
+
     
 
 
