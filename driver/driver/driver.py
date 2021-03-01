@@ -75,7 +75,7 @@ class Driver:
                 system("powershell -Command \".\driver\dialogText.ps1 RaspiMote 'Raspberry Piʼs IP address:'\" > NUL")
                 try:
                     with open(path.join(self.appdata_path, "tmp", "dialogTextOutput.txt"), 'r', encoding="utf-16") as dialogTextOutput:
-                        self.ip = dialogTextOutput.read()
+                        self.ip = dialogTextOutput.read().replace('\n', '')
                     remove(path.join(self.appdata_path, "tmp", "dialogTextOutput.txt"))
                     print(self.ip)
                 except FileNotFoundError:
