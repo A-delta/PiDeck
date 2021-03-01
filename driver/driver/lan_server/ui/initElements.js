@@ -65,7 +65,7 @@ function init() {
         type: "POST",
         success: function(result) {
             var inventory = JSON.parse(result)
-            var items = [];
+            var items = ["&nbsp;"];
             if (inventory != false) {
 
                 for (var button of inventory["GPIO_buttons"]) {
