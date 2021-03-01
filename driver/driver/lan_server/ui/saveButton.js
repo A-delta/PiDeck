@@ -1,7 +1,8 @@
 function saveButtonKey() {
-    if (navigator['platform'].toLowerCase().includes('linux') || ['platform'].toLowerCase().includes('win')) {}
+    var platform = navigator['platform'].toLowerCase();
+    if (platform.includes('linux') || platform.includes('win')) {}
     else {
-        window.alert("Your platform doesn't seem to be supported.");
+        window.alert("Non-critical error: Your platform doesn't seem to be supported.");
     }
     const url = "https://localhost:9876/config";
     var data = {'port': document.getElementById('element').value, 'action_type': 'press_key', 'key': document.getElementById('key').value};
@@ -28,9 +29,10 @@ function saveButtonKey() {
 
 
 function saveButtonText() {
-    if (navigator['platform'].toLowerCase().includes('linux') || ['platform'].toLowerCase().includes('win')) {}
+    var platform = navigator['platform'].toLowerCase();
+    if (platform.includes('linux') || platform.includes('win')) {}
     else {
-        window.alert("Your platform doesn't seem to be supported.");
+        window.alert("Non-critical error: Your platform doesn't seem to be supported.");
     }
     const url = "https://localhost:9876/config";
     var data = {'port': document.getElementById('element').value, 'action_type': 'type_text', 'text': document.getElementById('text').value};
@@ -57,9 +59,10 @@ function saveButtonText() {
 
 
 function saveButtonCommand() {
-    if (navigator['platform'].toLowerCase().includes('linux') || ['platform'].toLowerCase().includes('win')) {}
+    var platform = navigator['platform'].toLowerCase();
+    if (platform.includes('linux') || platform.includes('win')) {}
     else {
-        window.alert("Your platform doesn't seem to be supported.");
+        window.alert("Non-critical error: Your platform doesn't seem to be supported.");
     }
     const url = "https://localhost:9876/config";
     var data = {'port': document.getElementById('element').value, 'action_type': 'run_command', 'command': document.getElementById('command').value};
@@ -85,9 +88,10 @@ function saveButtonCommand() {
 
 
 function saveButtonCustom() {
-    if (navigator['platform'].toLowerCase().includes('linux') || ['platform'].toLowerCase().includes('win')) {}
+    var platform = navigator['platform'].toLowerCase();
+    if (platform.includes('linux') || platform.includes('win')) {}
     else {
-        window.alert("Your platform doesn't seem to be supported.");
+        window.alert("Non-critical error: Your platform doesn't seem to be supported.");
     }
     const url = "https://localhost:9876/config";
     var data = {'port': document.getElementById('element').value, 'action_type': 'run_custom_function', 'function_name': document.getElementById('functionName').value};
