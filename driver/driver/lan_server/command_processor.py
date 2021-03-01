@@ -2,6 +2,9 @@
 # https://github.com/A-delta
 
 from built_in_fcn.actions import type_text, run_command
+from os import getenv, path
+from sys import platform
+from json import dumps
 
 
 def process(json):
@@ -13,6 +16,13 @@ def process(json):
 
 def makeInventory(json):
     print("Got Pi's inventory :", json)
+    if platform == "linux":
+        file_path = f"{getenv('HOME')}/.config/RaspiMote"
+    elif platform == "win32":
+        file_path = f"{getenv('APPDATA')}\\RaspiMote"
+
+    with open (path.join(file_path, "inventory.raspimote"), "w") as inventory:
+        inventory.write(dumps(json["request"]["inventory"]))
 
 
 def parse_data(json):
