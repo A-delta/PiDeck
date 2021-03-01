@@ -21,37 +21,6 @@ function range(start, stop, step) {
     return result;
 };
 
-function getInventory() {
-    var platform = navigator['platform'];
-    if (platform.toLowerCase().includes('linux') || platform.toLowerCase().includes('win')) {}
-    else {
-        window.alert("Non-critical error: Your platform doesn't seem to be supported.");
-    }
-    const url = "https://localhost:9876/get_inventory";
-    $.ajax({
-        url: url,
-        type: "POST",
-        success: function(result) {
-            console.log('success')
-            return JSON.parse(result);
-        },
-        error: function(error) {
-            if (error['status'] == 200) {
-                console.log('err')
-                return JSON.parse(error['responseText']);
-            }
-            else if (error['status'] == 500 && error['responseText'] == "INVENTORY_NOT_FOUND") {
-                window.alert("Critical error: Couldn't retreive the inventory.\nTry to restart the driver.")
-                return false;
-            }
-            else {
-                window.alert("Critical error: Something went wrong. Unknown error.")
-                return false;
-            }
-        }
-    })
-}
-
 function init() {
 
     var platform = navigator['platform'];
