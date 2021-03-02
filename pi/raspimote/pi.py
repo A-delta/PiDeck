@@ -325,6 +325,7 @@ class Pi:
                 if abs(value) <= CENTER_TOLERANCE:
                     value = 0
 
+            print(button_name, value)
             self.send_data({
                 "code": self.code,
                 "request": {
