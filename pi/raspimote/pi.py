@@ -283,17 +283,18 @@ class Pi:
             controller.axis_r.when_moved = self.on_axis_moved
             controller.hat.when_moved = self.on_axis_moved
 
-            controller.button_a = self.on_button_pressed
-            controller.button_b = self.on_button_pressed
-            controller.button_x = self.on_button_pressed
-            controller.button_y = self.on_button_pressed
-            controller.button_trigger_l = self.on_button_pressed
-            controller.button_trigger_r = self.on_button_pressed
-            controller.button_thumb_l = self.on_button_pressed
-            controller.button_thumb_r = self.on_button_pressed
-            controller.button_select = self.on_button_pressed
-            controller.button_start = self.on_button_pressed
-            controller.button_mode = self.on_button_pressed
+
+            controller.button_a.when_pressed = self.on_button_pressed
+            controller.button_b.when_pressed = self.on_button_pressed
+            controller.button_x.when_pressed = self.on_button_pressed
+            controller.button_y.when_pressed = self.on_button_pressed
+            controller.button_trigger_l.when_pressed = self.on_button_pressed
+            controller.button_trigger_r.when_pressed = self.on_button_pressed
+            controller.button_thumb_l.when_pressed = self.on_button_pressed
+            controller.button_thumb_r.when_pressed = self.on_button_pressed
+            controller.button_select.when_pressed = self.on_button_pressed
+            controller.button_start.when_pressed = self.on_button_pressed
+            controller.button_mode.when_pressed = self.on_button_pressed
 
             pause()
 
@@ -320,7 +321,7 @@ class Pi:
                 "type": "Gamepad",
                 "pin": '0',
                 "value": axis.name,
-                "extra": (round(axis.x, 2), round(axis.y), 2)
+                "extra": (round(axis.x, 2), round(axis.y, 2))
             }
 
         })
