@@ -266,38 +266,7 @@ class Pi:
         usb_device_thread.start()
 
 
-    def add_gamepad_device(self, input_number):
-        from evdev import InputDevice
 
-        try:
-            gamepad = InputDevice(f"/dev/input/event{input_number}")
-        except:
-            print(f"{term_fail}Gamepad {input_number} doesn't exist. Skipped. Please verify number or Gamepad connection.{term_endc}")
-            return
-        self.gamepads.append(gamepad)
-        self.has_gamepad = True
-
-
-
-        gamepad_device_thread = Thread(name="Gamepad Device Reading", target=self.gamepad_device_loop, args=(gamepad, input_number))
-        gamepad_device_thread.start()
-
-    def gamepad_device_loop(self, gamepad, input_number):
-        from evdev import categorize, ecodes
-
-        for event in gamepad.read_loop():
-            if event.type == ecodes.EV_ABS:
-                self.send_data({
-                    "code": self.code,
-                    "request": {
-                        "type": "Gamepad",
-                        "pin": input_number,
-                        "value": event.type,
-                        "extra": event.code
-
-                    }
-                })
-                print(categorize(event))
 
 
 
