@@ -287,7 +287,7 @@ class Pi:
     def gamepad_device_loop(self, gamepad, input_number):
         from evdev import categorize, ecodes
 
-        CENTER_TOLERANCE = 500
+        #CENTER_TOLERANCE = 500
         STICK_MAX = 65536
 
         axis = {
@@ -324,8 +324,8 @@ class Pi:
                     button_name = ecodes.ABS[event.code]
                     value = event.value
 
-                    if abs(value) <= CENTER_TOLERANCE:
-                        value = 0
+                    """if abs(value) <= CENTER_TOLERANCE:
+                        value = 0"""
 
                 print(button_name, value)
                 self.send_data({
