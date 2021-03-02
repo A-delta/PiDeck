@@ -274,26 +274,21 @@ class Pi:
         self.has_gamepad = True
 
         with Xbox360Controller() as controller:
-            for button in controller.info()["buttons"]:
-                self.log(button)
-            controller.button_a.when_released = self.on_button_pressed
+            controller.axis_l.when_moved = self.on_axis_moved
+            controller.axis_r.when_moved = self.on_axis_moved
+            controller.hat.when_moved = self.on_axis_moved
 
-            for stick in controller.info()["Axes"]:
-                controller.axis_l.when_moved = self.on_axis_moved
-                controller.axis_r.when_moved = self.on_axis_moved
-                controller.hat.when_moved = self.on_axis_moved
-
-                controller.button_a = self.on_button_pressed
-                controller.button_b = self.on_button_pressed
-                controller.button_x = self.on_button_pressed
-                controller.button_y = self.on_button_pressed
-                controller.button_trigger_l = self.on_button_pressed
-                controller.button_trigger_r = self.on_button_pressed
-                controller.button_thumb_l = self.on_button_pressed
-                controller.button_thumb_r = self.on_button_pressed
-                controller.button_select = self.on_button_pressed
-                controller.button_start = self.on_button_pressed
-                controller.button_mode = self.on_button_pressed
+            controller.button_a = self.on_button_pressed
+            controller.button_b = self.on_button_pressed
+            controller.button_x = self.on_button_pressed
+            controller.button_y = self.on_button_pressed
+            controller.button_trigger_l = self.on_button_pressed
+            controller.button_trigger_r = self.on_button_pressed
+            controller.button_thumb_l = self.on_button_pressed
+            controller.button_thumb_r = self.on_button_pressed
+            controller.button_select = self.on_button_pressed
+            controller.button_start = self.on_button_pressed
+            controller.button_mode = self.on_button_pressed
 
 
 
