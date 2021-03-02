@@ -287,7 +287,7 @@ class Pi:
     def gamepad_device_loop(self, gamepad, input_number):
         from evdev import categorize, ecodes
 
-        CENTER_TOLERANCE = 350
+        CENTER_TOLERANCE = 500
         STICK_MAX = 65536
 
         axis = {
@@ -310,7 +310,9 @@ class Pi:
         }
 
         last = time()
+
         for event in gamepad.read_loop():
+
             if time() - last > 0.03:
 
                 if event.type == ecodes.EV_KEY:
@@ -336,13 +338,7 @@ class Pi:
 
                     }
                 })
-
                 last = time()
-
-
-
-
-
 
 
 
