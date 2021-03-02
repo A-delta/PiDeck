@@ -274,6 +274,7 @@ class Pi:
         self.has_gamepad = True
 
         with Xbox360Controller() as controller:
+            print("configuring gamepad")
             controller.axis_l.when_moved = self.on_axis_moved
             controller.axis_r.when_moved = self.on_axis_moved
             controller.hat.when_moved = self.on_axis_moved
