@@ -316,10 +316,11 @@ class Pi:
             if event.type == ecodes.EV_KEY:
                 print(categorize(event).keycode[0])
                 button_name = categorize(event).keycode[0]
+                value = False
 
             elif event.type == ecodes.EV_ABS:
                 print(event.code)
-                if axis[event.code] in ['ls_x', 'ls_y', 'rs_x', 'rs_y']:
+                """if axis[event.code] in ['ls_x', 'ls_y', 'rs_x', 'rs_y']:
                     button_name = axis[event.code]
                     value = event.value - center[axis[event.code]]
 
@@ -332,10 +333,10 @@ class Pi:
                     "type": "controller",
                     "pin": input_number,
                     "value": button_name,
-                    "extra": value
+                    "extra": value if value else "None"
 
                 }
-            })
+            })"""
 
 
 
