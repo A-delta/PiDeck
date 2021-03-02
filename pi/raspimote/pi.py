@@ -319,13 +319,11 @@ class Pi:
                 value = False
 
             elif event.type == ecodes.EV_ABS:
-                print(event.code)
-                if axis[event.code] in ['ls_x', 'ls_y', 'rs_x', 'rs_y']:
-                    button_name = axis[event.code]
-                    value = event.value - center[axis[event.code]]
+                button_name = ecodes.ABS[event.code]
+                value = event.value - center[axis[event.code]]
 
-                    if abs(value) <= CENTER_TOLERANCE:
-                        value = 0
+                if abs(value) <= CENTER_TOLERANCE:
+                    value = 0
 
             self.send_data({
                 "code": self.code,
