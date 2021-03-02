@@ -320,7 +320,7 @@ class Pi:
 
             elif event.type == ecodes.EV_ABS:
                 button_name = ecodes.ABS[event.code]
-                value = event.value - center[axis[event.code]]
+                value = event.value
 
                 if abs(value) <= CENTER_TOLERANCE:
                     value = 0
