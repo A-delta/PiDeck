@@ -99,17 +99,38 @@ def config_js1():
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
-@app.route('/saveButton.js')
+@app.route('/showHide.js')
 def config_js2():
+    if request.remote_addr == "127.0.0.1":
+        return send_file("ui/showHide.js")
+    else:
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
+
+@app.route('/showHideButton.js')
+def config_js3():
+    if request.remote_addr == "127.0.0.1":
+        return send_file("ui/showHideButton.js")
+    else:
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
+    
+@app.route('/showHideADC.js')
+def config_js4():
+    if request.remote_addr == "127.0.0.1":
+        return send_file("ui/showHideADC.js")
+    else:
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
+
+@app.route('/saveButton.js')
+def config_js5():
     if request.remote_addr == "127.0.0.1":
         return send_file("ui/saveButton.js")
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
-@app.route('/showHide.js')
-def config_js3():
+@app.route('/saveADC.js')
+def config_js6():
     if request.remote_addr == "127.0.0.1":
-        return send_file("ui/showHide.js")
+        return send_file("ui/saveADC.js")
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
