@@ -313,7 +313,7 @@ class Pi:
 
         for event in gamepad.read_loop():
 
-            if time() - last > 0.03:
+            if time() - last > 0.01:
 
                 if event.type == ecodes.EV_KEY:
                     print(categorize(event).keycode[0])
