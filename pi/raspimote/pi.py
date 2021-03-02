@@ -309,19 +309,16 @@ class Pi:
             'rs_y': STICK_MAX / 2
         }
 
-        last = {
-            'ls_x': STICK_MAX / 2,
-            'ls_y': STICK_MAX / 2,
-            'rs_x': STICK_MAX / 2,
-            'rs_y': STICK_MAX / 2
-        }
 
         for event in gamepad.read_loop():
+            print(categorize(event))
 
             if event.type == ecodes.EV_KEY:
+                print(categorize(event).keycode[0])
                 button_name = categorize(event).keycode[0]
 
             elif event.type == ecodes.EV_ABS:
+                print(event.code)
                 if axis[event.code] in ['ls_x', 'ls_y', 'rs_x', 'rs_y']:
                     button_name = axis[event.code]
                     value = event.value - center[axis[event.code]]
