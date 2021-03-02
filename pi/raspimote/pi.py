@@ -309,35 +309,37 @@ class Pi:
             'rs_y': STICK_MAX / 2
         }
 
-
+        last = time()
         for event in gamepad.read_loop():
-            #print(categorize(event))
+            print(time() - last)
+            if time() - last > 0.2:
 
-            if event.type == ecodes.EV_KEY:
-                print(categorize(event).keycode[0])
-                button_name = categorize(event).keycode[0]
-                value = False
+                if event.type == ecodes.EV_KEY:
+                    print(categorize(event).keycode[0])
+                    button_name = categorize(event).keycode[0]
+                    value = False
 
-            elif event.type == ecodes.EV_ABS:
-                button_name = ecodes.ABS[event.code]
-                value = event.value
+                elif event.type == ecodes.EV_ABS:
+                    button_name = ecodes.ABS[event.code]
+                    value = event.value
 
-                if abs(value) <= CENTER_TOLERANCE:
-                    value = 0
+                    if abs(value) <= CENTER_TOLERANCE:
+                        value = 0
 
-            print(button_name, value)
-            self.send_data({
-                "code": self.code,
-                "request": {
-                    "type": "controller",
-                    "pin": input_number,
-                    "value": button_name,
-                    "extra": value if value else "None"
+                print(button_name, value)
+                self.send_data({
+                    "code": self.code,
+                    "request": {
+                        "type": "controller",
+                        "pin": input_number,
+                        "value": button_name,
+                        "extra": value if value else "None"
 
-                }
-            })
+                    }
+                })
 
-            sleep(0.4)
+                last = time()
+
 
 
 
