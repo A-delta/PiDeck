@@ -265,12 +265,9 @@ class Pi:
         usb_device_thread = Thread(name="USB Device Reading", target=self.usb_device_loop, args=(usb, input_number))
         usb_device_thread.start()
 
-
     def add_gamepad_device(self):
         usb_device_thread = Thread(name="Gamepad configuring", target=self.configure_gamepad)
         usb_device_thread.start()
-
-
 
     def configure_gamepad(self):
         from xbox360controller import Xbox360Controller
@@ -282,7 +279,6 @@ class Pi:
             controller.axis_l.when_moved = self.on_axis_moved
             controller.axis_r.when_moved = self.on_axis_moved
             controller.hat.when_moved = self.on_axis_moved
-
 
             controller.button_a.when_pressed = self.on_button_pressed
             controller.button_b.when_pressed = self.on_button_pressed
@@ -297,7 +293,6 @@ class Pi:
             controller.button_mode.when_pressed = self.on_button_pressed
 
             pause()
-
 
     def on_button_pressed(self, button):
         self.log('Button {0} was pressed'.format(button.name))
