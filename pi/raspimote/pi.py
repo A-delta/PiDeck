@@ -311,7 +311,7 @@ class Pi:
 
 
         for event in gamepad.read_loop():
-            print(categorize(event))
+            #print(categorize(event))
 
             if event.type == ecodes.EV_KEY:
                 print(categorize(event).keycode[0])
@@ -320,7 +320,7 @@ class Pi:
 
             elif event.type == ecodes.EV_ABS:
                 print(event.code)
-                """if axis[event.code] in ['ls_x', 'ls_y', 'rs_x', 'rs_y']:
+                if axis[event.code] in ['ls_x', 'ls_y', 'rs_x', 'rs_y']:
                     button_name = axis[event.code]
                     value = event.value - center[axis[event.code]]
 
@@ -336,14 +336,7 @@ class Pi:
                     "extra": value if value else "None"
 
                 }
-            })"""
-
-
-
-
-
-
-
+            })
 
 
 
