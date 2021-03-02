@@ -49,7 +49,7 @@ function init() {
                 for (var k of range(ADC)) {
                     items.push("ADC " + (k + 1))
                 }
-                items.push("Peripherals");
+                items.push("USB keyboard");
                 // var items = ["&nbsp;", "GPIO 13", "ADC 1", "GPIO 12"]; // For test purposes
                 var items_id = [];
                 k = 0;

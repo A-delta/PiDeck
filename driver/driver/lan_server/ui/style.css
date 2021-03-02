@@ -55,7 +55,7 @@ p {
     font-size: 5px;
 }
 
-#typeButton, #buttonPressKey, #buttonKeyValidate, #buttonTypeText, #buttonTextValidate, #buttonCommandFunction, #buttonCommandValidate, #buttonCustomFunction, #buttonCustomValidate {
+#typeButton, #buttonPressKey, #buttonKeyValidate, #buttonTypeText, #buttonTextValidate, #buttonCommandFunction, #buttonCommandValidate, #buttonCustomFunction, #buttonCustomValidate, #typeADC, #adcChangeVolume, #adcVolumeValidate, #adcCustomFunction, #adcCustomValidate {
     display: none;
 }
 

@@ -94,7 +94,7 @@ function saveButtonCustom() {
         window.alert("Non-critical error: Your platform doesn't seem to be supported.");
     }
     const url = "https://localhost:9876/config";
-    var data = {'port': document.getElementById('element').value, 'action_type': 'run_custom_function', 'function_name': document.getElementById('functionName').value};
+    var data = {'port': document.getElementById('element').value, 'action_type': 'run_custom_function', 'function_name': document.getElementById('functionButtonName').value};
     $.ajax({
         url: url,
         type: "POST",
