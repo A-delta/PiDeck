@@ -267,6 +267,12 @@ class Pi:
 
 
 
+    def on_button_pressed(self, button):
+        print('Button {0} was pressed'.format(button.name))
+
+    def on_axis_moved(self, axis):
+        print('Axis {0} moved to {1} {2}'.format(axis.name, axis.x, axis.y))
+
 
     def add_gamepad_device(self):
         from xbox360controller import Xbox360Controller
@@ -290,20 +296,6 @@ class Pi:
             controller.button_select = self.on_button_pressed
             controller.button_start = self.on_button_pressed
             controller.button_mode = self.on_button_pressed
-
-
-
-    def on_button_pressed(button):
-        print('Button {0} was pressed'.format(button.name))
-
-    def on_axis_moved(axis):
-        print('Axis {0} moved to {1} {2}'.format(axis.name, axis.x, axis.y))
-
-
-
-
-
-
 
     def usb_device_loop(self, usb, input_number):
         from evdev import categorize, ecodes
