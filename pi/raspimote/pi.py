@@ -268,7 +268,7 @@ class Pi:
 
 
 
-    def add_gamepad_device(self, input_number):
+    def add_gamepad_device(self):
         from xbox360controller import Xbox360Controller
 
         self.has_gamepad = True
@@ -291,13 +291,6 @@ class Pi:
             controller.button_mode = self.on_button_pressed
 
 
-
-
-
-
-
-        """gamepad_device_thread = Thread(name="Gamepad Device Reading", target=self.gamepad_device_loop, args=(gamepad, input_number))
-        gamepad_device_thread.start()"""
 
     def on_button_pressed(button):
         print('Button {0} was pressed'.format(button.name))
