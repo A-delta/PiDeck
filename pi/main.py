@@ -26,8 +26,8 @@ def main(argv):
 
 
     pi.add_ADC_Device_PCF8591(2)"""
-    #pi.add_USB_Device(1)
-    pi.add_gamepad_device()
+    pi.add_USB_Device(0)
+    #pi.add_gamepad_device()
     pi.establish_connection()
 
 
