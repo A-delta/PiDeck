@@ -320,7 +320,7 @@ class Pi:
                 "type": "Gamepad",
                 "pin": '0',
                 "value": axis.name,
-                "extra": (axis.x, axis.y)
+                "extra": (round(axis.x, 2), round(axis.y), 2)
             }
 
         })
