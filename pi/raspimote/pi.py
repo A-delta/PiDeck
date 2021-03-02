@@ -287,19 +287,70 @@ class Pi:
     def gamepad_device_loop(self, gamepad, input_number):
         from evdev import categorize, ecodes
 
-        for event in gamepad.read_loop():
-            if event.type == ecodes.EV_ABS:
-                self.send_data({
-                    "code": self.code,
-                    "request": {
-                        "type": "Gamepad",
-                        "pin": input_number,
-                        "value": event.type,
-                        "extra": event.code
+        CENTER_TOLERANCE = 350
+        STICK_MAX = 65536
 
-                    }
-                })
-                print(categorize(event))
+        axis = {
+            ecodes.ABS_X: 'ls_x',  # 0 - 65,536   the middle is 32768
+            ecodes.ABS_Y: 'ls_y',
+            ecodes.ABS_Z: 'rs_x',
+            ecodes.ABS_RZ: 'rs_y',
+            ecodes.ABS_BRAKE: 'lt',  # 0 - 1023
+            ecodes.ABS_GAS: 'rt',
+
+            ecodes.ABS_HAT0X: 'dpad_x',  # -1 - 1
+            ecodes.ABS_HAT0Y: 'dpad_y'
+        }
+
+        center = {
+            'ls_x': STICK_MAX / 2,
+            'ls_y': STICK_MAX / 2,
+            'rs_x': STICK_MAX / 2,
+            'rs_y': STICK_MAX / 2
+        }
+
+        last = {
+            'ls_x': STICK_MAX / 2,
+            'ls_y': STICK_MAX / 2,
+            'rs_x': STICK_MAX / 2,
+            'rs_y': STICK_MAX / 2
+        }
+
+        for event in gamepad.read_loop():
+
+            if event.type == ecodes.EV_KEY:
+                button_name = categorize(event).keycode[0]
+
+            elif event.type == ecodes.EV_ABS:
+                if axis[event.code] in ['ls_x', 'ls_y', 'rs_x', 'rs_y']:
+                    button_name = axis[event.code]
+                    value = event.value - center[axis[event.code]]
+
+                    if abs(value) <= CENTER_TOLERANCE:
+                        value = 0
+
+            self.send_data({
+                "code": self.code,
+                "request": {
+                    "type": "controller",
+                    "pin": input_number,
+                    "value": button_name,
+                    "extra": value
+
+                }
+            })
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
