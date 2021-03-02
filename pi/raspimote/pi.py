@@ -269,76 +269,49 @@ class Pi:
 
 
     def add_gamepad_device(self, input_number):
-        from evdev import InputDevice
+        from xbox360controller import Xbox360Controller
 
-        try:
-            gamepad = InputDevice(f"/dev/input/event{input_number}")
-        except:
-            print(f"{term_fail}Gamepad {input_number} doesn't exist. Skipped. Please verify number or Gamepad connection.{term_endc}")
-            return
-        self.gamepads.append(gamepad)
         self.has_gamepad = True
 
+        with Xbox360Controller() as controller:
+            for button in controller.info()["buttons"]:
+                self.log(button)
+            controller.button_a.when_released = self.on_button_pressed
+
+            for stick in controller.info()["Axes"]:
+                controller.axis_l.when_moved = self.on_axis_moved
+                controller.axis_r.when_moved = self.on_axis_moved
+                controller.hat.when_moved = self.on_axis_moved
+
+                controller.button_a = self.on_button_pressed
+                controller.button_b = self.on_button_pressed
+                controller.button_x = self.on_button_pressed
+                controller.button_y = self.on_button_pressed
+                controller.button_trigger_l = self.on_button_pressed
+                controller.button_trigger_r = self.on_button_pressed
+                controller.button_thumb_l = self.on_button_pressed
+                controller.button_thumb_r = self.on_button_pressed
+                controller.button_select = self.on_button_pressed
+                controller.button_start = self.on_button_pressed
+                controller.button_mode = self.on_button_pressed
 
 
-        gamepad_device_thread = Thread(name="Gamepad Device Reading", target=self.gamepad_device_loop, args=(gamepad, input_number))
-        gamepad_device_thread.start()
 
-    def gamepad_device_loop(self, gamepad, input_number):
-        from evdev import categorize, ecodes
 
-        #CENTER_TOLERANCE = 500
-        STICK_MAX = 65536
 
-        axis = {
-            ecodes.ABS_X: 'ls_x',  # 0 - 65,536   the middle is 32768
-            ecodes.ABS_Y: 'ls_y',
-            ecodes.ABS_Z: 'rs_x',
-            ecodes.ABS_RZ: 'rs_y',
-            ecodes.ABS_BRAKE: 'lt',  # 0 - 1023
-            ecodes.ABS_GAS: 'rt',
 
-            ecodes.ABS_HAT0X: 'dpad_x',  # -1 - 1
-            ecodes.ABS_HAT0Y: 'dpad_y'
-        }
 
-        center = {
-            'ls_x': STICK_MAX / 2,
-            'ls_y': STICK_MAX / 2,
-            'rs_x': STICK_MAX / 2,
-            'rs_y': STICK_MAX / 2
-        }
+        """gamepad_device_thread = Thread(name="Gamepad Device Reading", target=self.gamepad_device_loop, args=(gamepad, input_number))
+        gamepad_device_thread.start()"""
 
-        last = time()
+    def on_button_pressed(button):
+        print('Button {0} was pressed'.format(button.name))
 
-        for event in gamepad.read_loop():
+    def on_axis_moved(axis):
+        print('Axis {0} moved to {1} {2}'.format(axis.name, axis.x, axis.y))
 
-            if time() - last > 0.01:
 
-                if event.type == ecodes.EV_KEY:
-                    print(categorize(event).keycode[0])
-                    button_name = categorize(event).keycode[0]
-                    value = False
 
-                elif event.type == ecodes.EV_ABS:
-                    button_name = ecodes.ABS[event.code]
-                    value = event.value
-
-                    """if abs(value) <= CENTER_TOLERANCE:
-                        value = 0"""
-
-                print(button_name, value)
-                self.send_data({
-                    "code": self.code,
-                    "request": {
-                        "type": "controller",
-                        "pin": input_number,
-                        "value": button_name,
-                        "extra": value if type(value) == int else "None"
-
-                    }
-                })
-                last = time()
 
 
 
