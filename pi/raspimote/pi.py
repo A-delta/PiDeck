@@ -299,12 +299,31 @@ class Pi:
 
 
     def on_button_pressed(self, button):
-        print('Button {0} was pressed'.format(button.name))
+        self.log('Button {0} was pressed'.format(button.name))
+        self.send_data({
+            "code": self.code,
+
+            "request": {
+                "type": "Gamepad",
+                "pin": '0',
+                "value": button,
+            }
+
+        })
 
     def on_axis_moved(self, axis):
-        print('Axis {0} moved to {1} {2}'.format(axis.name, axis.x, axis.y))
+        self.log('Axis {0} moved to {1} {2}'.format(axis.name, axis.x, axis.y))
+        self.send_data({
+            "code": self.code,
 
+            "request": {
+                "type": "Gamepad",
+                "pin": '0',
+                "value": axis.name,
+                "extra": (axis.x, axis.y)
+            }
 
+        })
 
     def usb_device_loop(self, usb, input_number):
         from evdev import categorize, ecodes
