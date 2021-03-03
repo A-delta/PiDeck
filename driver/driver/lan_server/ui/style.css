@@ -55,7 +55,7 @@ p {
     font-size: 5px;
 }
 
-#typeButton, #buttonPressKey, #buttonKeyValidate, #buttonTypeText, #buttonTextValidate, #buttonCommandFunction, #buttonCommandValidate, #buttonCustomFunction, #buttonCustomValidate, #typeADC, #adcChangeVolume, #adcVolumeValidate, #adcCustomFunction, #adcCustomValidate {
+#typeButton, #buttonPressKey, #buttonKeyValidate, #buttonTypeText, #buttonTextValidate, #buttonCommandFunction, #buttonCommandValidate, #buttonCustomFunction, #buttonCustomValidate, #typeADC, #adcVolumeValidate, #adcCustomFunction, #adcCustomValidate, #typeKeyboard, #keyboardPressKey, #keyboardKeyValidate, #keyboardTypeText, #keyboardTextValidate, #keyboardCommandFunction, #keyboardCommandValidate, #keyboardCustomFunction, #keyboardCustomValidate {
     display: none;
 }
 

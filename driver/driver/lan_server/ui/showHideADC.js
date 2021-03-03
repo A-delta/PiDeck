@@ -1,5 +1,5 @@
 function showADCPlus(element) {
-    document.getElementById('adcChangeVolume').style.display = element.value == "volume" ? 'block' : 'none';
+    document.getElementById('adcVolumeValidate').style.display = element.value == "volume" ? 'block' : 'none';
     document.getElementById('adcCustomFunction').style.display = element.value == "custom" ? 'block' : 'none';
 }
 

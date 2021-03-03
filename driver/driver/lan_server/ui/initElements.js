@@ -81,7 +81,8 @@ function init() {
                     str += '<option value="' + opt_id + '">' + item + "</option>";
                     k += 1;
                 }
-                document.getElementById("key").innerHTML = str;
+                document.getElementById("buttonKey").innerHTML = str;
+                document.getElementById("keyboardKey").innerHTML = str;
 
                 $(".gif-loading").fadeOut("slow");
             }

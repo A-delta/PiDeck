@@ -120,17 +120,31 @@ def config_js4():
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
-@app.route('/saveButton.js')
+@app.route('/showHideKeyboard.js')
 def config_js5():
+    if request.remote_addr == "127.0.0.1":
+        return send_file("ui/showHideKeyboard.js")
+    else:
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
+
+@app.route('/saveButton.js')
+def config_js6():
     if request.remote_addr == "127.0.0.1":
         return send_file("ui/saveButton.js")
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
 @app.route('/saveADC.js')
-def config_js6():
+def config_js7():
     if request.remote_addr == "127.0.0.1":
         return send_file("ui/saveADC.js")
+    else:
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
+
+@app.route('/saveKeyboard.js')
+def config_js8():
+    if request.remote_addr == "127.0.0.1":
+        return send_file("ui/saveKeyboard.js")
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
