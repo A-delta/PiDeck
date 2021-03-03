@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# 2021 Adelta
-# https://github.com/A-delta
+# 2021 RaspiMote
+# https://github.com/RaspiMote
 
 from sys import argv
 from driver.driver import Driver
