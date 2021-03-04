@@ -20,6 +20,10 @@ goto check_Permissions
 
 :main
 
+    C:
+    
+    cd C:\Windows\System32
+
     curl -s -L -o "C:\Users\%USERNAME%\Downloads\raspimote.zip" "https://github.com/A-delta/RaspiMote/archive/main.zip"
 
     echo [[92mv[0m] RaspiMote code downloaded.
@@ -72,25 +76,31 @@ goto check_Permissions
 
     "C:\Program Files\RaspiMote\py\python.exe" "C:\Users\%USERNAME%\Downloads\get-pip.py" -q 1> nul 2> nul
 
-    "C:\Program Files\RaspiMote\py\python.exe" -m pip install urllib3 requests cheroot flask flask-cors keyboard psutil -q 1> nul 2> nul
+    "C:\Program Files\RaspiMote\py\python.exe" -m pip install urllib3 requests cheroot flask flask-cors keyboard psutil jaraco.functools -q 1> nul 2> nul
 
     echo [[92mv[0m] Dependencies installed.
     
     powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_assets\init.cmd' 'C:\Program Files\RaspiMote' -erroraction 'silentlycontinue'"
 
-    powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_assets\RaspiMote - driver.vbs' 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp' -erroraction 'silentlycontinue'"
+    powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_install.cmd' 'C:\Program Files\RaspiMote\install.cmd' -erroraction 'silentlycontinue'"
+
+    Rem Copy binary for run-at-startup.dart
+
+    Rem Copy binary to launch UI
+
+    Rem Add CA
     
     
 
     reg.exe add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RaspiMote /v DisplayName /t REG_SZ /d "RaspiMote" > nul
 
-    reg.exe add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RaspiMote /v DisplayIcon /t REG_SZ /d "C:\Program Files\RaspiMote\logo\RaspiMote_logo.ico" > nul
+    reg.exe add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RaspiMote /v DisplayIcon /t REG_SZ /d "C:\Program Files\RaspiMote\driver\driver\lan_server\ui\RaspiMote_logo.ico" > nul
 
     reg.exe add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RaspiMote /v DisplayVersion /t REG_SZ /d "1.0" > nul
 
     reg.exe add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RaspiMote /v Publisher /t REG_SZ /d "A-delta & Firmin-Launay" > nul
 
-    reg.exe add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RaspiMote /v HelpLink /t REG_EXPAND_SZ /d "https://docs.raspimote.tk/" > nul
+    reg.exe add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RaspiMote /v HelpLink /t REG_EXPAND_SZ /d "https://raspimote.tk/" > nul
 
     powershell -Command "Get-Date -Format yyyyMMdd" > "C:\Users\%USERNAME%\AppData\Local\Temp\currentdate.tmp"
 
@@ -101,6 +111,14 @@ goto check_Permissions
     reg.exe add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RaspiMote /v InstallLocation /t REG_SZ /d "C:\Program Files\RaspiMote" > nul
 
     reg.exe add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RaspiMote /v InstallSource /t REG_SZ /d "C:\Program Files\RaspiMote\install.cmd" > nul
+
+    cd "C:\Program Files\RaspiMote"
+
+    powershell -Command "$totalsize = [long]0;Get-ChildItem -File -Recurse -Force -ErrorAction SilentlyContinue | %% {$totalsize += $_.Length};[math]::Round($totalsize/1000)" > "C:\Users\%USERNAME%\AppData\Local\Temp\rspfoldersize.tmp"
+
+    set /p c_date=<"C:\Users\%USERNAME%\AppData\Local\Temp\rspfoldersize.tmp"
+
+    cd C:\Windows\System32
 
     reg.exe add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RaspiMote /v EstimatedSize /t REG_DWORD /d 35840 > nul
 

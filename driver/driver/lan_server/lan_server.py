@@ -158,14 +158,14 @@ def config_jquery():
 @app.route('/RaspiMote_logo.ico')
 def config_rsp_ico():
     if request.remote_addr == "127.0.0.1":
-        return send_file("../../../logo/RaspiMote_logo.ico")
+        return send_file("ui/RaspiMote_logo.ico")
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
 @app.route('/RaspiMote_logo_500px.png')
 def config_rsp_png():
     if request.remote_addr == "127.0.0.1":
-        return send_file("../../../logo/RaspiMote_logo_500px.png")
+        return send_file("ui/RaspiMote_logo_500px.png")
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
