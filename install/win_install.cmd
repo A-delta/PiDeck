@@ -78,6 +78,8 @@ goto check_Permissions
 
     "C:\Program Files\RaspiMote\py\python.exe" -m pip install urllib3 requests cheroot flask flask-cors keyboard psutil jaraco.functools -q 1> nul 2> nul
 
+    Rem Install custom version of Cheroot https://github.com/RaspiMote/https
+
     echo [[92mv[0m] Dependencies installed.
     
     powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_assets\init.cmd' 'C:\Program Files\RaspiMote' -erroraction 'silentlycontinue'"
@@ -88,9 +90,13 @@ goto check_Permissions
 
     Rem Copy binary to launch UI
 
-    Rem Add CA
-    
-    
+    setlocal enableextensions enabledelayedexpansion
+
+    powershell -command "Import-Certificate -FilePath 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\common_assets\raspimote_ca.pem' -CertStoreLocation Cert:\LocalMachine\Root"
+
+    powershell -command "mkdir 'C:\Program Files\Mozilla Firefox\distribution' -erroraction 'silentlycontinue' | Out-Null"
+
+    powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_assets\policies.json' 'C:\Program Files\Mozilla Firefox\distribution' -erroraction 'silentlycontinue'"
 
     reg.exe add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RaspiMote /v DisplayName /t REG_SZ /d "RaspiMote" > nul
 
@@ -124,35 +130,7 @@ goto check_Permissions
 
     reg.exe add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RaspiMote /v UninstallString /t REG_SZ /d "C:\Program Files\RaspiMote\uninstall.cmd" > nul
 
-    setlocal enableextensions enabledelayedexpansion
-
-    powershell -command "Import-Certificate -FilePath 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\common_assets\raspimote_ca.pem' -CertStoreLocation Cert:\LocalMachine\Root"
-
-    powershell -command "mkdir 'C:\Program Files\Mozilla Firefox\distribution' -erroraction 'silentlycontinue' | Out-Null"
-
-    powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_assets\policies.json' 'C:\Program Files\Mozilla Firefox\distribution' -erroraction 'silentlycontinue'"
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    
-    
-    
-
-
+    Rem Add shortcuts in start menu 
 
     powershell -command "Remove-Item 'C:\Program Files\RaspiMote\py\Lib\site-packages\pip*' -Recurse -erroraction 'silentlycontinue'"
 
@@ -174,6 +152,18 @@ goto check_Permissions
 
     echo [[92mv[0m] Temporary files purged.
 
+    echo(
+    
+    echo(
+    
+    echo [[92mv[0m] RASPIMOTE HAS BEEN SUCCESSFULLY INSTALLED.
 
+    echo [[94mi[0m] To access to the driver or to the web-based configuration UI, go to “RaspiMote”, in the start menu.
+
+    echo(
+    
+    echo(
+    
+    echo Press any key to exit...
 
     pause >nul
