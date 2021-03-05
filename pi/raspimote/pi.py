@@ -273,7 +273,7 @@ class Pi:
 
         self.has_gamepad = True
 
-        with Xbox360Controller(raw_mode=True) as controller:
+        with Xbox360Controller(raw_mode=False) as controller:
             print("configuring gamepad")
             for b in controller.buttons:
                 b.when_pressed = self.on_button_pressed
