@@ -283,9 +283,6 @@ class Pi:
 
             pause()
 
-    def on_axis_moved_raw(self, axis):
-        print('Axis {0} moved to {1}'.format(axis.name, axis.value))
-
     def on_button_pressed(self, button):
         self.log('Button {0} was pressed'.format(button.name))
         self.send_data({
@@ -299,23 +296,9 @@ class Pi:
 
         })
 
-    def on_trigger_moved(self, trigger,):
-        self.log(f"Trigger pushed to {trigger.x}")
-        self.send_data({
-            "code": self.code,
-
-            "request": {
-                "type": "Gamepad",
-                "pin": '0',
-                "value": trigger.name,
-                "extra": round(trigger.x, 2)
-            }
-
-        })
-
-
-    def on_axis_moved(self, axis):
-        self.log('Axis {0} moved to {1} {2}'.format(axis.name, axis.x, axis.y))
+    def on_axis_moved_raw(self, axis):
+        value = axis.value
+        self.log(f"Axis {axis.name} moved to {value}")
         self.send_data({
             "code": self.code,
 
@@ -323,7 +306,7 @@ class Pi:
                 "type": "Gamepad",
                 "pin": '0',
                 "value": axis.name,
-                "extra": (round(axis.x, 2), round(axis.y, 2))
+                "extra": value
             }
 
         })
