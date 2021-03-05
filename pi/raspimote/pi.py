@@ -278,15 +278,15 @@ class Pi:
             controller.axis_l.when_moved = self.on_axis_moved
             controller.axis_r.when_moved = self.on_axis_moved
             controller.hat.when_moved = self.on_axis_moved
-            controller.button_trigger_l = self.on_axis_moved
-            controller.button_trigger_r = self.on_axis_moved
+            controller.trigger_l = self.on_trigger_moved
+            controller.trigger_r = self.on_trigger_moved
 
             controller.button_a.when_pressed = self.on_button_pressed
             controller.button_b.when_pressed = self.on_button_pressed
             controller.button_x.when_pressed = self.on_button_pressed
             controller.button_y.when_pressed = self.on_button_pressed
-            controller.trigger_l.when_pressed = self.on_button_pressed
-            controller.trigger_r.when_pressed = self.on_button_pressed
+            controller.button_trigger_l.when_pressed = self.on_button_pressed
+            controller.button_trigger_r.when_pressed = self.on_button_pressed
             controller.button_thumb_l.when_pressed = self.on_button_pressed
             controller.button_thumb_r.when_pressed = self.on_button_pressed
             controller.button_select.when_pressed = self.on_button_pressed
@@ -308,8 +308,8 @@ class Pi:
 
         })
 
-    def on_trigger_moved(self, trigger, value):
-        self.log(f"Trigger pushed to {value}")
+    def on_trigger_moved(self, trigger):
+        self.log(f"Trigger pushed to {trigger.value}")
         self.send_data({
             "code": self.code,
 
@@ -317,7 +317,7 @@ class Pi:
                 "type": "Gamepad",
                 "pin": '0',
                 "value": trigger.name,
-                "extra": round(value, 2)
+                "extra": round(trigger.value, 2)
             }
 
         })
