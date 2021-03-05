@@ -9,7 +9,8 @@ if platform == "win32":
 elif platform == "linux":
     home = getenv("HOME")
     path.insert(1, f"{home}/.config/RaspiMote/custom_fcn")
-import custom_fcn
+
+#import custom_fcn
 
 
 

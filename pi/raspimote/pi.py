@@ -24,9 +24,6 @@ term_endc = '\033[0m'
 term_bold = '\033[1m'
 
 
-"""note à moi-même : tous les 10min, tenter un ping au serveur, si pas de réponse, lancer establish_connection() de nouveau"""
-
-
 class Pi:
     def __init__(self, ip, connection_mode, verbose=False):  # user_supported_devices could be a json file
         """
@@ -46,6 +43,7 @@ class Pi:
 
         elif connection_mode == "BT":
             self.connection_mode = connection_mode
+            print(term_fail, "Not supported connection mode", term_endc)
         else:
             print(term_fail, "Unknown connection mode", term_endc)
 
@@ -63,15 +61,9 @@ class Pi:
         self.server_url = f'{self.ip}:9876/action'
         self.request_headers = {"Content-Type": "application/json"}
 
-        self.display_info = True  # NEED TO ADD CHOICE
-
-        error_led_pin = 18
-        success_led_pin = 23
-
-        self.error_led = LED(18)
-        self.success_led = LED(23)
-        if self.display_info:
-            self.log(f"Displaying infos on {error_led_pin} and {success_led_pin}")
+        self.display_info = False
+        self.error_led = False
+        self.success_led = False
 
         self.has_ADC = False
         self.ADC = None
@@ -86,6 +78,12 @@ class Pi:
 
         self.buttons = []
         self.pins = []
+
+    def display_info(self, error_led_pin, success_led_pin):
+        self.error_led = LED(error_led_pin)
+        self.success_led = LED(success_led_pin)
+        if self.display_info:
+            self.log(f"Displaying infos on {error_led_pin} and {success_led_pin}")
 
     def add_buttons_configuration(self, config):
         """
