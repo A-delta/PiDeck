@@ -16,4 +16,4 @@ To realize this project, we recommend using a [Raspberry Pi Zero W](https://www.
 This project is co-developed by [@Firmin-Launay](https://github.com/Firmin-Launay) and [@A-delta](https://github.com/A-delta).
 
 ## Get support or submit an issue
-[![Generic badge]("https://img.shields.io/badge/Create a new-issue-green.svg")](https://shields.io/)
+[![Generic badge](https://img.shields.io/badge/Create%20a%20new-issue-green.svg)](https://shields.io/)
