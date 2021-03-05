@@ -309,7 +309,7 @@ class Pi:
         })
 
     def on_trigger_moved(self, trigger):
-        self.log(f"Trigger pushed to {trigger.value}")
+        self.log(f"Trigger pushed to {trigger.val}")
         self.send_data({
             "code": self.code,
 
@@ -317,7 +317,7 @@ class Pi:
                 "type": "Gamepad",
                 "pin": '0',
                 "value": trigger.name,
-                "extra": round(trigger.value, 2)
+                "extra": round(trigger.val, 2)
             }
 
         })
