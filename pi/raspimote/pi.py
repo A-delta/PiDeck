@@ -273,16 +273,20 @@ class Pi:
 
         self.has_gamepad = True
 
-        with Xbox360Controller(raw_mode=False) as controller:
+        with Xbox360Controller() as controller:
             print("configuring gamepad")
             for b in controller.buttons:
                 b.when_pressed = self.on_button_pressed
 
-            for a in controller.axes:
-                print(a.name)
-                a.when_moved = self.on_axis_moved_raw
+            controller.axis_l = self.on_axis_moved
+            controller.axis_r = self.on_axis_moved
+            controller.hat = self.on_axis_moved
 
-            pause()
+        with Xbox360Controller(raw_mode=True) as controller:
+            controller.abs_rz = self.on_axis_moved_raw
+            controller.abs_z = self.on_axis_moved_raw
+
+        pause()
 
     def on_button_pressed(self, button):
         self.log('Button {0} was pressed'.format(button.name))
