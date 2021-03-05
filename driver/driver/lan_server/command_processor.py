@@ -1,6 +1,7 @@
 # 2021 RaspiMote
 # https://github.com/RaspiMote
 
+import datetime
 from built_in_fcn.actions import type_text, run_command
 from os import getenv, path
 from sys import platform
@@ -31,7 +32,7 @@ def parse_data(json):
     Do not delete the first chunk of code below.
     """
 
-    print(json)
+    print(datetime.datetime.now().strftime('%H:%M:%S'), ' >> ', json)
 
     request = json["request"]
     type_device = request["type"]
