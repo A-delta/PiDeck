@@ -1,10 +1,9 @@
 from cheroot.wsgi import Server as WSGIServer
 from cheroot.wsgi import PathInfoDispatcher as WSGIPathInfoDispatcher
 from cheroot.ssl.builtin import BuiltinSSLAdapter
+from sys import argv
 
 from lan_server import app
-
-from sys import argv
 
 
 if "-verbose" in argv or "-v" in argv:
