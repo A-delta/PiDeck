@@ -13,6 +13,6 @@ server.ssl_adapter =  BuiltinSSLAdapter(ssl_cert, ssl_key, None)
 
 if __name__ == '__main__':
    try:
-      server.start()
+      server.start(verbose=True)
    except KeyboardInterrupt:
       server.stop()
