@@ -16,4 +16,4 @@ To realize this project, we recommend using a [Raspberry Pi Zero W](https://www.
 This project is co-developed by [@Firmin-Launay](https://github.com/Firmin-Launay) and [@A-delta](https://github.com/A-delta).
 
 ## Get support or submit an issue
-[![Generic badge](https://img.shields.io/badge/Create%20a%20new-issue-green.svg)](https://shields.io/)
+[![Create a new issue on GitHub](https://img.shields.io/badge/Create%20a%20new-issue-brightgreen.svg)](https://github.com/RaspiMote/RaspiMote/issues/new)    [![Get support via e-mail](https://img.shields.io/badge/Get%20help%20via-e--mail-orange.svg)](mailto:hello@raspimote.tk)    [![Generic badge](https://img.shields.io/badge/Join%20our%20support-Discord%20 server-blue.svg)](https:/discord.gg/HzFAfCj2u9)
