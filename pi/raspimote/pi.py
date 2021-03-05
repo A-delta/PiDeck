@@ -273,18 +273,13 @@ class Pi:
 
         self.has_gamepad = True
 
-        with Xbox360Controller() as controller:
+        with Xbox360Controller(raw_mode=True) as controller:
             print("configuring gamepad")
             for b in controller.buttons:
                 b.when_pressed = self.on_button_pressed
 
-            controller.axis_l = self.on_axis_moved
-            controller.axis_r = self.on_axis_moved
-            controller.hat = self.on_axis_moved
-
-        with Xbox360Controller(raw_mode=True) as controller:
-            controller.abs_rz = self.on_axis_moved_raw
-            controller.abs_z = self.on_axis_moved_raw
+            for x in controller.axis:
+                x.when_moved = self.on_axis_moved_raw
 
         pause()
 
@@ -301,17 +296,6 @@ class Pi:
 
         })
 
-    def on_axis_moved(self, axis):
-        self.log('Axis {0} moved to {1} {2}'.format(axis.name, axis.x, axis.y))
-        self.send_data({
-            "code": self.code,
-            "request": {
-                "type": "Gamepad",
-                "pin": '0',
-                "value": axis.name,
-                "extra": (round(axis.x, 2), round(axis.y, 2))
-            }
-        })
 
     def on_axis_moved_raw(self, axis):
         value = axis.value
