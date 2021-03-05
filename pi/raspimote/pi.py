@@ -279,6 +279,7 @@ class Pi:
                 b.when_pressed = self.on_button_pressed
 
             for a in controller.axes:
+                print(a.name)
                 a.when_moved = self.on_axis_moved_raw
 
             pause()
