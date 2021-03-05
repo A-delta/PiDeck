@@ -150,9 +150,8 @@ class Pi:
 
             self.log(f"{term_warning}[WAITING] Connection from Driver{term_endc}")
 
-            if self.display_info:
-                led = Thread(name='Connection Blink LED', target=self.show_connection)
-                led.start()
+            led = Thread(name='Connection Blink LED', target=self.show_connection)
+            led.start()
 
             old_cwd = getcwd()
 
@@ -373,31 +372,34 @@ class Pi:
                             idle = 0
 
     def show_connection(self):
-        for _ in range(3):
+        if self.display_info:
+            for _ in range(3):
+                self.success_led.on()
+                sleep(0.1)
+                self.success_led.off()
+                self.error_led.on()
+                sleep(0.1)
+                self.error_led.off()
+
+    def show_success(self):
+        if self.display_info:
             self.success_led.on()
             sleep(0.1)
             self.success_led.off()
+            sleep(0.1)
+            self.success_led.on()
+            sleep(0.1)
+            self.success_led.off()
+
+    def show_error(self):
+        if self.display_info:
             self.error_led.on()
             sleep(0.1)
             self.error_led.off()
-
-    def show_success(self):
-        self.success_led.on()
-        sleep(0.1)
-        self.success_led.off()
-        sleep(0.1)
-        self.success_led.on()
-        sleep(0.1)
-        self.success_led.off()
-
-    def show_error(self):
-        self.error_led.on()
-        sleep(0.1)
-        self.error_led.off()
-        sleep(0.1)
-        self.error_led.on()
-        sleep(0.1)
-        self.error_led.off()
+            sleep(0.1)
+            self.error_led.on()
+            sleep(0.1)
+            self.error_led.off()
 
     def event_button(self, button):
         pin = self.pins[self.buttons.index(button)]
