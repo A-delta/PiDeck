@@ -131,7 +131,10 @@ dmypy.json
 # Pycharm
 .idea
 
-#macOS
+# macOS
 
 ._*
 .DS_Store
+
+# Visual Studio
+.vs/
