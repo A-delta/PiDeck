@@ -278,10 +278,10 @@ class Pi:
             for b in controller.buttons:
                 b.when_pressed = self.on_button_pressed
 
-            for x in controller.axes:
-                x.when_moved = self.on_axis_moved_raw
+            for a in controller.axes:
+                a.when_moved = self.on_axis_moved_raw
 
-        pause()
+            pause()
 
     def on_button_pressed(self, button):
         self.log('Button {0} was pressed'.format(button.name))
@@ -295,7 +295,6 @@ class Pi:
             }
 
         })
-
 
     def on_axis_moved_raw(self, axis):
         value = axis.value
