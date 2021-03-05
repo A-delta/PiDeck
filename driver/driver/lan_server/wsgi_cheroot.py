@@ -4,15 +4,23 @@ from cheroot.ssl.builtin import BuiltinSSLAdapter
 
 from lan_server import app
 
-my_app = WSGIPathInfoDispatcher({'/': app}, verbose=True)
-server = WSGIServer(('0.0.0.0', 9876), my_app, verbose=True)
+from sys import argv
+
+
+if "-verbose" in argv or "-v" in argv:
+   verbose = True
+else:
+   verbose = False
+
+my_app = WSGIPathInfoDispatcher({'/': app}, verbose=verbose)
+server = WSGIServer(('0.0.0.0', 9876), my_app, verbose=verbose)
 
 ssl_cert = "cert.pem"
 ssl_key = "key.key"
-server.ssl_adapter =  BuiltinSSLAdapter(ssl_cert, ssl_key, verbose=True)
+server.ssl_adapter =  BuiltinSSLAdapter(ssl_cert, ssl_key, verbose=verbose)
 
 if __name__ == '__main__':
    try:
-      server.start(verbose=True)
+      server.start(verbose=verbose)
    except KeyboardInterrupt:
       server.stop()

@@ -163,8 +163,9 @@ class Driver:
 
         chdir(path.join(self.driver_path, "lan_server"))
 
-        if self.platform == "win32" or self.platform == "linux":
-            system('python wsgi_cheroot.py') # !!! Modify for release (python --> C:\Program Files\RaspiMote\py\python.exe) !!!
+        if self.platform == "win32":
+            vb_arg = ['', ' -v'][int(self.verbose)]
+            system(f'python wsgi_cheroot.py{vb_arg}') # !!! Modify for release (python --> C:\Program Files\RaspiMote\py\python.exe) !!!
         
         elif self.platform == "linux":
             system('/usr/bin/python3 wsgi_cheroot.py')

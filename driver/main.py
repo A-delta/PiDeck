@@ -6,7 +6,7 @@ from sys import argv
 from driver.driver import Driver
 
 def main(argv):
-    if "-verbose" in argv or '-v' in argv:
+    if "-verbose" in argv or "-v" in argv:
         verbose = True
     else:
         verbose = False
