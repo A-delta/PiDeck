@@ -301,6 +301,18 @@ class Pi:
 
         })
 
+    def on_axis_moved(self, axis):
+        self.log('Axis {0} moved to {1} {2}'.format(axis.name, axis.x, axis.y))
+        self.send_data({
+            "code": self.code,
+            "request": {
+                "type": "Gamepad",
+                "pin": '0',
+                "value": axis.name,
+                "extra": (round(axis.x, 2), round(axis.y, 2))
+            }
+        })
+
     def on_axis_moved_raw(self, axis):
         value = axis.value
         self.log(f"Axis {axis.name} moved to {value}")
