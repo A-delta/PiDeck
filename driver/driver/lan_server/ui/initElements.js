@@ -38,10 +38,10 @@ function init() {
             if (inventory != false) {
 
                 for (var button of inventory["GPIO_buttons"]) {
-                    items.push("GPIO " + button["pin"]);
+                    items.push("GPIO " + button);
                 }
                 if ("ADC" in inventory) {
-                    var ADC = inventory["ADC"]["number_channels"];
+                    var ADC = inventory["ADC"];
                 }
                 else {
                     var ADC = 0;
