@@ -1,1 +1,0 @@
-This folder is dedicated to custom functions and files to use in **command_processor/parse_data() function** file and is restricted to advanced users.

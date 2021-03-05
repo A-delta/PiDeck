@@ -1,8 +1,16 @@
 # -*- coding: utf-8 -*-
 
-from os import system
-from sys import platform
+from os import system, getenv
+from sys import platform, path
 from keyboard import send as press, write
+if platform == "win32":
+    appdata = getenv("APPDATA")
+    path.insert(1, f"{appdata}\\RaspiMote\\custom_fcn")
+elif platform == "linux":
+    home = getenv("HOME")
+    path.insert(1, f"{home}/.config/RaspiMote/custom_fcn")
+import custom_fcn
+
 
 
 def press_key(action, value):
