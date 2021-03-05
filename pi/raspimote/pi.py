@@ -149,8 +149,10 @@ class Pi:
                 self.log(f"{term_fail}Timeout!{term_endc}")
 
             self.log(f"{term_warning}[WAITING] Connection from Driver{term_endc}")
-            led = Thread(name='Connection Blink LED', target=self.show_connection)
-            led.start()
+
+            if self.display_info:
+                led = Thread(name='Connection Blink LED', target=self.show_connection)
+                led.start()
 
             old_cwd = getcwd()
 
