@@ -52,6 +52,8 @@ goto check_Permissions
 
     mkdir C:\Users\%USERNAME%\AppData\Roaming\RaspiMote\tmp
 
+    mkdir C:\Users\%USERNAME%\AppData\Roaming\RaspiMote\custom_fcn
+
     echo [[92mv[0m] RaspiMote code copied to installation folder.
 
     curl -s -L -o "C:\Users\%USERNAME%\Downloads\python_embeddable.zip" "https://www.python.org/ftp/python/3.9.2/python-3.9.2-embed-amd64.zip"
@@ -84,7 +86,10 @@ goto check_Permissions
     
     powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_assets\init.cmd' 'C:\Program Files\RaspiMote' -erroraction 'silentlycontinue'"
 
+    powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\common_assets\custom_fcn.py' 'C:\Users\%USERNAME%\AppData\Roaming\RaspiMote\custom_fcn' -erroraction 'silentlycontinue'"
+
     powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_install.cmd' 'C:\Program Files\RaspiMote\install.cmd' -erroraction 'silentlycontinue'"
+
 
     Rem Copy binary for run-at-startup.dart
 
