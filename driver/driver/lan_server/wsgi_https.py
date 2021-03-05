@@ -1,5 +1,5 @@
-from cheroot.wsgi import Server as WSGIServer, PathInfoDispatcher as WSGIPathInfoDispatcher
-from cheroot.ssl.builtin import BuiltinSSLAdapter
+from raspimote_https.wsgi import Server as WSGIServer, PathInfoDispatcher as WSGIPathInfoDispatcher
+from raspimote_https.ssl.builtin import BuiltinSSLAdapter
 from sys import argv
 
 from lan_server import app
