@@ -285,8 +285,8 @@ class Pi:
             controller.button_b.when_pressed = self.on_button_pressed
             controller.button_x.when_pressed = self.on_button_pressed
             controller.button_y.when_pressed = self.on_button_pressed
-            controller.trigger_l.when_moved = self.on_button_pressed
-            controller.trigger_r.when_moved = self.on_button_pressed
+            controller.trigger_l.when_pressed = self.on_button_pressed
+            controller.trigger_r.when_pressed = self.on_button_pressed
             controller.button_thumb_l.when_pressed = self.on_button_pressed
             controller.button_thumb_r.when_pressed = self.on_button_pressed
             controller.button_select.when_pressed = self.on_button_pressed
