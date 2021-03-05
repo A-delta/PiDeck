@@ -5,7 +5,7 @@ function saveKeyboardKey() {
         window.alert("Non-critical error: Your platform doesn't seem to be supported.");
     }
     const url = "https://localhost:9876/config";
-    var data = {'port': document.getElementById('element').value, 'action_type': 'press_key', 'key': document.getElementById('keyboardKey').value};
+    var data = {'port': document.getElementById('element').value, 'keyboard_key': document.getElementById('physicalKeyboardKey').value, 'action_type': 'press_key', 'key': document.getElementById('keyboardKey').value};
     $.ajax({
         url: url,
         type: "POST",
@@ -35,7 +35,7 @@ function saveKeyboardText() {
         window.alert("Non-critical error: Your platform doesn't seem to be supported.");
     }
     const url = "https://localhost:9876/config";
-    var data = {'port': document.getElementById('element').value, 'action_type': 'type_text', 'text': document.getElementById('keyboardText').value};
+    var data = {'port': document.getElementById('element').value, 'keyboard_key': document.getElementById('physicalKeyboardKey').value, 'action_type': 'type_text', 'text': document.getElementById('keyboardText').value};
     $.ajax({
         url: url,
         type: "POST",
@@ -65,7 +65,7 @@ function saveKeyboardCommand() {
         window.alert("Non-critical error: Your platform doesn't seem to be supported.");
     }
     const url = "https://localhost:9876/config";
-    var data = {'port': document.getElementById('element').value, 'action_type': 'run_command', 'command': document.getElementById('keyboardCommand').value};
+    var data = {'port': document.getElementById('element').value, 'keyboard_key': document.getElementById('physicalKeyboardKey').value, 'action_type': 'run_command', 'command': document.getElementById('keyboardCommand').value};
     $.ajax({
         url: url,
         type: "POST",
@@ -94,7 +94,7 @@ function saveKeyboardCustom() {
         window.alert("Non-critical error: Your platform doesn't seem to be supported.");
     }
     const url = "https://localhost:9876/config";
-    var data = {'port': document.getElementById('element').value, 'action_type': 'run_custom_function', 'function_name': document.getElementById('functionKeyboardName').value};
+    var data = {'port': document.getElementById('element').value, 'keyboard_key': document.getElementById('physicalKeyboardKey').value, 'action_type': 'run_custom_function', 'function_name': document.getElementById('functionKeyboardName').value};
     $.ajax({
         url: url,
         type: "POST",

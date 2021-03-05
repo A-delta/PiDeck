@@ -20,3 +20,8 @@ function keyboardCommandValidation(element) {
 function keyboardCustomValidation(element) {
     document.getElementById('keyboardCustomValidate').style.display = element.value != "" ? 'block' : 'none';
 }
+
+function showTypeKeyboardKey(element) {
+    document.getElementById('typeKeyboardKey').style.display = element.value != "none" ? 'block' : 'none';
+    console.log('oof')
+}

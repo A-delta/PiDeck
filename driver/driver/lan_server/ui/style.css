@@ -3,10 +3,11 @@ html {
 }
 
 body {
-    height: 98%;
+    height: 95%;
     margin: 10px;
     padding: 0px;
-    background-color: #929292
+    background-color: #929292;
+    overflow: hidden;
 }
 
 .container {
@@ -17,7 +18,7 @@ body {
 
 .container .upbar {
     background-color: #929292;
-    height: 40%;
+    height: 30%;
 }
 
 .container .content {
@@ -55,7 +56,7 @@ p {
     font-size: 5px;
 }
 
-#typeButton, #buttonPressKey, #buttonKeyValidate, #buttonTypeText, #buttonTextValidate, #buttonCommandFunction, #buttonCommandValidate, #buttonCustomFunction, #buttonCustomValidate, #typeADC, #adcVolumeValidate, #adcCustomFunction, #adcCustomValidate, #typeKeyboard, #keyboardPressKey, #keyboardKeyValidate, #keyboardTypeText, #keyboardTextValidate, #keyboardCommandFunction, #keyboardCommandValidate, #keyboardCustomFunction, #keyboardCustomValidate {
+#typeButton, #buttonPressKey, #buttonKeyValidate, #buttonTypeText, #buttonTextValidate, #buttonCommandFunction, #buttonCommandValidate, #buttonCustomFunction, #buttonCustomValidate, #typeADC, #adcVolumeValidate, #adcCustomFunction, #adcCustomValidate, #typeKeyboard, #typeKeyboardKey, #keyboardPressKey, #keyboardKeyValidate, #keyboardTypeText, #keyboardTextValidate, #keyboardCommandFunction, #keyboardCommandValidate, #keyboardCustomFunction, #keyboardCustomValidate {
     display: none;
 }
 
@@ -75,4 +76,15 @@ p {
 	height: 100%;
 	z-index: 9999;
 	background: url(loading.gif) center no-repeat #fff;
+}
+
+text {
+    font-family: "Open Sans";
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.open_editor {
+    text-align: right;
 }

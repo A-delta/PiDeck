@@ -12,6 +12,7 @@ from json import load, loads, dumps
 from os import path, getenv
 from time import time
 from sys import platform
+from subprocess import run
 
 
 from built_in_fcn import actions
@@ -95,63 +96,63 @@ def config_css():
 @app.route('/initElements.js')
 def config_js1():
     if request.remote_addr == "127.0.0.1":
-        return send_file("ui/initElements.js")
+        return send_file("ui/js/initElements.js", mimetype="text/javascript")
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
 @app.route('/showHide.js')
 def config_js2():
     if request.remote_addr == "127.0.0.1":
-        return send_file("ui/showHide.js")
+        return send_file("ui/js/showHide.js", mimetype="text/javascript")
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
 @app.route('/showHideButton.js')
 def config_js3():
     if request.remote_addr == "127.0.0.1":
-        return send_file("ui/showHideButton.js")
+        return send_file("ui/js/showHideButton.js", mimetype="text/javascript")
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
     
 @app.route('/showHideADC.js')
 def config_js4():
     if request.remote_addr == "127.0.0.1":
-        return send_file("ui/showHideADC.js")
+        return send_file("ui/js/showHideADC.js", mimetype="text/javascript")
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
 @app.route('/showHideKeyboard.js')
 def config_js5():
     if request.remote_addr == "127.0.0.1":
-        return send_file("ui/showHideKeyboard.js")
+        return send_file("ui/js/showHideKeyboard.js", mimetype="text/javascript")
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
 @app.route('/saveButton.js')
 def config_js6():
     if request.remote_addr == "127.0.0.1":
-        return send_file("ui/saveButton.js")
+        return send_file("ui/js/saveButton.js", mimetype="text/javascript")
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
 @app.route('/saveADC.js')
 def config_js7():
     if request.remote_addr == "127.0.0.1":
-        return send_file("ui/saveADC.js")
+        return send_file("ui/js/saveADC.js", mimetype="text/javascript")
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
 @app.route('/saveKeyboard.js')
 def config_js8():
     if request.remote_addr == "127.0.0.1":
-        return send_file("ui/saveKeyboard.js")
+        return send_file("ui/js/saveKeyboard.js", mimetype="text/javascript")
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
 @app.route('/jquery-3.5.1.min.js')
 def config_jquery():
     if request.remote_addr == "127.0.0.1":
-        return send_file("ui/jquery-3.5.1.min.js")
+        return send_file("ui/js/jquery-3.5.1.min.js", mimetype="text/javascript")
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
@@ -186,6 +187,30 @@ def config_get_inventory():
             return "INVENTORY_NOT_FOUND", 500
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
+
+
+@app.route('/open_editor', methods = ['POST'])
+def open_editor():
+    if request.remote_addr == "127.0.0.1":
+        if platform == "win32":
+            try:
+                run(["C:\\Program Files\\RaspiMote\\py\\pythonw.exe", "C:\\Program Files\\RaspiMote\\py\\Lib\\idlelib\\idle.py", f"{config_file_path}\\custom_fcn\\custom_fcn.py"])
+                return "True"
+            except:
+                pass
+            try:
+                run(["code", f"{config_file_path}\\custom_fcn\\custom_fcn.py"])
+                return "True"
+            except:
+                pass
+            try:
+                run(["notepad", f"{config_file_path}\\custom_fcn\\custom_fcn.py"])
+                return "True"
+            except:
+                pass
+            return "False"
+    else:
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can open an editor.</h2>', 403
 
 @app.route('/test')
 def test():

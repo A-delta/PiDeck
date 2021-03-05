@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
     <head>
         <title>RaspiMote ─ configuration</title>
@@ -18,6 +18,10 @@
 
     <body>
         <div class="gif-loading"></div>
+
+        <div class="open_editor" onclick="openEditor()">
+            <text>Open editor (custom functions)</text>
+        </div>
 
         <table class="container">
             <tr>
@@ -144,64 +148,69 @@
                     <!-- FOR KEYBOARDS (= GPIO) -->
                     <div id="typeKeyboard">
                         <p>&nbsp;</p>
-                        <select name="Action" id="keyboardAction" onchange="showKeyboardPlus(this)">
-                            <option value="none">
-                                &nbsp;
-                            </option>
-                            <option value="key">
-                                Press key
-                            </option>
-                            <option value="text">
-                                Type text
-                            </option>
-                            <option value="command">
-                                Run command
-                            </option>
-                            <option value="custom">
-                                Run custom function
-                            </option>
-                        </select>
-                        <div id="keyboardPressKey">
+                        <select name="Key" id="physicalKeyboardKey" onchange="showTypeKeyboardKey(this)"></select>
+                        <div id="typeKeyboardKey">
                             <p>&nbsp;</p>
-                            <select name="Key" id="keyboardKey" onchange="keyboardKeyValidation(this)"></select>
-                            <div id="keyboardKeyValidate">
+                            <select name="Action" id="keyboardAction" onchange="showKeyboardPlus(this)">
+                                <option value="none">
+                                    &nbsp;
+                                </option>
+                                <option value="key">
+                                    Press key
+                                </option>
+                                <option value="text">
+                                    Type text
+                                </option>
+                                <option value="command">
+                                    Run command
+                                </option>
+                                <option value="custom">
+                                    Run custom function
+                                </option>
+                            </select>
+                            <div id="keyboardPressKey">
                                 <p>&nbsp;</p>
-                                <button onclick="saveKeyboardKey()">
-                                    Save
-                                </button>
+                                <select name="Key" id="keyboardKey" onchange="keyboardKeyValidation(this)"></select>
+                                <div id="keyboardKeyValidate">
+                                    <p>&nbsp;</p>
+                                    <button onclick="saveKeyboardKey()">
+                                        Save
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div id="keyboardTypeText">
-                            <p>&nbsp;</p>
-                            <input id="keyboardText" onchange="keyboardTextValidation(this)">
-                            <div id="keyboardTextValidate">
+                            <div id="keyboardTypeText">
                                 <p>&nbsp;</p>
-                                <button onclick="saveKeyboardText()">
-                                    Save
-                                </button>
+                                <input id="keyboardText" onchange="keyboardTextValidation(this)">
+                                <div id="keyboardTextValidate">
+                                    <p>&nbsp;</p>
+                                    <button onclick="saveKeyboardText()">
+                                        Save
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div id="keyboardCommandFunction">
-                            <p>&nbsp;</p>
-                            <input id="keyboardCommand" onchange="keyboardCommandValidation(this)">
-                            <div id="keyboardCommandValidate">
+                            <div id="keyboardCommandFunction">
                                 <p>&nbsp;</p>
-                                <button onclick="saveKeyboardCommand()">
-                                    Save
-                                </button>
+                                <input id="keyboardCommand" onchange="keyboardCommandValidation(this)">
+                                <div id="keyboardCommandValidate">
+                                    <p>&nbsp;</p>
+                                    <button onclick="saveKeyboardCommand()">
+                                        Save
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div id="keyboardCustomFunction">
-                            <p>&nbsp;</p>
-                            <input id="functionKeyboardName" onchange="keyboardCustomValidation(this)">
-                            <div id="keyboardCustomValidate">
+                            <div id="keyboardCustomFunction">
                                 <p>&nbsp;</p>
-                                <button onclick="saveKeyboardCustom()">
-                                    Save
-                                </button>
+                                <input id="functionKeyboardName" onchange="keyboardCustomValidation(this)">
+                                <div id="keyboardCustomValidate">
+                                    <p>&nbsp;</p>
+                                    <button onclick="saveKeyboardCustom()">
+                                        Save
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    
                 </td>
             </tr>
         </table>
