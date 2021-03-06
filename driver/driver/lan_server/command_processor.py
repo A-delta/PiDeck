@@ -32,7 +32,7 @@ def parse_data(json):
     Do not delete the first chunk of code below.
     """
 
-    print(datetime.datetime.now().strftime('%H:%M:%S'), ' >> ', json)
+    print(datetime.datetime.now().strftime('%H:%M:%S'), '>> ', json)
 
     request = json["request"]
     type_device = request["type"]
