@@ -50,7 +50,7 @@ class Driver:
 
         if self.platform == "linux":
 
-            self.config_file_path = f"{getenv('HOME')}/.config/RaspiMote/pi_ip.pi"
+            self.config_file_path = f"{getenv('HOME')}/.config/RaspiMote/pi_ip.raspimote"
         elif self.platform == "win32":
 
             self.appdata_path = getenv('APPDATA')
@@ -58,7 +58,7 @@ class Driver:
                 mkdir(path.join(self.appdata_path, "RaspiMote"))
 
             self.appdata_path = path.join(self.appdata_path, "RaspiMote")
-            self.config_file_path = path.join(self.appdata_path, "pi_ip.pi")
+            self.config_file_path = path.join(self.appdata_path, "pi_ip.raspimote")
 
 
 
@@ -88,9 +88,9 @@ class Driver:
 
     def new_ip(self):
         if self.platform == "linux":
-            config_file_path = f"{getenv('HOME')}/.config/RaspiMote/pi_ip.pi"
+            config_file_path = f"{getenv('HOME')}/.config/RaspiMote/pi_ip.raspimote"
         elif self.platform == "win32":
-            config_file_path = f"{getenv('APPDATA')}\\RaspiMote\\pi_ip.pi"
+            config_file_path = f"{getenv('APPDATA')}\\RaspiMote\\pi_ip.raspimote"
         
         self.ip = input("Raspberry Pi's IP address : ")
 
