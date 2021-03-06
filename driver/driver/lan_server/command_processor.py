@@ -22,7 +22,7 @@ def makeInventory(json):
     elif platform == "win32":
         file_path = f"{getenv('APPDATA')}\\RaspiMote"
 
-    with open (path.join(file_path, "inventory.raspimote"), "w") as inventory:
+    with open (path.join(file_path, "inventory.pi"), "w") as inventory:
         inventory.write(dumps(json["request"]["inventory"]))
 
 

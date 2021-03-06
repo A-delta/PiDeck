@@ -25,7 +25,7 @@ if platform == "linux":
 elif platform == "win32":
     config_file_path = f"{getenv('APPDATA')}\\RaspiMote"
 
-file = load(open(path.join(config_file_path, "pi_ip.raspimote")))
+file = load(open(path.join(config_file_path, "pi_ip.pi")))
 pi_ip = file["ip"]
 connection_code = file["code"]
 
@@ -56,7 +56,7 @@ def config():
     if request.remote_addr == "127.0.0.1":
         conf_req = loads(list(request.form.to_dict().keys())[0])
         try:
-            with open(path.join(config_file_path, "trigger_actions.raspimote"), "r") as trg_actions:        
+            with open(path.join(config_file_path, "trigger_actions.pi"), "r") as trg_actions:
                 trigger_actions = loads(trg_actions.read())
         except FileNotFoundError:
             trigger_actions = []
@@ -69,7 +69,7 @@ def config():
         new_trigger_actions.append(conf_req)
 
 
-        with open(path.join(config_file_path, "trigger_actions.raspimote"), "w") as trg_actions:
+        with open(path.join(config_file_path, "trigger_actions.pi"), "w") as trg_actions:
             trg_actions.write(dumps(new_trigger_actions))
 
 
@@ -181,7 +181,7 @@ def gif_loading():
 def config_get_inventory():
     if request.remote_addr == "127.0.0.1":
         try:
-            with open (path.join(config_file_path, "inventory.raspimote"), "r") as inventory:
+            with open (path.join(config_file_path, "inventory.pi"), "r") as inventory:
                 return inventory.read()
         except FileNotFoundError:
             return "INVENTORY_NOT_FOUND", 500
