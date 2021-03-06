@@ -2,7 +2,7 @@
 # 2021 RaspiMote
 # https://github.com/RaspiMote
 
-from raspimote.pi import Pi
+from pi.pi import Pi
 from sys import argv
 
 
