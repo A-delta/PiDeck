@@ -12,7 +12,7 @@ class Mixin:
         self.gamepads.append([])
         try:
             with Xbox360Controller(index, raw_mode=True) as controller:
-                print("configuring gamepad")
+                print("configuring gamepad ", index)
                 for b in controller.buttons:
                     b.when_pressed = self.on_button_pressed
                     self.gamepads[index].append(b)
@@ -52,6 +52,15 @@ class Mixin:
         })
 
     def on_axis_moved_raw(self, axis):
+
+        i = 0
+        for c in self.gamepads:
+
+            if axis in c:
+                pin = i
+                break
+            i += 1
+
         value = axis.value
         self.log(f"Axis {axis.name} moved to {value}")
         self.send_data({
@@ -59,9 +68,9 @@ class Mixin:
 
             "request": {
                 "type": "Gamepad",
-                "pin": '0',
+                "pin": i,
                 "value": axis.name,
-                "extra": value
+                "extra": round(value, 2)
             }
 
         })
