@@ -3,33 +3,49 @@ from signal import pause
 
 
 class Mixin:
-    def add_gamepad_device(self):
-        usb_device_thread = Thread(name="Gamepad configuring", target=self.configure_gamepad)
+    def add_gamepad_device(self, index):
+        usb_device_thread = Thread(name="Gamepad configuring", target=self.configure_gamepad, args=[index])
         usb_device_thread.start()
 
-    def configure_gamepad(self):
+    def configure_gamepad(self, index):
         from xbox360controller import Xbox360Controller
-        self.has_gamepad = True
+        self.gamepads.append([])
         try:
-            with Xbox360Controller(raw_mode=True) as controller:
+            with Xbox360Controller(index, raw_mode=True) as controller:
                 print("configuring gamepad")
                 for b in controller.buttons:
                     b.when_pressed = self.on_button_pressed
+                    self.gamepads[index].append(b)
 
                 for a in controller.axes:
                     a.when_moved = self.on_axis_moved_raw
+                    self.gamepads[index].append(a)
+
                 pause()
+
         except Exception as error:
             print(f"{self.term_fail}No USB Controller connected. Skipped. \nError : {error}{self.term_endc}")
 
+
+
+
     def on_button_pressed(self, button):
+
+        i = 0
+        for c in self.gamepads:
+
+            if button in c:
+                pin = i
+                break
+            i += 1
+
         self.log('Button {0} was pressed'.format(button.name))
         self.send_data({
             "code": self.code,
 
             "request": {
                 "type": "Gamepad",
-                "pin": '0',
+                "pin": i,
                 "value": button.name,
             }
 

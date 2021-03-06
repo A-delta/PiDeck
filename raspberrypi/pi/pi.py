@@ -71,7 +71,6 @@ class Pi(
         self.usb_devices = []
         self.usb_channels = []
 
-        self.has_gamepad = False
         self.gamepads = []
 
         self.buttons = []
