@@ -3,6 +3,7 @@
 
 from . import configuration, running, USB_Devices, controller_devices, ADC_Devices
 from urllib3 import disable_warnings as urllib_disable_warnings, exceptions as urllib3_exceptions
+from os import getenv
 
 urllib_disable_warnings()
 
