@@ -282,8 +282,8 @@ class Pi:
                 for a in controller.axes:
                     a.when_moved = self.on_axis_moved_raw
                 pause()
-        except FileNotFoundError:
-            print(f"{term_fail}No USB Controller connected. Skipped.{term_endc}")
+        except as error:
+            print(f"{term_fail}No USB Controller connected. Skipped. \n {error}{term_endc}")
 
     def on_button_pressed(self, button):
         self.log('Button {0} was pressed'.format(button.name))
