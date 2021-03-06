@@ -1,16 +1,7 @@
 # 2021 RaspiMote
 # https://github.com/RaspiMote
 
-import configuration, running, USB_Devices, controller_devices, ADC_Devices
-
-
-
-
-
-
-
-
-
+from . import configuration, running, USB_Devices, controller_devices, ADC_Devices
 from urllib3 import disable_warnings as urllib_disable_warnings, exceptions as urllib3_exceptions
 
 urllib_disable_warnings()

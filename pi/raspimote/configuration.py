@@ -3,6 +3,8 @@ from os import getcwd, chdir, path
 from json import loads
 from signal import pause
 from threading import Thread
+from subprocess import run
+
 
 class Mixin:
     def display_info(self, error_led_pin, success_led_pin):
