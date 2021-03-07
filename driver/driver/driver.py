@@ -91,15 +91,15 @@ class Driver:
             config_file_path = f"{getenv('HOME')}/.config/RaspiMote/pi_ip.raspimote"
         elif self.platform == "win32":
             config_file_path = f"{getenv('APPDATA')}\\RaspiMote\\pi_ip.raspimote"
-        
+
         self.ip = input("Raspberry Pi's IP address : ")
 
 
         with open(self.config_file_path, 'w') as pi_ip:
             pi_ip.write(dumps({"ip": self.ip, "code": self.code}))
-        
+
         return_to_est = self.establish_connection()
-        
+
         return return_to_est
 
 
@@ -135,7 +135,7 @@ class Driver:
         else:
             print("Aborting process.")
             _exit(1)
-        
+
 
     def watchdog(self):
         time.sleep(2)
@@ -167,7 +167,8 @@ class Driver:
 
         if self.platform == "win32":
             system(f'python wsgi_https.py{vb_arg}') # !!! Modify for release (python --> C:\Program Files\RaspiMote\py\python.exe) !!!
-        
+            #  for release : if verbose then  use installed python for easy development
+
         elif self.platform == "linux":
             system(f'/usr/bin/python3 wsgi_https.py{vb_arg}')
 
