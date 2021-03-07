@@ -13,10 +13,9 @@ def main(argv):
         verbose = False
 
     pi = Pi("192.168.1.16", "WiFi", verbose)
-    pi.add_gamepad_device(0)
-    pi.add_gamepad_device(1)
-    pi.add_USB_Device(1, "mouse")
-    pi.add_USB_Device(3, "num_pad")
+
+    pi.add_generic_USB_device(0, "mouseblue")
+    pi.add_generic_USB_device(1, "numpad")
 
     pi.establish_connection()
 
