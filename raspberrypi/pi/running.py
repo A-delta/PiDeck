@@ -79,6 +79,16 @@ class Mixin:
         else:
             start = 0
 
+        if type(data) != dict:
+
+            data = {"code": self.code,
+                    "request":
+                        {"type": data[0],
+                         "id": data[1],
+                         "event_type": data[2],
+                         "value": data[3]}
+                    }
+
         content = dumps(data)
 
         try:
