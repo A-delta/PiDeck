@@ -89,7 +89,6 @@ class Mixin:
             self.log(f"{self.term_fail}Error. at {self.term_bold}{datetime.datetime.now().time()}{self.term_endc}")
             error_LED_thread = Thread(name='Blink LED', target=self.show_error)
             error_LED_thread.start()
-            # self.reconnect()
             return
 
         if r.status_code == codes.ok:
