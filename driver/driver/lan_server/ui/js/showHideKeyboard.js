@@ -23,5 +23,4 @@ function keyboardCustomValidation(element) {
 
 function showTypeKeyboardKey(element) {
     document.getElementById('typeKeyboardKey').style.display = element.value != "none" ? 'block' : 'none';
-    console.log('oof')
 }
