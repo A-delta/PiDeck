@@ -27,7 +27,7 @@ class Mixin:
                     "request": {
                         "type": "USB",
                         "pin": f"genereic_usb_{input_number}",
-                        "value": "scroll",
+                        "value": event.type,
                         "extra": event.value
                     }
                 })

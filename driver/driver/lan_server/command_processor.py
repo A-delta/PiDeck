@@ -36,7 +36,7 @@ def parse_data(json):
 
     request = json["request"]
     type_device = request["type"]
-    pin = int(request["pin"])
+    pin = request["pin"]
     value = request["value"]
     try:
         extra = request["extra"]
