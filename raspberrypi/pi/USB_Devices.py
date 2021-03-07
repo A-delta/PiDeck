@@ -2,7 +2,7 @@ from threading import Thread
 
 
 class Mixin:
-    def add_USB_Device(self, input_number):
+    def add_USB_Device(self, input_number, device_name):
         """
         Add one or multiple USB devices, such as mouses (buttons) or keyboards.
         input_number can be found by running the provided script : /utility/identify_usb_device.py
@@ -16,7 +16,7 @@ class Mixin:
         except:
             print(f"{self.term_fail}USB Device {input_number} doesn't exist. Skipped.{self.term_endc}")
             return
-        self.usb_devices.append(usb)
+        self.usb_devices.append(device_name)
         self.usb_channels.append(input_number)
 
         self.log(f"USB Device added with input{input_number}")

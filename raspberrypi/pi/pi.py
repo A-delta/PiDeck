@@ -63,11 +63,9 @@ class Pi(
         self.error_led = False
         self.success_led = False
 
-        self.has_ADC = False
         self.ADC = None
         self.ADC_channels = 0
 
-        self.has_USB = False
         self.usb_devices = []
         self.usb_channels = []
 

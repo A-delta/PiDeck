@@ -26,11 +26,7 @@ class Mixin:
         except Exception as error:
             print(f"{self.term_fail}No USB Controller connected. Skipped. \nError : {error}{self.term_endc}")
 
-
-
-
     def on_button_pressed(self, button):
-
         i = 0
         for c in self.gamepads:
 
@@ -52,10 +48,8 @@ class Mixin:
         })
 
     def on_axis_moved_raw(self, axis):
-
         i = 0
         for c in self.gamepads:
-
             if axis in c:
                 pin = i
                 break

@@ -5,6 +5,7 @@
 from sys import argv
 from driver.driver import Driver
 
+
 def main(argv):
     if "-verbose" in argv or "-v" in argv:
         verbose = True
@@ -15,6 +16,7 @@ def main(argv):
     driver.load_config()
     driver.establish_connection()
     driver.run()
+
 
 if __name__ == "__main__":
     main(argv)

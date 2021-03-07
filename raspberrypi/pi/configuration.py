@@ -108,7 +108,6 @@ class Mixin:
         elif self.connection_mode == "BT":
             print(self.term_fail, "Bluetooth unsupported", self.term_endc)
 
-
     def send_inventory(self):
         inventory = {"GPIO_buttons": []}
 
@@ -116,12 +115,15 @@ class Mixin:
             pin = self.pins[self.buttons.index(b)]
             inventory["GPIO_buttons"].append(pin)
 
-        if self.has_ADC:
+        if self.ADC_channels != 0:
             inventory.update({"ADC_channels": self.ADC_channels})
+
+        if self.usb_devices:
+            inventory.update({"USB": self.usb_devices})
 
         if self.gamepads:
             for gp in self.gamepads:
-                inventory.update({"gamepad": True})
+                inventory.update({"gamepad": len(self.gamepads)})
 
         request = {"code": self.code, "request": {"type": "inventory", "inventory": inventory}}
         self.log(request)
