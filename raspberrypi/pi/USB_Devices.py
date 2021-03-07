@@ -17,13 +17,13 @@ class Mixin:
         usb_device_thread = Thread(name="USB Device Reading", target=self.generic_usb_device_loop, args=(usb, device_name))
         usb_device_thread.start()
 
-    def generic_usb_device_loop(self, usb, device_name):  # MORE FOR KEYBOARDS !!!!
+    def generic_usb_device_loop(self, usb, device_name):
         from evdev import categorize, ecodes
 
         for event in usb.read_loop():
             try:
 
-                self.send_data(["USB", f"genereic_usb_{device_name}", list(ecodes.ecodes)[list(d.values()).index(event.type)], event.value])
+                self.send_data(["USB", f"genereic_usb_{device_name}", list(ecodes)[list(ecodes.values()).index(event.type)], event.value])
 
             except Exception as error:
                 print(error)
