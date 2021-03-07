@@ -13,7 +13,7 @@ class Mixin:
         from evdev import InputDevice
         try:
             usb = InputDevice(f"/dev/input/event{input_number}")
-        except:
+        except Exception:
             print(f"{self.term_fail}USB Device {input_number} doesn't exist. Skipped.{self.term_endc}")
             return
         self.usb_devices.append(device_name)
@@ -42,4 +42,3 @@ class Mixin:
                 })
 
                 self.log(categorize(event))
-
