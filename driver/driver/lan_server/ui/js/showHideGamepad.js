@@ -25,3 +25,16 @@ function showTypeGamepadKey(element) {
     // document.getElementById('typeGamepadKey').style.display = element.value != "none" ? 'block' : 'none';
     document.getElementById('typeGamepadKey').style.display = 'block';
 }
+
+
+function test(element) {
+    var width = element.clientWidth;
+    var height = element.clientHeight;
+    bounds=element.getBoundingClientRect();
+    var left=bounds.left;
+    var top=bounds.top;
+    var x = event.pageX - left;
+    var y = event.pageY - top;
+    console.log(x + " " + y);
+    console.log(width + " " + height)
+}
