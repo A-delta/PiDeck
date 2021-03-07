@@ -79,7 +79,7 @@ class Mixin:
         else:
             start = 0
 
-        if not data["request"]["type"] == "inventory":
+        if type(data) == dict:
 
             data = {"code": self.code,
                     "request":
