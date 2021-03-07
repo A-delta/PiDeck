@@ -36,14 +36,11 @@ def parse_data(json):
 
     request = json["request"]
     type_device = request["type"]
-    pin = request["pin"]
+    pin = request["id"]
+    event_type = request["event_type"]
     value = request["value"]
-    try:
-        extra = request["extra"]
-    except:
-        extra = None
 
-    key_to_char = {  # Example of a USB keyboard that writes custom characters
+    """key_to_char = {  # Example of a USB keyboard that writes custom characters
         "KEY_Q": "α",
         "KEY_W": "β",
         "KEY_E": "π",
@@ -57,4 +54,4 @@ def parse_data(json):
 
     if type_device == "USB" and pin == 1 and int(extra) == 1:  # This is custom code that works for me.
         if value in key_to_char:
-            type_text(key_to_char[value])  # functions from ./built_in_fcn folder
+            type_text(key_to_char[value])  # functions from ./built_in_fcn folder"""
