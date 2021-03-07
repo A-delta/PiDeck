@@ -11,8 +11,6 @@ class Mixin:
         while True:
             sleep(9)
             if self.verbose:
-                run("vcgencmd measure_temp".split())
-
                 start = time()
 
             content = dumps({"code": self.code, "request": {"type": "ping"}})
