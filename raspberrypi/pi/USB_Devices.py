@@ -14,10 +14,10 @@ class Mixin:
 
         self.log(f"USB Device added with input{input_number}")
 
-        usb_device_thread = Thread(name="USB Device Reading", target=self.generic_usb_device_loop, args=(usb, input_number))
+        usb_device_thread = Thread(name="USB Device Reading", target=self.generic_usb_device_loop, args=(usb, device_name))
         usb_device_thread.start()
 
-    def generic_usb_device_loop(self, usb, input_number):  # MORE FOR KEYBOARDS !!!!
+    def generic_usb_device_loop(self, usb, device_name):  # MORE FOR KEYBOARDS !!!!
         from evdev import categorize, ecodes
 
         for event in usb.read_loop():
@@ -26,7 +26,7 @@ class Mixin:
                     "code": self.code,
                     "request": {
                         "type": "USB",
-                        "pin": f"genereic_usb_{input_number}",
+                        "pin": f"genereic_usb_{device_name}",
                         "value": event.type,
                         "extra": event.value
                     }
