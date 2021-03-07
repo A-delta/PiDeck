@@ -7,6 +7,7 @@ from os import getenv
 
 urllib_disable_warnings()
 
+
 class Pi(
     configuration.Mixin,
     running.Mixin,

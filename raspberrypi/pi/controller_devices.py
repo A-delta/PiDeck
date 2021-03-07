@@ -41,7 +41,7 @@ class Mixin:
 
             "request": {
                 "type": "Gamepad",
-                "pin": i,
+                "pin": pin,
                 "value": button.name,
             }
 
@@ -62,7 +62,7 @@ class Mixin:
 
             "request": {
                 "type": "Gamepad",
-                "pin": i,
+                "pin": pin,
                 "value": axis.name,
                 "extra": round(value, 2)
             }
