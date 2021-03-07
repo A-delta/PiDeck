@@ -57,7 +57,7 @@ class Mixin:
         self.usb_devices.append(f"keyboard_{input_number}")
         self.log(f"USB Mouse added with input{input_number}")
 
-        usb_device_thread = Thread(name="USB Device Reading", target=self.usb_mouse_read_events, args=(USB_keyboard, input_number))
+        usb_device_thread = Thread(name="USB Device Reading", target=self.usb_keyboard_read_events, args=(USB_keyboard, input_number))
         usb_device_thread.start()
 
     def usb_mouse_read_events(self, mouse, input_number):
@@ -69,7 +69,12 @@ class Mixin:
                 self.send_data(("USB", f"mouse_{input_number}", "scroll", event.value))
 
             else:
-                self.send_data(("USB", f"mouse_{input_number}", ecodes.BTN[event.code], event.value))
+                try:
+                    self.send_data(("USB", f"mouse_{input_number}", ecodes.BTN[event.code], event.value))
+                except Exception as error:
+                    print(error)
+                    print(self.term_fail, "not supported for the moment", self.term_endc)
+
 
     def usb_keyboard_read_events(self, keyboard, input_number):
         from evdev import categorize, ecodes
