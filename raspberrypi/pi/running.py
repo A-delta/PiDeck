@@ -96,7 +96,7 @@ class Mixin:
             self.log(f"Sent. at {self.term_bold}{datetime.datetime.now().time()}{self.term_endc}")
             info_LED_thread = Thread(name='Blink LED', target=self.show_success)
         else:
-            self.log(f"{self.term_fail}Error. at {term_bold}{datetime.datetime.now().time()}{self.term_endc}")
+            self.log(f"{self.term_fail}Error. at {self.term_bold}{datetime.datetime.now().time()}{self.term_endc}")
             info_LED_thread = Thread(name='Blink LED', target=self.show_error)
 
         self.log(f"Answered in {str(time() - start)} at {self.term_bold}{datetime.datetime.now().time()}{self.term_endc}\n")
