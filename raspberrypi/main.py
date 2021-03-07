@@ -13,11 +13,6 @@ def main(argv):
         verbose = False
 
     pi = Pi("192.168.1.16", "WiFi", verbose)
-
-    pi.add_USB_mouse(0)
-    pi.add_USB_keyboard(1)
-    pi.add_gamepad_device(0)
-
     pi.establish_connection()
 
 
