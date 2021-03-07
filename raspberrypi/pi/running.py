@@ -1,8 +1,7 @@
 from threading import Thread
 from time import sleep, time
 import datetime
-from subprocess import run
-from requests import post, codes, exceptions as requests_exceptions
+from requests import post, codes
 from json import dumps
 
 
@@ -15,15 +14,15 @@ class Mixin:
 
             content = dumps({"code": self.code, "request": {"type": "ping"}})
             try:
-                response = post(self.server_url, data=content, headers=self.request_headers, verify=False)
+                post(self.server_url, data=content, headers=self.request_headers, verify=False)
                 if self.verbose:
                     self.log(f"[PING] {self.term_ok_green}{str(time() - start)} s{self.term_endc}\n")
-            except Exception as error:
+            except Exception:
                 self.log(f"{self.term_fail}[FAIL] Retrying in 5s{self.term_endc}")
                 sleep(5)
                 try:
-                    response = post(self.server_url, data=content, headers=self.request_headers, verify=False)
-                except:
+                    post(self.server_url, data=content, headers=self.request_headers, verify=False)
+                except Exception:
                     self.log(f"{self.term_fail}[FAIL] Restarting connection procedure{self.term_endc}")
                     break
         self.server_url = f'{self.ip}:9876/action'
