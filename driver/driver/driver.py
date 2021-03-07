@@ -3,13 +3,14 @@
 
 
 from sys import platform
-from os import system, path, chdir, getcwd, getenv, kill, remove, _exit, mkdir, rmdir
+from os import system, path, chdir, getcwd, getenv, remove, _exit, mkdir
 from requests import request
 from random import randint
 from json import dumps, load
-import urllib3, threading, socket, requests
+import urllib3
+import threading
+import requests
 import time
-import subprocess, psutil
 
 urllib3.disable_warnings()
 
@@ -30,12 +31,9 @@ class Driver:
         self.ip = ''
         self.port = 9876
 
-
-
         self.load_config()
 
         self.log([self.platform, self.driver_path, self.code, self.ip, self.port])
-
 
     def log(self, messages):
         if self.verbose:
@@ -60,9 +58,6 @@ class Driver:
             self.appdata_path = path.join(self.appdata_path, "RaspiMote")
             self.config_file_path = path.join(self.appdata_path, "pi_ip.raspimote")
 
-
-
-
         if path.isfile(self.config_file_path):
             pi_ip = open(self.config_file_path, 'r')
             self.ip = load(pi_ip)["ip"]
@@ -85,7 +80,6 @@ class Driver:
         with open(self.config_file_path, 'w') as pi_ip:
             pi_ip.write(dumps({"ip": self.ip, "code": self.code}))
 
-
     def new_ip(self):
         if self.platform == "linux":
             config_file_path = f"{getenv('HOME')}/.config/RaspiMote/pi_ip.raspimote"
@@ -94,7 +88,6 @@ class Driver:
 
         self.ip = input("Raspberry Pi's IP address : ")
 
-
         with open(self.config_file_path, 'w') as pi_ip:
             pi_ip.write(dumps({"ip": self.ip, "code": self.code}))
 
@@ -102,14 +95,12 @@ class Driver:
 
         return return_to_est
 
-
     def establish_connection(self):
         """
         This method establish connection with the Raspberry Pi by sending it a request.
 
         :return:
         """
-
 
         url = f"https://{self.ip}:{self.port}/connect"
         content = {"code": self.code, "platform": platform}
@@ -136,7 +127,6 @@ class Driver:
             print("Aborting process.")
             _exit(1)
 
-
     def watchdog(self):
         time.sleep(2)
         address = "https://localhost:"+str(self.port)
@@ -144,14 +134,12 @@ class Driver:
             try:
                 r = requests.post(address)
                 time.sleep(3)
-            except:
+            except Exception:
                 break
 
         print("Restarting driver server")
         self.run()
         return
-
-
 
     def run(self):
         """
@@ -166,7 +154,7 @@ class Driver:
         vb_arg = ['', ' -v'][int(self.verbose)]
 
         if self.platform == "win32":
-            system(f'python wsgi_https.py{vb_arg}') # !!! Modify for release (python --> C:\Program Files\RaspiMote\py\python.exe) !!!
+            system(f'python wsgi_https.py{vb_arg}')  # Modify for release (python --> C:\Program Files\RaspiMote\py\python.exe)
             #  for release : if verbose then  use installed python for easy development
 
         elif self.platform == "linux":
