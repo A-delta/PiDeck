@@ -91,4 +91,10 @@ text {
 
 .xbox_one {
     height: 12vw;
+    width: calc(1.597 * 12vw);
+    color: rgba(255,255,255,0);
+    background-image: url('xbox_one.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
