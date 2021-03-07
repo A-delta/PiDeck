@@ -69,7 +69,7 @@ class Mixin:
                 self.send_data(("USB", f"mouse_{input_number}", "scroll", event.value))
 
             elif event.code >= 1:
-                self.send_data(("USB", f"mouse_{input_number}", "movement", event.value))
+                self.send_data(("USB", f"mouse_{input_number}", ecodes.REL[event.code], event.value))
 
             else:
                 try:
