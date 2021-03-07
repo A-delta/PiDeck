@@ -15,7 +15,6 @@ def main(argv):
     pi = Pi("192.168.1.16", "WiFi", verbose)
     pi.establish_connection()
 
-
 if __name__ == '__main__':
     try:
         main(argv)
