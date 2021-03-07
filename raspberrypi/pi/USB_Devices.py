@@ -23,7 +23,7 @@ class Mixin:
         for event in usb.read_loop():
             try:
 
-                self.send_data(["USB", f"genereic_usb_{device_name}", list(ecodes)[list(ecodes.values()).index(event.type)], event.value])
+                self.send_data(["USB", f"genereic_usb_{device_name}", list(ecodes.ecodes)[list(ecodes.ecodes.values()).index(event.type)], event.value])
 
             except Exception as error:
                 print(error)
