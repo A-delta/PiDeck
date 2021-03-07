@@ -12,7 +12,7 @@ class Mixin:
         self.gamepads.append([])
         try:
             with Xbox360Controller(index, raw_mode=True) as controller:
-                print("configuring gamepad ", index)
+                self.log("configuring gamepad", index)
                 for b in controller.buttons:
                     b.when_pressed = self.on_button_pressed
                     self.gamepads[index].append(b)
