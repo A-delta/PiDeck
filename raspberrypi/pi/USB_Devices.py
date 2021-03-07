@@ -73,7 +73,7 @@ class Mixin:
                     self.send_data(("USB", f"mouse_{input_number}", ecodes.BTN[event.code], event.value))
                 except Exception as error:
                     print(error)
-                    print(self.term_fail, "not supported for the moment", self.term_endc)
+                    print(self.term_fail, "not supported for the moment :", event.code, self.term_endc)
 
 
     def usb_keyboard_read_events(self, keyboard, input_number):
