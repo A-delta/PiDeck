@@ -36,16 +36,8 @@ class Mixin:
             i += 1
 
         self.log('Button {0} was pressed'.format(button.name))
-        self.send_data({
-            "code": self.code,
 
-            "request": {
-                "type": "Gamepad",
-                "pin": pin,
-                "value": button.name,
-            }
-
-        })
+        self.send_data(("gamepad", pin, button.name, 1))
 
     def on_axis_moved_raw(self, axis):
         i = 0
@@ -53,18 +45,8 @@ class Mixin:
             if axis in c:
                 pin = i
                 break
-            i += 1
 
         value = axis.value
         self.log(f"Axis {axis.name} moved to {value}")
-        self.send_data({
-            "code": self.code,
 
-            "request": {
-                "type": "Gamepad",
-                "pin": pin,
-                "value": axis.name,
-                "extra": round(value, 2)
-            }
-
-        })
+        self.send_data(("gamepad", pin, axis.name, round(value, 2)))

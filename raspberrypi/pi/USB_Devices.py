@@ -22,15 +22,9 @@ class Mixin:
 
         for event in usb.read_loop():
             try:
-                self.send_data({
-                    "code": self.code,
-                    "request": {
-                        "type": "USB",
-                        "pin": f"genereic_usb_{device_name}",
-                        "value": event.type,
-                        "extra": event.value
-                    }
-                })
+
+                self.send_data(["USB", f"genereic_usb_{device_name}", event.type, event.value])
+
             except Exception as error:
                 print(error)
                 print("during USB (need debug)")
@@ -72,39 +66,15 @@ class Mixin:
         for event in mouse.read_loop():
 
             if event.code == 8:
-                self.send_data({
-                    "code": self.code,
-                    "request": {
-                        "type": "USB",
-                        "pin": f"mouse_{input_number}",
-                        "value": "scroll",
-                        "extra": event.value
-                    }
-                })
+                self.send_data(("USB", f"mouse_{input_number}", "scroll", event.value))
 
             else:
-                self.send_data({
-                    "code": self.code,
-                    "request": {
-                        "type": "USB",
-                        "pin": f"mouse_{input_number}",
-                        "value": ecodes.BTN,
-                        "extra": event.value
-                    }
-                })
+                self.send_data(("USB", f"mouse_{input_number}", ecodes.BTN[event.code], event.value))
 
     def usb_keyboard_read_events(self, keyboard, input_number):
         from evdev import categorize, ecodes
 
         for event in keyboard.read_loop():
             if event.type == ecodes.EV_KEY:
-                self.send_data({
-                    "code": self.code,
-                    "request": {
-                        "type": "USB",
-                        "pin": f"keyboard_{input_number}",
-                        "value": ecodes.KEY[event.code],
-                        "extra": event.value
-                    }
-                })
+                self.send_data(("USB", f"keyboard_{input_number}", ecodes.KEY[event.code], event.value))
                 self.log(f"{categorize(event)}")

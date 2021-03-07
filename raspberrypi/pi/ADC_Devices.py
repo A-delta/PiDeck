@@ -37,8 +37,7 @@ class Mixin:
 
                     if self.verbose:
                         print(f"ADC{channel} : {new}", end='; ')
-
-                    self.send_data({"code": self.code, "request": {"type": "ADC", "pin": channel, "value": new}})
+                    self.send_data(("ADC", channel, "adc_event", new))
 
                 elif idle != 0:
                     idle += 1
