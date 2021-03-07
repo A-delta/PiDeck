@@ -13,6 +13,7 @@ def main(argv):
         verbose = False
 
     pi = Pi("192.168.1.16", "WiFi", verbose)
+    pi.add_generic_USB_device(0, "mousetest")
     pi.establish_connection()
 
 if __name__ == '__main__':
