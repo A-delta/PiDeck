@@ -128,24 +128,39 @@ def config_js5():
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
-@app.route('/saveButton.js')
+
+@app.route('/showHideGamepad.js')
 def config_js6():
+    if request.remote_addr == "127.0.0.1":
+        return send_file("ui/js/showHideGamepad.js", mimetype="text/javascript")
+    else:
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
+
+@app.route('/saveButton.js')
+def config_js7():
     if request.remote_addr == "127.0.0.1":
         return send_file("ui/js/saveButton.js", mimetype="text/javascript")
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
 @app.route('/saveADC.js')
-def config_js7():
+def config_js8():
     if request.remote_addr == "127.0.0.1":
         return send_file("ui/js/saveADC.js", mimetype="text/javascript")
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
 @app.route('/saveKeyboard.js')
-def config_js8():
+def config_js9():
     if request.remote_addr == "127.0.0.1":
         return send_file("ui/js/saveKeyboard.js", mimetype="text/javascript")
+    else:
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
+
+@app.route('/saveGamepad.js')
+def config_js10():
+    if request.remote_addr == "127.0.0.1":
+        return send_file("ui/js/saveGamepad.js", mimetype="text/javascript")
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
@@ -174,6 +189,13 @@ def config_rsp_png():
 def gif_loading():
     if request.remote_addr == "127.0.0.1":
         return send_file("ui/loading.gif")
+    else:
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
+
+@app.route('/xbox_one.png')
+def xbox_one_controller():
+    if request.remote_addr == "127.0.0.1":
+        return send_file("ui/xbox_one.png")
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
