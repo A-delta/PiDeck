@@ -1,7 +1,7 @@
 # 2021 RaspiMote
 # https://github.com/RaspiMote
 
-from . import configuration, running, USB_Devices, controller_devices, ADC_Devices
+from . import configuration, running, USB_Devices, controller_devices, GPIO_inputs
 from urllib3 import disable_warnings as urllib_disable_warnings
 from os import getenv
 
@@ -13,7 +13,7 @@ class Pi(
     running.Mixin,
     USB_Devices.Mixin,
     controller_devices.Mixin,
-    ADC_Devices.Mixin
+    GPIO_inputs.Mixin
 ):
 
     def __init__(self, ip, connection_mode, verbose=False):  # user_supported_devices could be a json file
@@ -74,3 +74,10 @@ class Pi(
 
         self.buttons = []
         self.pins = []
+
+    def log(self, message, newline=True):
+        if self.verbose:
+            if newline:
+                print(message)
+            else:
+                print(message, end='; ')

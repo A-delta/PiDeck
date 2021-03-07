@@ -1,3 +1,4 @@
+from gpiozero import Button, LED
 from threading import Thread
 
 class Mixin:
@@ -45,3 +46,40 @@ class Mixin:
                         self.log("Sleep mode")
                         time_sleep = 0.2
                         idle = 0
+
+    def add_buttons(self, config):
+        """
+        Add buttons configuration. You should run this methods only once.
+        Only buttons type devices can be added with this method.
+
+        :param config: list of dictionaries : [{"pin": "GPIO_PIN, "type_device": "button"}]
+        :return:
+        """
+        for device in config:
+            device, pin = self.get_input_device(device)
+
+            self.buttons.append(device)
+            self.pins.append(pin)
+
+    def get_input_device(self, device):
+        """
+        This function is designed to handle multiple devices, there's only one for the moment.
+        :param device:
+        :return:
+        """
+
+        pin = device["pin"]
+        type_input = device["type_input"]
+
+        self.log(f"Configuring : GPIO{pin}, {type_input}")
+
+        if type_input == "button":
+            new = Button(pin)
+            new.when_activated = self.event_button
+
+            return new, pin
+
+        # Here you can add support for a device to make it easier to setup (for json configuration files for example.
+
+        else:
+            self.log(self.term_warning + type_input + "in" + pin + "not supported, add your own code for it or verify given information" + self.term_endc)
