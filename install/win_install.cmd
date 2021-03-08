@@ -48,11 +48,11 @@ goto check_Permissions
 
     powershell -command "mkdir 'C:\Program Files\RaspiMote\py' -erroraction 'silentlycontinue' | Out-Null"
 
-    mkdir C:\Users\%USERNAME%\AppData\Roaming\RaspiMote
+    mkdir "C:\Users\%USERNAME%\AppData\Roaming\RaspiMote"
 
-    mkdir C:\Users\%USERNAME%\AppData\Roaming\RaspiMote\tmp
+    mkdir "C:\Users\%USERNAME%\AppData\Roaming\RaspiMote\tmp"
 
-    mkdir C:\Users\%USERNAME%\AppData\Roaming\RaspiMote\custom_fcn
+    mkdir "C:\Users\%USERNAME%\AppData\Roaming\RaspiMote\custom_fcn"
 
     echo [[92mv[0m] RaspiMote code copied to installation folder.
 
@@ -78,9 +78,17 @@ goto check_Permissions
 
     "C:\Program Files\RaspiMote\py\python.exe" "C:\Users\%USERNAME%\Downloads\get-pip.py" -q 1> nul 2> nul
 
-    "C:\Program Files\RaspiMote\py\python.exe" -m pip install urllib3 requests cheroot flask flask-cors keyboard psutil jaraco.functools -q 1> nul 2> nul
+    "C:\Program Files\RaspiMote\py\python.exe" -m pip install urllib3 requests flask flask-cors keyboard psutil jaraco.functools -q 1> nul 2> nul
 
-    Rem Install custom version of Cheroot https://github.com/RaspiMote/https
+    curl -s -L -o "C:\Users\%USERNAME%\Downloads\raspimote_https.zip" "https://github.com/RaspiMote/https/archive/1.0.0.zip"
+    
+    powershell -command "Add-Type -A 'System.IO.Compression.FileSystem';[IO.Compression.ZipFile]::ExtractToDirectory('C:\Users\%USERNAME%\Downloads\raspimote_https.zip', 'C:\Users\%USERNAME%\Downloads\')"
+
+    cd "C:\Users\%USERNAME%\Downloads\https-1.0.0"
+
+    "C:\Program Files\RaspiMote\py\python.exe" setup.py install 1> nul 2> nul
+
+    cd C:\Windows\System32
 
     echo [[92mv[0m] Dependencies installed.
     
@@ -90,10 +98,13 @@ goto check_Permissions
 
     powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_install.cmd' 'C:\Program Files\RaspiMote\install.cmd' -erroraction 'silentlycontinue'"
 
-
-    Rem Copy binary for run-at-startup.dart
-
-    Rem Copy binary to launch UI
+    if %PROCESSOR_ARCHITECTURE% == AMD64 (
+        curl -s -L -o "C:\Program Files\RaspiMote\RaspiMote.exe" "https://github.com/RaspiMote/bin/releases/download/1.0.0_bin/run-windows-amd64-1.0.0.exe"
+        curl -s -L -o "C:\Program Files\RaspiMote\RaspiMote_UI.exe" "https://github.com/RaspiMote/bin/releases/download/1.0.0_bin/ui-windows-amd64-1.0.0.exe"
+    ) else (
+        curl -s -L -o "C:\Program Files\RaspiMote\RaspiMote.exe" "https://github.com/RaspiMote/bin/releases/download/1.0.0_bin/run-windows-x86-1.0.0.exe"
+        curl -s -L -o "C:\Program Files\RaspiMote\RaspiMote_UI.exe" "https://github.com/RaspiMote/bin/releases/download/1.0.0_bin/ui-windows-x86-1.0.0.exe"
+    )
 
     setlocal enableextensions enabledelayedexpansion
 
@@ -127,15 +138,21 @@ goto check_Permissions
 
     powershell -Command "$totalsize = [long]0;Get-ChildItem -File -Recurse -Force -ErrorAction SilentlyContinue | %% {$totalsize += $_.Length};[math]::Round($totalsize/1000)" > "C:\Users\%USERNAME%\AppData\Local\Temp\rspfoldersize.tmp"
 
-    set /p c_date=<"C:\Users\%USERNAME%\AppData\Local\Temp\rspfoldersize.tmp"
+    set /p folder_size=<"C:\Users\%USERNAME%\AppData\Local\Temp\rspfoldersize.tmp"
 
     cd C:\Windows\System32
 
-    reg.exe add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RaspiMote /v EstimatedSize /t REG_DWORD /d 35840 > nul
+    reg.exe add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RaspiMote /v EstimatedSize /t REG_DWORD /d %folder_size% > nul
 
     reg.exe add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RaspiMote /v UninstallString /t REG_SZ /d "C:\Program Files\RaspiMote\uninstall.cmd" > nul
 
-    Rem Add shortcuts in start menu 
+    mkdir "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\RaspiMote"
+
+    cscript "C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_assets\shortcut_run_startmenu.vbs" >nul
+
+    cscript "C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_assets\shortcut_ui_startmenu.vbs" >nul
+
+    cscript "C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_assets\shortcut_run_startup.vbs" >nul
 
     powershell -command "Remove-Item 'C:\Program Files\RaspiMote\py\Lib\site-packages\pip*' -Recurse -erroraction 'silentlycontinue'"
 
@@ -151,9 +168,13 @@ goto check_Permissions
     
     powershell -command "Remove-Item 'C:\Users\%USERNAME%\Downloads\raspimote.zip' -erroraction 'silentlycontinue'"
 
+    powershell -command "Remove-Item 'C:\Users\%USERNAME%\Downloads\raspimote_https.zip' -erroraction 'silentlycontinue'"
+
     powershell -command "Remove-Item 'C:\Users\%USERNAME%\Downloads\get-pip.py' -erroraction 'silentlycontinue'"
 
     powershell -command "Remove-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main' -Recurse -erroraction 'silentlycontinue'"
+
+    powershell -command "Remove-Item 'C:\Users\%USERNAME%\Downloads\https-1.0.0' -Recurse -erroraction 'silentlycontinue'"
 
     echo [[92mv[0m] Temporary files purged.
 
