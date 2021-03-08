@@ -3,7 +3,9 @@ from signal import pause
 
 
 class Mixin:
-    def add_gamepad_device(self, index):
+    def add_gamepad_device(self, index=0):
+        if len(self.gamepads > 0):
+            index = len(self.gamepads)
         usb_device_thread = Thread(name="Gamepad configuring", target=self.configure_gamepad, args=[index])
         usb_device_thread.start()
 

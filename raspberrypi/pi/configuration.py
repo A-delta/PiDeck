@@ -1,3 +1,4 @@
+from gpiozero import LED
 from os import getcwd, chdir, path
 from json import loads
 from signal import pause
