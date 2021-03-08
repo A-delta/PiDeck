@@ -1,0 +1,8 @@
+[package]
+name = "raspimote-ui"
+version = "1.0.0"
+authors = ["The RaspiMote team <hello@raspimote.tk>"]
+license = "GPL-3.0"
+description = "This web-based UI provides an easy way to link actions to buttons / potentiometers / keyboards / gamepads..."
+homepage = "https://raspimote.tk/"
+documentation = "https://docs.raspimote.tk/"
