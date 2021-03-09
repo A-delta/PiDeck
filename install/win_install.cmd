@@ -56,7 +56,11 @@ goto check_Permissions
 
     echo [[92mv[0m] RaspiMote code copied to installation folder.
 
-    curl -s -L -o "C:\Users\%USERNAME%\Downloads\python_embeddable.zip" "https://www.python.org/ftp/python/3.9.2/python-3.9.2-embed-amd64.zip"
+    if %PROCESSOR_ARCHITECTURE% == AMD64 (
+        curl -s -L -o "C:\Users\%USERNAME%\Downloads\python_embeddable.zip" "https://www.python.org/ftp/python/3.9.2/python-3.9.2-embed-amd64.zip"
+    ) else (
+        curl -s -L -o "C:\Users\%USERNAME%\Downloads\python_embeddable.zip" "https://www.python.org/ftp/python/3.9.2/python-3.9.2-embed-win32.zip"
+    )
 
     echo [[92mv[0m] Python embeddable environment downloaded.
 
