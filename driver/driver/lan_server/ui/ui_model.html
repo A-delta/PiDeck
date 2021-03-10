@@ -220,11 +220,7 @@
                     <div id="typeGamepad">
                         <p>&nbsp;</p>
 
-                        <!-- <img src="xbox_one.png" class="xbox_one" onclick="showTypeGamepadKey(this)"/> -->
-
-                        <canvas class="xbox_one" id="xbox_one_controller_canvas" onclick="showTypeGamepadKey(this)" onmousemove="test(this)"></canvas>
-
-                        <!-- <select name="Key" id="gamepadKey" onchange="showTypeGamepadKey(this)"></select> -->
+                        <canvas class="xbox_one" id="xbox_one_controller_canvas" onclick="showTypeGamepadKey(this)" onmousemove="highlight(this)" onmouseout="itMayBeCleared(this)"></canvas>
 
                         <div id="typeGamepadKey">
                             <p>&nbsp;</p>
