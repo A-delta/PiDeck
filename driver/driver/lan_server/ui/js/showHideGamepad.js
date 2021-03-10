@@ -88,7 +88,7 @@ function highlight(element) {
     }
 }
 
-function itMayBeCleared(element) { // A check for whether or not something is aleady selected has to be implemented later
+function itMayBeCleared(element) {
     mouseAbove = null;
     if (selectedButton == null) {
         var ctx = element.getContext('2d');
