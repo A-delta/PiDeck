@@ -20,6 +20,15 @@ goto check_Permissions
 
 :main
 
+    echo(
+
+    echo Press any key to continue installation...
+
+    pause >nul
+
+    echo(
+    echo(
+
     C:
     
     cd C:\Windows\System32
