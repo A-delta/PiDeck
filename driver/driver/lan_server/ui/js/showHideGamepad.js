@@ -50,7 +50,16 @@ function gamepadCustomValidation(element) {
 function showTypeGamepadKey(element) {
     selectedButton = mouseAbove;
     element.innerHTML = "<!--" + selectedButton + "-->";
-    document.getElementById('typeGamepadKey').style.display = 'block';
+    var joyButtons = ["abs_z", "abs_rz", "abs_x|abs_y", "abs_rx|abs_ry"];
+    if (joyButtons.includes(selectedButton)) {
+        document.getElementById('typeGamepadKey').style.display = 'none';
+        document.getElementById('typeGamepadJoy').style.display = 'block';
+    }
+    else {
+        document.getElementById('typeGamepadJoy').style.display = 'none';
+        document.getElementById('typeGamepadKey').style.display = 'block';
+    }
+    
 }
 
 function highlight(element) {
