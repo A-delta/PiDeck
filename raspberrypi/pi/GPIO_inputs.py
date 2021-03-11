@@ -83,3 +83,9 @@ class Mixin:
 
         else:
             self.log(self.term_warning + type_input + "in" + pin + "not supported, add your own code for it or verify given information" + self.term_endc)
+
+
+    def event_button(self, button):
+        pin = self.pins[self.buttons.index(button)]
+        self.log(f"Button{pin}")
+        self.send_data({"code": self.code, "request": {"type": "button", "pin": pin, "value": 1}})

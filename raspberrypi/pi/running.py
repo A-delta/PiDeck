@@ -58,10 +58,6 @@ class Mixin:
             sleep(0.1)
             self.error_led.off()
 
-    def event_button(self, button):
-        pin = self.pins[self.buttons.index(button)]
-        self.log(f"Button{pin}")
-        self.send_data({"code": self.code, "request": {"type": "button", "pin": pin, "value": 1}})
 
     def send_data(self, data):
         r = Thread(name='Request', target=self.send_request, args=[data])
