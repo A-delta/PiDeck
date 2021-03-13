@@ -2,7 +2,7 @@
 # https://github.com/RaspiMote
 
 import datetime
-from built_in_fcn.actions import type_text, run_command
+from built_in_fcn.actions import type_text, run_command, press_key
 from os import getenv, path
 from sys import platform
 from json import dumps
@@ -39,6 +39,15 @@ def parse_data(json):
     pin = request["id"]
     event_type = request["event_type"]
     value = request["value"]
+
+    if event_type == "scroll" and value == 1:
+        press_key("media", "volup")
+        press_key("media", "volup")
+        
+    elif event_type == "scroll" and value == -1:
+        press_key("media", "voldown")
+        press_key("media", "voldown")
+
 
     """key_to_char = {  # Example of a USB keyboard that writes custom characters
         "KEY_Q": "α",
