@@ -16,7 +16,7 @@ urllib3.disable_warnings()
 
 
 class Driver:
-    def __init__(self, verbose):
+    def __init__(self, loop_connection=False, verbose=False):
         """
         Creates a Driver object.
 
@@ -26,6 +26,8 @@ class Driver:
         self.platform = platform
         self.driver_path = path.join(getcwd(), "driver")
         self.verbose = verbose
+        self.loop_connection = loop_connection
+        self.log(("Loop connection enabled",))
 
         self.code = str(randint(0, 9999999))
         self.ip = ''
@@ -107,25 +109,34 @@ class Driver:
         headers = {"Content-Type": "application/json"}
         content = dumps(content)
 
-        for tries in range(10):
-            try:
-                connection = request('POST', url, data=content, headers=headers, verify=False)
-                return connection.text == "True"
-            except requests.exceptions.ConnectionError:
-                print(f"Connection to Pi failed [{tries+1}/10]")
-                time.sleep(1)
+        if not self.loop_connection:
+            for tries in range(10):
+                try:
+                    connection = request('POST', url, data=content, headers=headers, verify=False)
+                    return connection.text == "True"
+                except requests.exceptions.ConnectionError:
+                    print(f"Connection to Pi failed [{tries+1}/10]")
+                    time.sleep(1)
 
-        print("The driver is unable to connect to your Pi.")
-        print("Please verify that Pi is running his software and hasn't encountered any error.")
-        print("Do you want to edit the Pi's IP address?")
-        new_ip = input(f"Currently, the IP address saved is \"{self.ip}\".\n\n(Y/n)  ").lower()
+            print("The driver is unable to connect to your Pi.")
+            print("Please verify that Pi is running his software and hasn't encountered any error.")
+            print("Do you want to edit the Pi's IP address?")
+            new_ip = input(f"Currently, the IP address saved is \"{self.ip}\".\n\n(Y/n)  ").lower()
 
-        if new_ip == "y" or new_ip == "" or new_ip == "yes":
-            return_to_main = self.new_ip()
-            return return_to_main
+            if new_ip == "y" or new_ip == "" or new_ip == "yes":
+                return_to_main = self.new_ip()
+                return return_to_main
+            else:
+                print("Aborting process.")
+                _exit(1)
+
         else:
-            print("Aborting process.")
-            _exit(1)
+            while True:
+                try:
+                    connection = request('POST', url, data=content, headers=headers, verify=False)
+                    return connection.text == "True"
+                except requests.exceptions.ConnectionError:
+                    print(f"Connection to Pi failed, retrying...")
 
     def watchdog(self):
         time.sleep(2)

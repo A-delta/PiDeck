@@ -12,7 +12,12 @@ def main(argv):
     else:
         verbose = False
 
-    driver = Driver(verbose)
+    if "-loop" in argv or "-l" in argv:
+        loop_connection = True
+    else:
+        loop_connection = False
+
+    driver = Driver(loop_connection, verbose)
     driver.load_config()
     driver.establish_connection()
     driver.run()
