@@ -43,10 +43,13 @@ def parse_data(json):
     if event_type == "scroll" and value == 1:
         press_key("media", "volup")
         press_key("media", "volup")
-        
+
     elif event_type == "scroll" and value == -1:
         press_key("media", "voldown")
         press_key("media", "voldown")
+
+    elif event_type == "BTN_MIDDLE" and value == 1:
+        press_key("media", "mute")
 
 
     """key_to_char = {  # Example of a USB keyboard that writes custom characters
