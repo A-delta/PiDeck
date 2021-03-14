@@ -1,8 +1,0 @@
-[package]
-name = "raspimote"
-version = "1.0.0"
-authors = ["The RaspiMote team <hello@raspimote.tk>"]
-license = "GPL-3.0"
-description = "The RaspiMote Project aims at turning a Raspberry Pi into a programmable keyboard / controller / remote control..."
-homepage = "https://raspimote.tk/"
-documentation = "https://docs.raspimote.tk/"
