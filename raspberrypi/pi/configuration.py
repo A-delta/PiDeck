@@ -25,9 +25,9 @@ class Mixin:
         if self.connection_mode == "WiFi":
 
             if self.verbose:
-                log_level = ''
+                log_level = ' -v'
             else:
-                log_level = "--log-level critical"
+                log_level = ''
 
             if timeout:
                 self.ready = False
@@ -41,7 +41,7 @@ class Mixin:
             old_cwd = getcwd()
 
             chdir(path.join("pi", "server_pi"))
-            run("/usr/bin/python3 wsgi_cheroot.py".split())
+            run(f"/usr/bin/python3 wsgi_https.py{log_level}".split())
             chdir(old_cwd)
 
             with open(path.join(self.config_folder, "connection.pi"), 'r', encoding="utf-8") as f:

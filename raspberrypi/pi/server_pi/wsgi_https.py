@@ -1,0 +1,24 @@
+from raspimote_https.wsgi import Server as WSGIServer, PathInfoDispatcher as WSGIPathInfoDispatcher
+from raspimote_https.ssl.builtin import BuiltinSSLAdapter
+from sys import argv
+
+from connect_server import app
+
+
+if "-verbose" in argv or "-v" in argv:
+    verbose = True
+else:
+    verbose = False
+
+my_app = WSGIPathInfoDispatcher({'/': app})
+server = WSGIServer(('0.0.0.0', 9876), my_app)
+
+ssl_cert = "cert.pem"
+ssl_key = "key.key"
+server.ssl_adapter =  BuiltinSSLAdapter(ssl_cert, ssl_key, verbose=verbose)
+
+if __name__ == '__main__':
+   try:
+      server.start()
+   except KeyboardInterrupt:
+      server.stop()

@@ -1,5 +1,5 @@
 #!/bin/bash
-pid=`ps ax | grep wsgi_cheroot.py | awk '{split($0,a," "); print a[1]}' | head -n 1`
+pid=`ps ax | grep wsgi_https.py | awk '{split($0,a," "); print a[1]}' | head -n 1`
 if [ -z "$pid" ];
 then
   echo "No server from RaspiMote found"
