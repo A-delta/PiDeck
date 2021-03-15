@@ -101,6 +101,8 @@ goto check_Permissions
 
     "C:\Program Files\RaspiMote\py\python.exe" setup.py install 1> nul 2> nul
 
+    Rem Install IDLE
+
     cd C:\Windows\System32
 
     echo [[92mv[0m] Dependencies installed.

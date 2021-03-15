@@ -55,6 +55,8 @@ def action():
 def config():
     if request.remote_addr == "127.0.0.1":
         conf_req = loads(list(request.form.to_dict().keys())[0])
+        print(conf_req)
+        """
         try:
             with open(path.join(config_file_path, "trigger_actions.pi"), "r") as trg_actions:
                 trigger_actions = loads(trg_actions.read())
@@ -74,6 +76,8 @@ def config():
 
 
         return "Configuration modified successfully."
+        """
+        return 'OK'
         
         
     else:
@@ -164,12 +168,27 @@ def config_js10():
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
-@app.route('/jquery-3.5.1.min.js')
-def config_jquery():
+@app.route('/jquery.js')
+def jquery():
     if request.remote_addr == "127.0.0.1":
-        return send_file("ui/js/jquery-3.5.1.min.js", mimetype="text/javascript")
+        return send_file("ui/js/jquery-3.6.0.min.js", mimetype="text/javascript")
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
+
+@app.route('/sweetalert.js')
+def sweetalert():
+    if request.remote_addr == "127.0.0.1":
+        return send_file("ui/js/sweetalert2.all.min.js", mimetype="text/javascript")
+    else:
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
+
+@app.route('/sweetalert.css')
+def sweetalert_css():
+    if request.remote_addr == "127.0.0.1":
+        return send_file("ui/js/sweetalert2.borderless.min.css")
+    else:
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
+
 
 @app.route('/RaspiMote_logo.ico')
 def config_rsp_ico():
