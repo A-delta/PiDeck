@@ -31,6 +31,11 @@ function showGamepadPlus(element) {
     document.getElementById('gamepadCustomFunction').style.display = element.value == "custom" ? 'block' : 'none';
 }
 
+function showGamepadJoyPlus(element) {
+    document.getElementById('gamepadJoyVolumeValidate').style.display = element.value == "volume" ? 'block' : 'none';
+    document.getElementById('gamepadJoyCustomFunction').style.display = element.value == "custom" ? 'block' : 'none';
+}
+
 function gamepadKeyValidation(element) {
     document.getElementById('gamepadKeyValidate').style.display = element.value != "none" ? 'block' : 'none';
 }
@@ -47,19 +52,69 @@ function gamepadCustomValidation(element) {
     document.getElementById('gamepadCustomValidate').style.display = element.value != "" ? 'block' : 'none';
 }
 
+function gamepadJoyCustomValidation(element) {
+    document.getElementById('gamepadJoyCustomValidate').style.display = element.value != "" ? 'block' : 'none';
+}
+
 function showTypeGamepadKey(element) {
     selectedButton = mouseAbove;
-    element.innerHTML = "<!--" + selectedButton + "-->";
-    var joyButtons = ["abs_z", "abs_rz", "abs_x|abs_y", "abs_rx|abs_ry"];
-    if (joyButtons.includes(selectedButton)) {
-        document.getElementById('typeGamepadKey').style.display = 'none';
-        document.getElementById('typeGamepadJoy').style.display = 'block';
+    var width = element.clientWidth;
+    var height = element.clientHeight;
+    bounds = element.getBoundingClientRect();
+    var left = bounds.left;
+    var top = bounds.top;
+    var x = event.pageX - left;
+    var y = event.pageY - top;
+    var rel_x = x / width;
+    var rel_y = y / height;
+    var ctx = element.getContext('2d');
+    var k = 0;
+    for (var btn in xbox_one_coordinates) {
+        btn_coordinates = xbox_one_coordinates[btn];
+        if (rel_x >= btn_coordinates[0] && rel_x < btn_coordinates[1] && rel_y >= btn_coordinates[2] && rel_y < btn_coordinates[3]) {
+            element.innerHTML = "<!--" + selectedButton + "-->";
+            var joyButtons = ["abs_z", "abs_rz", "abs_x|abs_y", "abs_rx|abs_ry"];
+            if (joyButtons.includes(selectedButton)) {
+                if (selectedButton == "abs_z" || selectedButton == "abs_rz") {
+                    document.getElementById('typeGamepadKey').style.display = 'none';
+                    document.getElementById('typeGamepadJoy').style.display = 'block';
+                }
+                else {
+                    Swal.fire({
+                        title: 'To which axis do you want to link an action?',
+                        showDenyButton: true,
+                        confirmButtonText: `X axis`,
+                        denyButtonText: `Y axis`,
+                        confirmButtonColor: '#900C3F',
+                        denyButtonColor: '#900C3F',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            if (selectedButton == "abs_x|abs_y") {
+                                element.innerHTML = "<!--abs_x-->";
+                            }
+                            else if (selectedButton == "abs_rx|abs_ry") {
+                                element.innerHTML = "<!--abs_rx-->";
+                            }
+                        }
+                        else if (result.isDenied) {
+                            if (selectedButton == "abs_x|abs_y") {
+                                element.innerHTML = "<!--abs_y-->";
+                            }
+                            else if (selectedButton == "abs_rx|abs_ry") {
+                                element.innerHTML = "<!--abs_ry-->";
+                            }
+                        }
+                    })
+                }
+                document.getElementById('typeGamepadKey').style.display = 'none';
+                document.getElementById('typeGamepadJoy').style.display = 'block';
+            }
+            else {
+                document.getElementById('typeGamepadJoy').style.display = 'none';
+                document.getElementById('typeGamepadKey').style.display = 'block';
+            }
+        }
     }
-    else {
-        document.getElementById('typeGamepadJoy').style.display = 'none';
-        document.getElementById('typeGamepadKey').style.display = 'block';
-    }
-    
 }
 
 function highlight(element) {

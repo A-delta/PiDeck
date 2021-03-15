@@ -56,9 +56,8 @@ def config():
     if request.remote_addr == "127.0.0.1":
         conf_req = loads(list(request.form.to_dict().keys())[0])
         print(conf_req)
-        """
         try:
-            with open(path.join(config_file_path, "trigger_actions.pi"), "r") as trg_actions:
+            with open(path.join(config_file_path, "trigger_actions.raspimote"), "r") as trg_actions:
                 trigger_actions = loads(trg_actions.read())
         except FileNotFoundError:
             trigger_actions = []
@@ -75,10 +74,7 @@ def config():
             trg_actions.write(dumps(new_trigger_actions))
 
 
-        return "Configuration modified successfully."
-        """
-        return 'OK'
-        
+        return "Configuration modified successfully."       
         
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403

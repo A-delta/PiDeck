@@ -2,7 +2,7 @@ function saveKeyboardKey() {
     var platform = navigator['platform'].toLowerCase();
     if (platform.includes('linux') || platform.includes('win')) {}
     else {
-        window.alert("Non-critical error: Your platform doesn't seem to be supported.");
+        Swal.fire('Non-critical error', 'Your platform doesn’t seem to be supported.', 'info');;
     }
     const url = "https://localhost:9876/config";
     var data = {'port': document.getElementById('element').value, 'keyboard_key': document.getElementById('physicalKeyboardKey').value, 'action_type': 'press_key', 'key': document.getElementById('keyboardKey').value};
@@ -12,14 +12,14 @@ function saveKeyboardKey() {
         data: JSON.stringify(data),
         dataType: "json",
         success: function(result) {
-            window.alert(result)
+            Swal.fire('Success!', result, 'success')
         },
         error: function(error) {
             if (error['status'] == 200) {
-                window.alert(error['responseText'])
+                Swal.fire('Success!', error['responseText'], 'success');
             }
             else {
-                window.alert('Something went wrong.')
+                Swal.fire('Oops!', 'Something went wrong.', 'error');
             }
         }
     })
@@ -32,7 +32,7 @@ function saveKeyboardText() {
     var platform = navigator['platform'].toLowerCase();
     if (platform.includes('linux') || platform.includes('win')) {}
     else {
-        window.alert("Non-critical error: Your platform doesn't seem to be supported.");
+        Swal.fire('Non-critical error', 'Your platform doesn’t seem to be supported.', 'info');;
     }
     const url = "https://localhost:9876/config";
     var data = {'port': document.getElementById('element').value, 'keyboard_key': document.getElementById('physicalKeyboardKey').value, 'action_type': 'type_text', 'text': document.getElementById('keyboardText').value};
@@ -42,14 +42,14 @@ function saveKeyboardText() {
         data: JSON.stringify(data),
         dataType: "json",
         success: function(result) {
-            window.alert(result)
+            Swal.fire('Success!', result, 'success')
         },
         error: function(error) {
             if (error['status'] == 200) {
-                window.alert(error['responseText'])
+                Swal.fire('Success!', error['responseText'], 'success');
             }
             else {
-                window.alert('Something went wrong.')
+                Swal.fire('Oops!', 'Something went wrong.', 'error');
             }
         }
     })
@@ -62,7 +62,7 @@ function saveKeyboardCommand() {
     var platform = navigator['platform'].toLowerCase();
     if (platform.includes('linux') || platform.includes('win')) {}
     else {
-        window.alert("Non-critical error: Your platform doesn't seem to be supported.");
+        Swal.fire('Non-critical error', 'Your platform doesn’t seem to be supported.', 'info');;
     }
     const url = "https://localhost:9876/config";
     var data = {'port': document.getElementById('element').value, 'keyboard_key': document.getElementById('physicalKeyboardKey').value, 'action_type': 'run_command', 'command': document.getElementById('keyboardCommand').value};
@@ -72,14 +72,14 @@ function saveKeyboardCommand() {
         data: JSON.stringify(data),
         dataType: "json",
         success: function(result) {
-            window.alert(result)
+            Swal.fire('Success!', result, 'success')
         },
         error: function(error) {
             if (error['status'] == 200) {
-                window.alert(error['responseText'])
+                Swal.fire('Success!', error['responseText'], 'success');
             }
             else {
-                window.alert('Something went wrong.')
+                Swal.fire('Oops!', 'Something went wrong.', 'error');
             }
         }
     })
@@ -91,7 +91,7 @@ function saveKeyboardCustom() {
     var platform = navigator['platform'].toLowerCase();
     if (platform.includes('linux') || platform.includes('win')) {}
     else {
-        window.alert("Non-critical error: Your platform doesn't seem to be supported.");
+        Swal.fire('Non-critical error', 'Your platform doesn’t seem to be supported.', 'info');;
     }
     const url = "https://localhost:9876/config";
     var data = {'port': document.getElementById('element').value, 'keyboard_key': document.getElementById('physicalKeyboardKey').value, 'action_type': 'run_custom_function', 'function_name': document.getElementById('functionKeyboardName').value};
@@ -101,14 +101,14 @@ function saveKeyboardCustom() {
         data: JSON.stringify(data),
         dataType: "json",
         success: function(result) {
-            window.alert(result)
+            Swal.fire('Success!', result, 'success')
         },
         error: function(error) {
             if (error['status'] == 200) {
-                window.alert(error['responseText'])
+                Swal.fire('Success!', error['responseText'], 'success');
             }
             else {
-                window.alert('Something went wrong.')
+                Swal.fire('Oops!', 'Something went wrong.', 'error');
             }
         }
     })

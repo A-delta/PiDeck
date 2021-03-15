@@ -2,7 +2,7 @@ function saveADCVolume() {
     var platform = navigator['platform'].toLowerCase();
     if (platform.includes('linux') || platform.includes('win')) {}
     else {
-        window.alert("Non-critical error: Your platform doesn't seem to be supported.");
+        Swal.fire('Non-critical error', 'Your platform doesn’t seem to be supported.', 'info');;
     }
     const url = "https://localhost:9876/config";
     var data = {'port': document.getElementById('element').value, 'action_type': 'change_volume'};
@@ -12,14 +12,14 @@ function saveADCVolume() {
         data: JSON.stringify(data),
         dataType: "json",
         success: function(result) {
-            window.alert(result)
+            Swal.fire('Success!', result, 'success')
         },
         error: function(error) {
             if (error['status'] == 200) {
-                window.alert(error['responseText'])
+                Swal.fire('Success!', error['responseText'], 'success');
             }
             else {
-                window.alert('Something went wrong.')
+                Swal.fire('Oops!', 'Something went wrong.', 'error');
             }
         }
     })
@@ -32,7 +32,7 @@ function saveADCCustom() {
     var platform = navigator['platform'].toLowerCase();
     if (platform.includes('linux') || platform.includes('win')) {}
     else {
-        window.alert("Non-critical error: Your platform doesn't seem to be supported.");
+        Swal.fire('Non-critical error', 'Your platform doesn’t seem to be supported.', 'info');;
     }
     const url = "https://localhost:9876/config";
     var data = {'port': document.getElementById('element').value, 'action_type': 'run_custom_function', 'function_name': document.getElementById('functionADCName').value};
@@ -42,14 +42,14 @@ function saveADCCustom() {
         data: JSON.stringify(data),
         dataType: "json",
         success: function(result) {
-            window.alert(result)
+            Swal.fire('Success!', result, 'success')
         },
         error: function(error) {
             if (error['status'] == 200) {
-                window.alert(error['responseText'])
+                Swal.fire('Success!', error['responseText'], 'success');
             }
             else {
-                window.alert('Something went wrong.')
+                Swal.fire('Oops!', 'Something went wrong.', 'error');
             }
         }
     })

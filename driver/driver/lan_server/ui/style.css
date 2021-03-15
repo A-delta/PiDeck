@@ -56,7 +56,7 @@ p {
     font-size: 5px;
 }
 
-#typeButton, #buttonPressKey, #buttonKeyValidate, #buttonTypeText, #buttonTextValidate, #buttonCommandFunction, #buttonCommandValidate, #buttonCustomFunction, #buttonCustomValidate, #typeADC, #adcVolumeValidate, #adcCustomFunction, #adcCustomValidate, #typeKeyboard, #typeKeyboardKey, #keyboardPressKey, #keyboardKeyValidate, #keyboardTypeText, #keyboardTextValidate, #keyboardCommandFunction, #keyboardCommandValidate, #keyboardCustomFunction, #keyboardCustomValidate, #typeGamepad, #typeGamepadKey, #gamepadPressKey, #gamepadKeyValidate, #gamepadTypeText, #gamepadTextValidate, #gamepadCommandFunction, #gamepadCommandValidate, #gamepadCustomFunction, #gamepadCustomValidate, #typeGamepadJoy {
+#typeButton, #buttonPressKey, #buttonKeyValidate, #buttonTypeText, #buttonTextValidate, #buttonCommandFunction, #buttonCommandValidate, #buttonCustomFunction, #buttonCustomValidate, #typeADC, #adcVolumeValidate, #adcCustomFunction, #adcCustomValidate, #typeKeyboard, #typeKeyboardKey, #keyboardPressKey, #keyboardKeyValidate, #keyboardTypeText, #keyboardTextValidate, #keyboardCommandFunction, #keyboardCommandValidate, #keyboardCustomFunction, #keyboardCustomValidate, #typeGamepad, #typeGamepadKey, #gamepadPressKey, #gamepadKeyValidate, #gamepadTypeText, #gamepadTextValidate, #gamepadCommandFunction, #gamepadCommandValidate, #gamepadCustomFunction, #gamepadCustomValidate, #typeGamepadJoy, #gamepadJoyVolumeValidate, #gamepadJoyCustomFunction, #gamepadJoyCustomValidate {
     display: none;
 }
 
@@ -103,4 +103,8 @@ h2 {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+.swal2-html-container {
+    font-family: 'Open Sans';
 }
