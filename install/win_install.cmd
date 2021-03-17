@@ -33,27 +33,29 @@ goto check_Permissions
     
     cd C:\Windows\System32
 
-    curl -s -L -o "C:\Users\%USERNAME%\Downloads\raspimote.zip" "https://github.com/A-delta/RaspiMote/archive/main.zip"
+    mkdir %LOCALAPPDATA%\Temp\RaspiMote
+
+    curl -s -L -o "%LOCALAPPDATA%\Temp\RaspiMote\raspimote.zip" "https://github.com/A-delta/RaspiMote/archive/main.zip"
 
     echo [[92mv[0m] RaspiMote code downloaded.
 
-    powershell -command "Remove-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\' -Recurse -erroraction 'silentlycontinue'"
+    powershell -command "Remove-Item '%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\' -Recurse -erroraction 'silentlycontinue'"
 
     powershell -command "Remove-Item 'C:\Program Files\RaspiMote' -Recurse -erroraction 'silentlycontinue'"
 
     powershell -command "Remove-Item 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\RaspiMote - driver.vbs' -erroraction 'silentlycontinue'"
     
-    powershell -command "Add-Type -A 'System.IO.Compression.FileSystem';[IO.Compression.ZipFile]::ExtractToDirectory('C:\Users\%USERNAME%\Downloads\raspimote.zip', 'C:\Users\%USERNAME%\Downloads\')"
+    powershell -command "Add-Type -A 'System.IO.Compression.FileSystem';[IO.Compression.ZipFile]::ExtractToDirectory('%LOCALAPPDATA%\Temp\RaspiMote\raspimote.zip', '%LOCALAPPDATA%\Temp\RaspiMote\')"
 
     echo [[92mv[0m] RaspiMote code extracted.
 
     powershell -command "mkdir 'C:\Program Files\RaspiMote' -erroraction 'silentlycontinue' | Out-Null"
 
-    powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\driver' 'C:\Program Files\RaspiMote\' -recurse -erroraction 'silentlycontinue'"
+    powershell -command "Copy-Item '%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\driver' 'C:\Program Files\RaspiMote\' -recurse -erroraction 'silentlycontinue'"
 
-    powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\logo' 'C:\Program Files\RaspiMote\' -recurse -erroraction 'silentlycontinue'"
+    powershell -command "Copy-Item '%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\logo' 'C:\Program Files\RaspiMote\' -recurse -erroraction 'silentlycontinue'"
 
-    powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\ui' 'C:\Program Files\RaspiMote\' -recurse -erroraction 'silentlycontinue'"
+    powershell -command "Copy-Item '%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\ui' 'C:\Program Files\RaspiMote\' -recurse -erroraction 'silentlycontinue'"
 
     powershell -command "mkdir 'C:\Program Files\RaspiMote\py' -erroraction 'silentlycontinue' | Out-Null"
 
@@ -66,18 +68,18 @@ goto check_Permissions
     echo [[92mv[0m] RaspiMote code copied to installation folder.
 
     if %PROCESSOR_ARCHITECTURE% == AMD64 (
-        curl -s -L -o "C:\Users\%USERNAME%\Downloads\python_embeddable.zip" "https://www.python.org/ftp/python/3.9.2/python-3.9.2-embed-amd64.zip"
+        curl -s -L -o "%LOCALAPPDATA%\Temp\RaspiMote\python_embeddable.zip" "https://www.python.org/ftp/python/3.9.2/python-3.9.2-embed-amd64.zip"
     ) else (
-        curl -s -L -o "C:\Users\%USERNAME%\Downloads\python_embeddable.zip" "https://www.python.org/ftp/python/3.9.2/python-3.9.2-embed-win32.zip"
+        curl -s -L -o "%LOCALAPPDATA%\Temp\RaspiMote\python_embeddable.zip" "https://www.python.org/ftp/python/3.9.2/python-3.9.2-embed-win32.zip"
     )
 
     echo [[92mv[0m] Python embeddable environment downloaded.
 
-    powershell -command "Add-Type -A 'System.IO.Compression.FileSystem';[IO.Compression.ZipFile]::ExtractToDirectory('C:\Users\%USERNAME%\Downloads\python_embeddable.zip', 'C:\Program Files\RaspiMote\py')"
+    powershell -command "Add-Type -A 'System.IO.Compression.FileSystem';[IO.Compression.ZipFile]::ExtractToDirectory('%LOCALAPPDATA%\Temp\RaspiMote\python_embeddable.zip', 'C:\Program Files\RaspiMote\py')"
     
     powershell -command "Remove-Item 'C:\Program Files\RaspiMote\py\python39._pth' -erroraction 'silentlycontinue'"
 
-    powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_assets\python39._pth' 'C:\Program Files\RaspiMote\py' -erroraction 'silentlycontinue'"
+    powershell -command "Copy-Item '%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\install\win_assets\python39._pth' 'C:\Program Files\RaspiMote\py' -erroraction 'silentlycontinue'"
 
     echo [[92mv[0m] Python embeddable environment extracted to installation folder.
 
@@ -87,17 +89,17 @@ goto check_Permissions
 
     powershell -command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned"
 
-    curl -s -L -o "C:\Users\%USERNAME%\Downloads\get-pip.py" "https://bootstrap.pypa.io/get-pip.py"
+    curl -s -L -o "%LOCALAPPDATA%\Temp\RaspiMote\get-pip.py" "https://bootstrap.pypa.io/get-pip.py"
 
-    "C:\Program Files\RaspiMote\py\python.exe" "C:\Users\%USERNAME%\Downloads\get-pip.py" -q 1> nul 2> nul
+    "C:\Program Files\RaspiMote\py\python.exe" "%LOCALAPPDATA%\Temp\RaspiMote\get-pip.py" -q 1> nul 2> nul
 
     "C:\Program Files\RaspiMote\py\python.exe" -m pip install urllib3 requests flask flask-cors keyboard psutil jaraco.functools -q 1> nul 2> nul
 
-    curl -s -L -o "C:\Users\%USERNAME%\Downloads\raspimote_https.zip" "https://github.com/RaspiMote/https/archive/1.0.0.zip"
+    curl -s -L -o "%LOCALAPPDATA%\Temp\RaspiMote\raspimote_https.zip" "https://github.com/RaspiMote/https/archive/1.0.0.zip"
     
-    powershell -command "Add-Type -A 'System.IO.Compression.FileSystem';[IO.Compression.ZipFile]::ExtractToDirectory('C:\Users\%USERNAME%\Downloads\raspimote_https.zip', 'C:\Users\%USERNAME%\Downloads\')"
+    powershell -command "Add-Type -A 'System.IO.Compression.FileSystem';[IO.Compression.ZipFile]::ExtractToDirectory('%LOCALAPPDATA%\Temp\RaspiMote\raspimote_https.zip', '%LOCALAPPDATA%\Temp\RaspiMote\')"
 
-    cd "C:\Users\%USERNAME%\Downloads\https-1.0.0"
+    cd "%LOCALAPPDATA%\Temp\RaspiMote\https-1.0.0"
 
     "C:\Program Files\RaspiMote\py\python.exe" setup.py install 1> nul 2> nul
 
@@ -107,11 +109,11 @@ goto check_Permissions
 
     echo [[92mv[0m] Dependencies installed.
     
-    powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_assets\init.cmd' 'C:\Program Files\RaspiMote' -erroraction 'silentlycontinue'"
+    powershell -command "Copy-Item '%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\install\win_assets\init.cmd' 'C:\Program Files\RaspiMote' -erroraction 'silentlycontinue'"
 
-    powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\common_assets\custom_fcn.py' 'C:\Users\%USERNAME%\AppData\Roaming\RaspiMote\custom_fcn' -erroraction 'silentlycontinue'"
+    powershell -command "Copy-Item '%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\install\common_assets\custom_fcn.py' 'C:\Users\%USERNAME%\AppData\Roaming\RaspiMote\custom_fcn' -erroraction 'silentlycontinue'"
 
-    powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_install.cmd' 'C:\Program Files\RaspiMote\install.cmd' -erroraction 'silentlycontinue'"
+    powershell -command "Copy-Item '%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\install\win_install.cmd' 'C:\Program Files\RaspiMote\install.cmd' -erroraction 'silentlycontinue'"
 
     if %PROCESSOR_ARCHITECTURE% == AMD64 (
         curl -s -L -o "C:\Program Files\RaspiMote\RaspiMote.exe" "https://github.com/RaspiMote/bin/releases/download/1.0.0_bin/run-windows-amd64-1.0.0.exe"
@@ -123,19 +125,19 @@ goto check_Permissions
 
     setlocal enableextensions enabledelayedexpansion
 
-    powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\common_assets\Open_Sans_regular.ttf' '%WINDIR%\Fonts' -erroraction 'silentlycontinue'"
+    powershell -command "Copy-Item '%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\install\common_assets\Open_Sans_regular.ttf' '%WINDIR%\Fonts' -erroraction 'silentlycontinue'"
 
-    powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\common_assets\Open_Sans_bold.ttf' '%WINDIR%\Fonts' -erroraction 'silentlycontinue'"
+    powershell -command "Copy-Item '%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\install\common_assets\Open_Sans_bold.ttf' '%WINDIR%\Fonts' -erroraction 'silentlycontinue'"
 
     reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Open Sans Regular (TrueType)" /t REG_SZ /d Open_Sans_regular.ttf /f
 
     reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Open Sans Bold (TrueType)" /t REG_SZ /d Open_Sans_bold.ttf /f
 
-    powershell -command "Import-Certificate -FilePath 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\common_assets\raspimote_ca.pem' -CertStoreLocation Cert:\LocalMachine\Root"
+    powershell -command "Import-Certificate -FilePath '%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\install\common_assets\raspimote_ca.pem' -CertStoreLocation Cert:\LocalMachine\Root"
 
     powershell -command "mkdir 'C:\Program Files\Mozilla Firefox\distribution' -erroraction 'silentlycontinue' | Out-Null"
 
-    powershell -command "Copy-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_assets\policies.json' 'C:\Program Files\Mozilla Firefox\distribution' -erroraction 'silentlycontinue'"
+    powershell -command "Copy-Item '%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\install\win_assets\policies.json' 'C:\Program Files\Mozilla Firefox\distribution' -erroraction 'silentlycontinue'"
 
     reg.exe add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RaspiMote /v DisplayName /t REG_SZ /d "RaspiMote" > nul
 
@@ -171,11 +173,11 @@ goto check_Permissions
 
     mkdir "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\RaspiMote"
 
-    cscript "C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_assets\shortcut_run_startmenu.vbs" >nul
+    cscript "%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\install\win_assets\shortcut_run_startmenu.vbs" >nul
 
-    cscript "C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_assets\shortcut_ui_startmenu.vbs" >nul
+    cscript "%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\install\win_assets\shortcut_ui_startmenu.vbs" >nul
 
-    cscript "C:\Users\%USERNAME%\Downloads\RaspiMote-main\install\win_assets\shortcut_run_startup.vbs" >nul
+    cscript "%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\install\win_assets\shortcut_run_startup.vbs" >nul
 
     powershell -command "Remove-Item 'C:\Program Files\RaspiMote\py\Lib\site-packages\pip*' -Recurse -erroraction 'silentlycontinue'"
 
@@ -189,15 +191,7 @@ goto check_Permissions
 
     powershell -command "Remove-Item 'C:\Program Files\RaspiMote\py\Lib\site-packages\easy_install*' -erroraction 'silentlycontinue'"
     
-    powershell -command "Remove-Item 'C:\Users\%USERNAME%\Downloads\raspimote.zip' -erroraction 'silentlycontinue'"
-
-    powershell -command "Remove-Item 'C:\Users\%USERNAME%\Downloads\raspimote_https.zip' -erroraction 'silentlycontinue'"
-
-    powershell -command "Remove-Item 'C:\Users\%USERNAME%\Downloads\get-pip.py' -erroraction 'silentlycontinue'"
-
-    powershell -command "Remove-Item 'C:\Users\%USERNAME%\Downloads\RaspiMote-main' -Recurse -erroraction 'silentlycontinue'"
-
-    powershell -command "Remove-Item 'C:\Users\%USERNAME%\Downloads\https-1.0.0' -Recurse -erroraction 'silentlycontinue'"
+    powershell -command "Remove-Item '%LOCALAPPDATA%\Temp\RaspiMote' -erroraction 'silentlycontinue'"
 
     echo [[92mv[0m] Temporary files purged.
 
