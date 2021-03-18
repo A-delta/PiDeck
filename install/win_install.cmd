@@ -144,11 +144,11 @@ goto check_Permissions
 
     powershell -command "Copy-Item '%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\install\common_assets\Open_Sans_bold.ttf' '%WINDIR%\Fonts' -erroraction 'silentlycontinue'"
 
-    reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Open Sans Regular (TrueType)" /t REG_SZ /d Open_Sans_regular.ttf /f
+    reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Open Sans Regular (TrueType)" /t REG_SZ /d Open_Sans_regular.ttf /f > nul
 
-    reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Open Sans Bold (TrueType)" /t REG_SZ /d Open_Sans_bold.ttf /f
+    reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Open Sans Bold (TrueType)" /t REG_SZ /d Open_Sans_bold.ttf /f > nul
 
-    powershell -command "Import-Certificate -FilePath '%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\install\common_assets\raspimote_ca.pem' -CertStoreLocation Cert:\LocalMachine\Root"
+    powershell -command "Import-Certificate -FilePath '%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\install\common_assets\raspimote_ca.pem' -CertStoreLocation Cert:\LocalMachine\Root | Out-Null"
 
     powershell -command "mkdir 'C:\Program Files\Mozilla Firefox\distribution' -erroraction 'silentlycontinue' | Out-Null"
 
