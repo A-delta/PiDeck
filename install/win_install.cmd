@@ -126,7 +126,7 @@ goto check_Permissions
 
     powershell -command "Copy-Item '%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\install\win_uninstall.cmd' 'C:\Program Files\RaspiMote\rm.cmd' -erroraction 'silentlycontinue'"
 
-    powershell -command "Copy-Item '%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\install\uninstaller_entrypoint.cmd' 'C:\Program Files\RaspiMote\uninstall.cmd' -erroraction 'silentlycontinue'"
+    powershell -command "Copy-Item '%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\install\win_assets\uninstaller_entrypoint.cmd' 'C:\Program Files\RaspiMote\uninstall.cmd' -erroraction 'silentlycontinue'"
 
     if %PROCESSOR_ARCHITECTURE% == AMD64 (
         curl -s -L -o "C:\Program Files\RaspiMote\RaspiMote.exe" "https://github.com/RaspiMote/bin/releases/download/1.0.0_bin/run-windows-amd64-1.0.0.exe"
