@@ -132,7 +132,9 @@ goto check_Permissions
     ) else (
         curl -s -L -o "C:\Program Files\RaspiMote\RaspiMote.exe" "https://github.com/RaspiMote/bin/releases/download/1.0.0_bin/run-windows-x86-1.0.0.exe"
         curl -s -L -o "C:\Program Files\RaspiMote\RaspiMote_UI.exe" "https://github.com/RaspiMote/bin/releases/download/1.0.0_bin/ui-windows-x86-1.0.0.exe"
-    )
+    )*
+
+    echo [[92mv[0m] Entrypoint binaries installed.
 
     setlocal enableextensions enabledelayedexpansion
 
@@ -181,6 +183,8 @@ goto check_Permissions
     reg.exe add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RaspiMote /v EstimatedSize /t REG_DWORD /d %folder_size% > nul
 
     reg.exe add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RaspiMote /v UninstallString /t REG_SZ /d "C:\Program Files\RaspiMote\uninstall.cmd" > nul
+
+    echo [[92mv[0m] RaspiMote added in the Windows Registry for uninstall.
 
     powershell -command "mkdir 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\RaspiMote' -erroraction 'silentlycontinue' | Out-Null"
 
