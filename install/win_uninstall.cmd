@@ -41,8 +41,8 @@ goto check_Permissions
 
     setlocal enableextensions enabledelayedexpansion
 
-    powershell -command "Get-ChildItem Cert:\LocalMachine\Root\DB5B6E8BA57DF1F9A105234073D5B05AF88BF8CD | Remove-Item"
-
+    powershell -command "Get-ChildItem Cert:\LocalMachine\Root | Where-Object { $_.Subject -match 'RaspiMote Certification Authority' } | Remove-Item"
+    
     reg.exe delete HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RaspiMote /f > nul
 
     powershell -command "Remove-Item 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\RaspiMote' -Recurse -erroraction 'silentlycontinue'"

@@ -38,17 +38,19 @@ goto check_Permissions
     
     cd C:\Windows\System32
 
+    powershell -command "Remove-Item '%LOCALAPPDATA%\Temp\RaspiMote' -Recurse -erroraction 'silentlycontinue'"
+
+    powershell -command "Remove-Item 'C:\Program Files\RaspiMote' -Recurse -erroraction 'silentlycontinue'"
+
+    powershell -command "Remove-Item 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\RaspiMote.LNK' -erroraction 'silentlycontinue'"
+
+    powershell -command "Remove-Item 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\RaspiMote' -Recurse -erroraction 'silentlycontinue'"
+
     powershell -command "mkdir '%LOCALAPPDATA%\Temp\RaspiMote' -erroraction 'silentlycontinue' | Out-Null"
 
     curl -s -L -o "%LOCALAPPDATA%\Temp\RaspiMote\raspimote.zip" "https://github.com/A-delta/RaspiMote/archive/main.zip"
 
     echo [[92mv[0m] RaspiMote code downloaded.
-
-    powershell -command "Remove-Item '%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\' -Recurse -erroraction 'silentlycontinue'"
-
-    powershell -command "Remove-Item 'C:\Program Files\RaspiMote' -Recurse -erroraction 'silentlycontinue'"
-
-    powershell -command "Remove-Item 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\RaspiMote - driver.vbs' -erroraction 'silentlycontinue'"
     
     powershell -command "Add-Type -A 'System.IO.Compression.FileSystem';[IO.Compression.ZipFile]::ExtractToDirectory('%LOCALAPPDATA%\Temp\RaspiMote\raspimote.zip', '%LOCALAPPDATA%\Temp\RaspiMote\')"
 
