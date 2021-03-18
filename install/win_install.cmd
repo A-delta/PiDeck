@@ -132,7 +132,7 @@ goto check_Permissions
     ) else (
         curl -s -L -o "C:\Program Files\RaspiMote\RaspiMote.exe" "https://github.com/RaspiMote/bin/releases/download/1.0.0_bin/run-windows-x86-1.0.0.exe"
         curl -s -L -o "C:\Program Files\RaspiMote\RaspiMote_UI.exe" "https://github.com/RaspiMote/bin/releases/download/1.0.0_bin/ui-windows-x86-1.0.0.exe"
-    )*
+    )
 
     echo [[92mv[0m] Entrypoint binaries installed.
 
