@@ -12,7 +12,7 @@ goto check_Permissions
     if %errorLevel% == 0 (
         echo [[92mv[0m] Administrative permissions granted.
     ) else (
-        echo [[91mx[0m] [91mYou must grant administrative permissions to the script, (C:\Program Files\RaspiMote\rm.cmd).[0m
+        echo "[[91mx[0m] [91mYou must grant administrative permissions to the script, (C:\Program Files\RaspiMote\rm.cmd).[0m"
         pause >nul
         exit
     )
