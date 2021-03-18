@@ -214,7 +214,7 @@ goto check_Permissions
 
     echo [[92mv[0m] Temporary files purged.
 
-    timeout /t 3
+    timeout /t 3 /nobreak > nul
 
     cls
     
