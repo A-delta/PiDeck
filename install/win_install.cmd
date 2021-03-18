@@ -26,14 +26,19 @@ goto check_Permissions
 
     pause >nul
 
+    cls
+
+    echo [95mRaspiMote - version 1.0.0[0m
+
     echo(
+
     echo(
 
     C:
     
     cd C:\Windows\System32
 
-    mkdir %LOCALAPPDATA%\Temp\RaspiMote
+    powershell -command "mkdir '%LOCALAPPDATA%\Temp\RaspiMote' -erroraction 'silentlycontinue' | Out-Null"
 
     curl -s -L -o "%LOCALAPPDATA%\Temp\RaspiMote\raspimote.zip" "https://github.com/A-delta/RaspiMote/archive/main.zip"
 
@@ -59,11 +64,11 @@ goto check_Permissions
 
     powershell -command "mkdir 'C:\Program Files\RaspiMote\py' -erroraction 'silentlycontinue' | Out-Null"
 
-    mkdir "C:\Users\%USERNAME%\AppData\Roaming\RaspiMote"
+    powershell -command "mkdir 'C:\Users\%USERNAME%\AppData\Roaming\RaspiMote' -erroraction 'silentlycontinue' | Out-Null"
 
-    mkdir "C:\Users\%USERNAME%\AppData\Roaming\RaspiMote\tmp"
+    powershell -command "mkdir 'C:\Users\%USERNAME%\AppData\Roaming\RaspiMote\tmp' -erroraction 'silentlycontinue' | Out-Null"
 
-    mkdir "C:\Users\%USERNAME%\AppData\Roaming\RaspiMote\custom_fcn"
+    powershell -command "mkdir 'C:\Users\%USERNAME%\AppData\Roaming\RaspiMote\custom_fcn' -erroraction 'silentlycontinue' | Out-Null"
 
     echo [[92mv[0m] RaspiMote code copied to installation folder.
 
@@ -103,7 +108,9 @@ goto check_Permissions
 
     "C:\Program Files\RaspiMote\py\python.exe" setup.py install 1> nul 2> nul
 
-    Rem Install IDLE
+    curl -s -L -o "%LOCALAPPDATA%\Temp\RaspiMote\idle.zip" "https://github.com/RaspiMote/bin/releases/download/1.0.0_bin/idle-windows-python39.zip"
+
+    powershell -command "Add-Type -A 'System.IO.Compression.FileSystem';[IO.Compression.ZipFile]::ExtractToDirectory('%LOCALAPPDATA%\Temp\RaspiMote\idle.zip', 'C:\Program Files\RaspiMote\py')"
 
     cd C:\Windows\System32
 
@@ -114,6 +121,10 @@ goto check_Permissions
     powershell -command "Copy-Item '%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\install\common_assets\custom_fcn.py' 'C:\Users\%USERNAME%\AppData\Roaming\RaspiMote\custom_fcn' -erroraction 'silentlycontinue'"
 
     powershell -command "Copy-Item '%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\install\win_install.cmd' 'C:\Program Files\RaspiMote\install.cmd' -erroraction 'silentlycontinue'"
+
+    powershell -command "Copy-Item '%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\install\win_uninstall.cmd' 'C:\Program Files\RaspiMote\rm.cmd' -erroraction 'silentlycontinue'"
+
+    powershell -command "Copy-Item '%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\install\uninstaller_entrypoint.cmd' 'C:\Program Files\RaspiMote\uninstall.cmd' -erroraction 'silentlycontinue'"
 
     if %PROCESSOR_ARCHITECTURE% == AMD64 (
         curl -s -L -o "C:\Program Files\RaspiMote\RaspiMote.exe" "https://github.com/RaspiMote/bin/releases/download/1.0.0_bin/run-windows-amd64-1.0.0.exe"
@@ -171,13 +182,15 @@ goto check_Permissions
 
     reg.exe add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RaspiMote /v UninstallString /t REG_SZ /d "C:\Program Files\RaspiMote\uninstall.cmd" > nul
 
-    mkdir "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\RaspiMote"
+    powershell -command "mkdir 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\RaspiMote' -erroraction 'silentlycontinue' | Out-Null"
 
     cscript "%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\install\win_assets\shortcut_run_startmenu.vbs" >nul
 
     cscript "%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\install\win_assets\shortcut_ui_startmenu.vbs" >nul
 
     cscript "%LOCALAPPDATA%\Temp\RaspiMote\RaspiMote-main\install\win_assets\shortcut_run_startup.vbs" >nul
+
+    echo [[92mv[0m] Shortcuts for running at startup and for the start menu created.
 
     powershell -command "Remove-Item 'C:\Program Files\RaspiMote\py\Lib\site-packages\pip*' -Recurse -erroraction 'silentlycontinue'"
 
@@ -191,9 +204,15 @@ goto check_Permissions
 
     powershell -command "Remove-Item 'C:\Program Files\RaspiMote\py\Lib\site-packages\easy_install*' -erroraction 'silentlycontinue'"
     
-    powershell -command "Remove-Item '%LOCALAPPDATA%\Temp\RaspiMote' -erroraction 'silentlycontinue'"
+    powershell -command "Remove-Item '%LOCALAPPDATA%\Temp\RaspiMote' -Recurse -erroraction 'silentlycontinue'"
 
     echo [[92mv[0m] Temporary files purged.
+
+    timeout /t 3
+
+    cls
+    
+    echo [95mRaspiMote - version 1.0.0[0m
 
     echo(
     
@@ -201,7 +220,11 @@ goto check_Permissions
     
     echo [[92mv[0m] RASPIMOTE HAS BEEN SUCCESSFULLY INSTALLED.
 
+    echo(
+
     echo [[94mi[0m] To access to the driver or to the web-based configuration UI, go to “RaspiMote”, in the start menu.
+
+    echo [[94mi[0m] To uninstall the driver, you can simply use the Programs and features menu, in the Control panel.
 
     echo(
     
