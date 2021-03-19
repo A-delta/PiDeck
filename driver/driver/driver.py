@@ -167,7 +167,7 @@ class Driver:
             if self.verbose:
                 frameinfo = getframeinfo(currentframe())
                 current_line = frameinfo.lineno + 3
-                print(f"\nYou are currently running RaspiMote in verbose mode. Consequently, your local installation of Python (which must be accessible by calling \"python\") will be used instead of the embeddable version. Ensure that the modules \"Flask\" and \"Flask-Cors\" along with \"https\", our fork of \"Cheroot\" are installed on your local installation. More informations on \"https://docs.raspimote.tk/\". If you desire to change this behaviour, you can edit the line {current_line} of \"{frameinfo.filename}\".\n")
+                print(f"\nYou are currently running RaspiMote in verbose mode. Consequently, your local installation of Python (which must be accessible by calling \"python\") will be used instead of the embeddable version. Ensure that the modules \"Flask\" and \"Flask-Cors\" along with \"https\", our fork of \"Cheroot\" are installed on your local installation. More informations on \"https://docs.raspimote.tk/\". If you desire to change this behavior, you can edit the line {current_line} of \"{frameinfo.filename}\".\n")
                 system(f'python wsgi_https.py -v')
             else:
                 system(f'"C:\\Program Files\\RaspiMote\\py\\pythonw.exe" wsgi_https.py')
