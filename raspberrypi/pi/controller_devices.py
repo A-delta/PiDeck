@@ -37,7 +37,7 @@ class Mixin:
                 break
             i += 1
 
-        self.log('Button {0} was pressed'.format(button.name))
+        self.log(f'Button {button.name} was pressed.')
 
         self.send_data(("gamepad", pin, button.name, 1))
 

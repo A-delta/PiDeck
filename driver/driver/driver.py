@@ -11,6 +11,7 @@ import urllib3
 import threading
 import requests
 import time
+from inspect import currentframe, getframeinfo
 
 urllib3.disable_warnings()
 
@@ -162,13 +163,17 @@ class Driver:
 
         chdir(path.join(self.driver_path, "lan_server"))
 
-        vb_arg = ['', ' -v'][int(self.verbose)]
-
         if self.platform == "win32":
-            system(f'python wsgi_https.py{vb_arg}')  # Modify for release (python --> C:\Program Files\RaspiMote\py\python.exe)
-            #  for release : if verbose then  use installed python for easy development
+            if self.verbose:
+                frameinfo = getframeinfo(currentframe())
+                current_line = frameinfo.lineno + 3
+                print(f"\nYou are currently running RaspiMote in verbose mode. Consequently, your local installation of Python (which must be accessible by calling \"python\") will be used instead of the embeddable version. Ensure that the modules \"Flask\" and \"Flask-Cors\" along with \"https\", our fork of Cheroot are installed on your local installation. More informations on \"https://docs.raspimote.tk/\". If you desire to change this behaviour, you can edit the line {current_line} of \"{frameinfo.filename}\".\n")
+                system(f'python wsgi_https.py -v')
+            else:
+                system(f'"C:\\Program Files\\RaspiMote\\py\\pythonw.exe" wsgi_https.py')
 
         elif self.platform == "linux":
+            vb_arg = ['', ' -v'][int(self.verbose)]
             system(f'/usr/bin/python3 wsgi_https.py{vb_arg}')
 
         elif self.platform == "darwin":
