@@ -14,6 +14,7 @@ from time import time
 from sys import platform
 from subprocess import run
 
+from defs import *
 
 from built_in_fcn import actions
 
@@ -28,6 +29,7 @@ elif platform == "win32":
 file = load(open(path.join(config_file_path, "pi_ip.raspimote")))
 pi_ip = file["ip"]
 connection_code = file["code"]
+trigger_actions_file_path = path.join(config_file_path, "trigger_actions.raspimote"))
 
 
 @app.route('/action', methods = ['POST'])
@@ -47,23 +49,44 @@ def action():
                 processor = threading.Thread(name='Processor', target=process, args=[json])
                 processor.start()
 
-
             return "True"
 
 
 
 #### Configuration ####
 
-"""@app.route('/config/add_action', methods = ['POST'])
-def config():
+@app.route('/config/add_action', methods = ['POST'])
+def add_action():
     if request.remote_addr == "127.0.0.1":
         conf_req = loads(list(request.form.to_dict().keys())[0])
         print(f"Adding action : {conf_req}")
 
+        add_action(trigger_actions_file_path, conf_req)
+
     else:
-        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403"""
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
 
+@app.route('/config/remove_action', methods = ['POST'])
+def remove_action():
+    if request.remote_addr == "127.0.0.1":
+        conf_req = loads(list(request.form.to_dict().keys())[0])
+        print(f"Removing action : {conf_req}")
+
+
+    else:
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
+
+
+@app.route('/config/get_actions', methods = ['POST'])
+def get_actions():
+    if request.remote_addr == "127.0.0.1":
+        conf_req = loads(list(request.form.to_dict().keys())[0])
+        print(f"Getting actions")
+
+
+    else:
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
 
 
