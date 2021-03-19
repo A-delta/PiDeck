@@ -228,7 +228,7 @@ goto check_Permissions
 
     echo(
 
-    echo [[94mi[0m] To access to the driver or to the web-based configuration UI, go to “RaspiMote”, in the start menu.
+    echo [[94mi[0m] To access to the driver or to the web-based configuration UI, go to "RaspiMote", in the start menu.
 
     echo [[94mi[0m] To uninstall the driver, you can simply use the Programs and features menu, in the Control panel.
 
