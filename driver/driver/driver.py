@@ -144,7 +144,7 @@ class Driver:
         address = "https://localhost:"+str(self.port)
         while True:
             try:
-                r = requests.post(address)
+                requests.post(address)
                 time.sleep(3)
             except Exception:
                 break
