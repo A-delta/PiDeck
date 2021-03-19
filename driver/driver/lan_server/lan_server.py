@@ -246,6 +246,26 @@ def open_editor():
             except:
                 pass
             return "False", 500
+        elif platform == "linux":
+            try:
+                run(["idle3", f"{config_file_path}/custom_fcn/custom_fcn.py"])
+                return "True"
+            except:
+                pass
+            try:
+                run(["code", f"{config_file_path}/custom_fcn/custom_fcn.py"])
+                return "True"
+            except:
+                pass
+            try:
+                run(["gedit", f"{config_file_path}/custom_fcn/custom_fcn.py"])
+            except:
+                pass
+            try:
+                run(["leafpad", f"{config_file_path}/custom_fcn/custom_fcn.py"])
+            except:
+                pass
+            return "False", 500
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can open an editor.</h2>', 403
 
