@@ -51,6 +51,26 @@ def action():
             return "True"
 
 
+
+#### Configuration ####
+
+"""@app.route('/config/add_action', methods = ['POST'])
+def config():
+    if request.remote_addr == "127.0.0.1":
+        conf_req = loads(list(request.form.to_dict().keys())[0])
+        print(f"Adding action : {conf_req}")
+
+    else:
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403"""
+
+
+
+
+
+#### End Configuration ####
+
+
+
 @app.route('/config', methods = ['POST'])
 def config():
     if request.remote_addr == "127.0.0.1":
@@ -66,7 +86,7 @@ def config():
         for action in trigger_actions:
             if action["port"] == conf_req["port"]:
                 new_trigger_actions.remove(action)
-        
+
         new_trigger_actions.append(conf_req)
 
 
@@ -74,8 +94,8 @@ def config():
             trg_actions.write(dumps(new_trigger_actions))
 
 
-        return "Configuration modified successfully."       
-        
+        return "Configuration modified successfully."
+
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
@@ -113,7 +133,7 @@ def config_js3():
         return send_file("ui/js/showHideButton.js", mimetype="text/javascript")
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
-    
+
 @app.route('/showHideADC.js')
 def config_js4():
     if request.remote_addr == "127.0.0.1":
