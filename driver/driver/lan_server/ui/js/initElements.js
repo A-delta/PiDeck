@@ -122,6 +122,14 @@ function openEditor() {
     $.ajax({
         url: url,
         type: "POST",
+        error: function(error) {
+            if (error['status'] == 500 && error['responseText'] == "False") {
+                Swal.fire('Oops!', "RaspiMote couldn't find any code editor to open up.", 'error');
+            }
+            else {
+                Swal.fire('Oops!', 'Something went wrong.', 'error');
+            }
+        }
     })
 }
 

@@ -245,7 +245,7 @@ def open_editor():
                 return "True"
             except:
                 pass
-            return "False"
+            return "False", 500
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can open an editor.</h2>', 403
 
