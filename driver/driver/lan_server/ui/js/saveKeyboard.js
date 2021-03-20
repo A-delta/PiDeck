@@ -50,7 +50,22 @@ function saveKeyboardText() {
         Swal.fire('Non-critical error', 'Your platform doesn’t seem to be supported.', 'info');;
     }
     const url = "https://localhost:9876/config";
-    var data = {'type': 'usb_hid', 'name': document.getElementById('element').value, 'device_key': document.getElementById('physicalKeyboardKey').value, 'action_type': 'type_text', 'text': document.getElementById('keyboardText').value};
+    //var data = {'type': 'usb_hid', 'name': document.getElementById('element').value, 'device_key': document.getElementById('physicalKeyboardKey').value, 'action_type': 'type_text', 'text': document.getElementById('keyboardText').value};
+
+
+    var data = {
+      'type': 'usb_hid',
+      'name': document.getElementById('element').value,
+      'function': {
+        key: {
+          'action_type': 'type_text',
+          'to_type': document.getElementById('keyboardText').value},
+        },
+
+      },
+
+    };
+
     $.ajax({
         url: url,
         type: "POST",
