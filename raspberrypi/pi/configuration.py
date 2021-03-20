@@ -81,7 +81,7 @@ class Mixin:
         if self.gamepads:
             inventory.update({"gamepad": len(self.gamepads)})
 
-        if debug_inventory:
+        if debug_inventory:  # TEMPORARY
             inventory = {"GPIO_buttons": [2, 3, 4], "ADC": 12, "USB": ["mouse_0", "keyboard_0", "mouse_1", "generic_usb_0"], "gamepad": 1}
 
 

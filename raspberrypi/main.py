@@ -7,12 +7,11 @@ from sys import argv
 
 
 def main(argv):
-    if "-verbose" in argv or '-v' in argv:
-        verbose = True
-    else:
-        verbose = False
 
-    pi = Pi("192.168.1.16", "WiFi", True, verbose)
+    verbose = "-verbose" in argv or '-v' in argv
+    debug_inventory=  "inventory" in argv or "i" in argv
+
+    pi = Pi("192.168.1.16", "WiFi", debug_inventory, verbose)
     pi.add_USB_mouse(0)
     pi.establish_connection()
 
