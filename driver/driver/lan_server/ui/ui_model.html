@@ -47,10 +47,18 @@
                     <select name="Element" id="element" onchange="changeElement(this)"></select>
 
 
-
+                    <!-- FOR GENERIC USB DEVICES -->
                     <div name="Do it yourself 🙃" id="genericUSBDIY">
                         <p>&nbsp;</p>
-                        <text>You can replace this by anything, depending on the kind of USB peripheral you want to use. Be creative!</text>
+                        <text>Name of your custom Python function:</text>
+                        <p class="little_title_pf">&nbsp;</p>
+                        <input id="genericUSBFunctionName" onchange="genericUSBFunctionValidation(this)"/>
+                        <div id="genericUSBFunctionValidate">
+                            <p>&nbsp;</p>
+                            <button onclick="saveGenericUSBFunction()">
+                                Save
+                            </button>
+                        </div>
                     </div>
 
 
@@ -88,7 +96,7 @@
                         </div>
                         <div id="buttonTypeText">
                             <p>&nbsp;</p>
-                            <input id="buttonText" onchange="buttonTextValidation(this)">
+                            <input id="buttonText" onchange="buttonTextValidation(this)"/>
                             <div id="buttonTextValidate">
                                 <p>&nbsp;</p>
                                 <button onclick="saveButtonText()">
@@ -98,7 +106,7 @@
                         </div>
                         <div id="buttonCommandFunction">
                             <p>&nbsp;</p>
-                            <input id="buttonCommand" onchange="buttonCommandValidation(this)">
+                            <input id="buttonCommand" onchange="buttonCommandValidation(this)"/>
                             <div id="buttonCommandValidate">
                                 <p>&nbsp;</p>
                                 <button onclick="saveButtonCommand()">
@@ -108,7 +116,7 @@
                         </div>
                         <div id="buttonCustomFunction">
                             <p>&nbsp;</p>
-                            <input id="functionButtonName" onchange="buttonCustomValidation(this)">
+                            <input id="functionButtonName" onchange="buttonCustomValidation(this)"/>
                             <div id="buttonCustomValidate">
                                 <p>&nbsp;</p>
                                 <button onclick="saveButtonCustom()">
@@ -143,7 +151,7 @@
                         </div>
                         <div id="adcCustomFunction">
                             <p>&nbsp;</p>
-                            <input id="functionADCName" onchange="adcCustomValidation(this)">
+                            <input id="functionADCName" onchange="adcCustomValidation(this)"/>
                             <div id="adcCustomValidate">
                                 <p>&nbsp;</p>
                                 <button onclick="saveADCCustom()">
@@ -191,7 +199,7 @@
                             </div>
                             <div id="keyboardTypeText">
                                 <p>&nbsp;</p>
-                                <input id="keyboardText" onchange="keyboardTextValidation(this)">
+                                <input id="keyboardText" onchange="keyboardTextValidation(this)"/>
                                 <div id="keyboardTextValidate">
                                     <p>&nbsp;</p>
                                     <button onclick="saveKeyboardText()">
@@ -201,7 +209,7 @@
                             </div>
                             <div id="keyboardCommandFunction">
                                 <p>&nbsp;</p>
-                                <input id="keyboardCommand" onchange="keyboardCommandValidation(this)">
+                                <input id="keyboardCommand" onchange="keyboardCommandValidation(this)"/>
                                 <div id="keyboardCommandValidate">
                                     <p>&nbsp;</p>
                                     <button onclick="saveKeyboardCommand()">
@@ -211,7 +219,7 @@
                             </div>
                             <div id="keyboardCustomFunction">
                                 <p>&nbsp;</p>
-                                <input id="functionKeyboardName" onchange="keyboardCustomValidation(this)">
+                                <input id="functionKeyboardName" onchange="keyboardCustomValidation(this)"/>
                                 <div id="keyboardCustomValidate">
                                     <p>&nbsp;</p>
                                     <button onclick="saveKeyboardCustom()">
@@ -262,7 +270,7 @@
                             </div>
                             <div id="gamepadTypeText">
                                 <p>&nbsp;</p>
-                                <input id="gamepadText" onchange="gamepadTextValidation(this)">
+                                <input id="gamepadText" onchange="gamepadTextValidation(this)"/>
                                 <div id="gamepadTextValidate">
                                     <p>&nbsp;</p>
                                     <button onclick="saveGamepadText()">
@@ -272,7 +280,7 @@
                             </div>
                             <div id="gamepadCommandFunction">
                                 <p>&nbsp;</p>
-                                <input id="gamepadCommand" onchange="gamepadCommandValidation(this)">
+                                <input id="gamepadCommand" onchange="gamepadCommandValidation(this)"/>
                                 <div id="gamepadCommandValidate">
                                     <p>&nbsp;</p>
                                     <button onclick="saveGamepadCommand()">
@@ -282,7 +290,7 @@
                             </div>
                             <div id="gamepadCustomFunction">
                                 <p>&nbsp;</p>
-                                <input id="functionGamepadName" onchange="gamepadCustomValidation(this)">
+                                <input id="functionGamepadName" onchange="gamepadCustomValidation(this)"/>
                                 <div id="gamepadCustomValidate">
                                     <p>&nbsp;</p>
                                     <button onclick="saveGamepadCustom()">
@@ -313,7 +321,7 @@
                             </div>
                             <div id="gamepadJoyCustomFunction">
                                 <p>&nbsp;</p>
-                                <input id="functionGamepadJoyName" onchange="gamepadJoyCustomValidation(this)">
+                                <input id="functionGamepadJoyName" onchange="gamepadJoyCustomValidation(this)"/>
                                 <div id="gamepadJoyCustomValidate">
                                     <p>&nbsp;</p>
                                     <button onclick="saveGamepadCustom()">

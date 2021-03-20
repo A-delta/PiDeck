@@ -24,3 +24,7 @@ function keyboardCustomValidation(element) {
 function showTypeKeyboardKey(element) {
     document.getElementById('typeKeyboardKey').style.display = element.value != "none" ? 'block' : 'none';
 }
+
+function genericUSBFunctionValidation(element) {
+    document.getElementById('genericUSBFunctionValidate').style.display = element.value != "none" ? 'block' : 'none';
+}
