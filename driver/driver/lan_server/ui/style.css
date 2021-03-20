@@ -62,7 +62,7 @@ p {
     font-size: 5px;
 }
 
-#typeButton, #buttonPressKey, #buttonKeyValidate, #buttonTypeText, #buttonTextValidate, #buttonCommandFunction, #buttonCommandValidate, #buttonCustomFunction, #buttonCustomValidate, #typeADC, #adcVolumeValidate, #adcCustomFunction, #adcCustomValidate, #typeKeyboard, #typeKeyboardKey, #keyboardPressKey, #keyboardKeyValidate, #keyboardTypeText, #keyboardTextValidate, #keyboardCommandFunction, #keyboardCommandValidate, #keyboardCustomFunction, #keyboardCustomValidate, #typeGamepad, #typeGamepadKey, #gamepadPressKey, #gamepadKeyValidate, #gamepadTypeText, #gamepadTextValidate, #gamepadCommandFunction, #gamepadCommandValidate, #gamepadCustomFunction, #gamepadCustomValidate, #typeGamepadJoy, #gamepadJoyVolumeValidate, #gamepadJoyCustomFunction, #gamepadJoyCustomValidate {
+#typeButton, #buttonPressKey, #buttonKeyValidate, #buttonTypeText, #buttonTextValidate, #buttonCommandFunction, #buttonCommandValidate, #buttonCustomFunction, #buttonCustomValidate, #typeADC, #adcVolumeValidate, #adcCustomFunction, #adcCustomValidate, #typeKeyboard, #typeKeyboardKey, #keyboardPressKey, #keyboardKeyValidate, #keyboardTypeText, #keyboardTextValidate, #keyboardCommandFunction, #keyboardCommandValidate, #keyboardCustomFunction, #keyboardCustomValidate, #typeGamepad, #typeGamepadKey, #gamepadPressKey, #gamepadKeyValidate, #gamepadTypeText, #gamepadTextValidate, #gamepadCommandFunction, #gamepadCommandValidate, #gamepadCustomFunction, #gamepadCustomValidate, #typeGamepadJoy, #gamepadJoyVolumeValidate, #gamepadJoyCustomFunction, #gamepadJoyCustomValidate, #genericUSBDIY {
     display: none;
 }
 
@@ -88,7 +88,6 @@ text {
     font-family: "Open Sans";
     font-size: 16px;
     font-weight: bold;
-    cursor: pointer;
 }
 
 h2 {
@@ -99,6 +98,7 @@ h2 {
 
 .open_editor {
     text-align: right;
+    cursor: pointer;
 }
 
 .xbox_one {
@@ -113,4 +113,9 @@ h2 {
 
 .swal2-html-container {
     font-family: 'Open Sans';
+}
+
+#genericUSBDIY {
+    margin-left: 20vw;
+    margin-right: 20vw;
 }
