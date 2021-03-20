@@ -79,8 +79,7 @@ class Mixin:
             inventory.update({"USB": self.usb_devices})
 
         if self.gamepads:
-            for gp in self.gamepads:
-                inventory.update({"gamepad": len(self.gamepads)})
+            inventory.update({"gamepad": len(self.gamepads)})
 
         request = {"code": self.code, "request": {"type": "inventory", "inventory": inventory}}
         self.log(request)

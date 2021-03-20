@@ -17,6 +17,7 @@ def get_conf_file(path):
 def add_action(path, request):
     file, actions = get_conf_file(path)
     """{'port': 'usb_keyboard_or_mouse', 'keyboard_key': 'scroll_up', 'action_type': 'run_command', 'command': 'echo test'}"""
+    
 
 
 
