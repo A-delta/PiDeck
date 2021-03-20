@@ -12,7 +12,7 @@ def main(argv):
     else:
         verbose = False
 
-    pi = Pi("192.168.1.16", "WiFi", verbose)
+    pi = Pi("192.168.1.16", "WiFi", True, verbose)
     pi.add_USB_mouse(0)
     pi.establish_connection()
 

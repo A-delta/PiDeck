@@ -16,7 +16,7 @@ class Pi(
     GPIO_inputs.Mixin
 ):
 
-    def __init__(self, ip, connection_mode, verbose=False):  # user_supported_devices could be a json file
+    def __init__(self, ip, connection_mode, debug_inventory=False,verbose=False):  # user_supported_devices could be a json file
         """
         Creates a Pi object.
 
