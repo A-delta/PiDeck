@@ -5,7 +5,22 @@ function saveKeyboardKey() {
         Swal.fire('Non-critical error', 'Your platform doesn’t seem to be supported.', 'info');;
     }
     const url = "https://localhost:9876/config";
-    var data = {'type': 'usb_hid', 'name': document.getElementById('element').value, 'device_key': document.getElementById('physicalKeyboardKey').value, 'action_type': 'press_key', 'key': document.getElementById('keyboardKey').value};
+
+    var key = document.getElementById('keyboardKey').value;
+
+    var data = {
+      'type': 'usb_hid',
+      'name': document.getElementById('element').value,
+      'function': {
+        key: {
+          'action_type': 'press_key',
+          'to_press': document.getElementById('physicalKeyboardKey').value,
+        },
+
+      },
+
+    };
+
     $.ajax({
         url: url,
         type: "POST",
