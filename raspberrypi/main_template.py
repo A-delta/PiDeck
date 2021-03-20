@@ -18,7 +18,7 @@ def main():
 
     pi.add_USB_Device(1)
     """
-    Add a USB Device, see https://github.com/A-delta/RaspiMote/blob/main/utility/identify_usb_device.py
+    Add a USB Device, see https://github.com/RaspiMote/RaspiMote/blob/main/utility/identify_usb_device.py
     to know which number you must write.
     """
 

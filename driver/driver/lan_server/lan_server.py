@@ -29,7 +29,7 @@ elif platform == "win32":
 file = load(open(path.join(config_file_path, "pi_ip.raspimote")))
 pi_ip = file["ip"]
 connection_code = file["code"]
-trigger_actions_file_path = path.join(config_file_path, "trigger_actions.raspimote"))
+trigger_actions_file_path = path.join(config_file_path, "trigger_actions.raspimote")
 
 
 @app.route('/action', methods = ['POST'])
@@ -99,7 +99,7 @@ def config():
     if request.remote_addr == "127.0.0.1":
         conf_req = loads(list(request.form.to_dict().keys())[0])
         print(conf_req)
-        try:
+        """try:
             with open(path.join(config_file_path, "trigger_actions.raspimote"), "r") as trg_actions:
                 trigger_actions = loads(trg_actions.read())
         except FileNotFoundError:
@@ -114,7 +114,7 @@ def config():
 
 
         with open(path.join(config_file_path, "trigger_actions.raspimote"), "w") as trg_actions:
-            trg_actions.write(dumps(new_trigger_actions))
+            trg_actions.write(dumps(new_trigger_actions))"""
 
 
         return "Configuration modified successfully."

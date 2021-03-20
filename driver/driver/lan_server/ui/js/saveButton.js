@@ -5,7 +5,7 @@ function saveButtonKey() {
         Swal.fire('Non-critical error', 'Your platform doesn’t seem to be supported.', 'info');;
     }
     const url = "https://localhost:9876/config";
-    var data = {'port': document.getElementById('element').value, 'action_type': 'press_key', 'key': document.getElementById('buttonKey').value};
+    var data = {'type': 'button', 'gpio': parseInt(document.getElementById('element').value.replaceAll('gpio_', '')), 'action_type': 'press_key', 'key': document.getElementById('buttonKey').value};
     $.ajax({
         url: url,
         type: "POST",
@@ -35,7 +35,7 @@ function saveButtonText() {
         Swal.fire('Non-critical error', 'Your platform doesn’t seem to be supported.', 'info');;
     }
     const url = "https://localhost:9876/config";
-    var data = {'port': document.getElementById('element').value, 'action_type': 'type_text', 'text': document.getElementById('buttonText').value};
+    var data = {'type': 'button', 'gpio': parseInt(document.getElementById('element').value.replaceAll('gpio_', '')), 'action_type': 'type_text', 'text': document.getElementById('buttonText').value};
     $.ajax({
         url: url,
         type: "POST",
@@ -65,7 +65,7 @@ function saveButtonCommand() {
         Swal.fire('Non-critical error', 'Your platform doesn’t seem to be supported.', 'info');;
     }
     const url = "https://localhost:9876/config";
-    var data = {'port': document.getElementById('element').value, 'action_type': 'run_command', 'command': document.getElementById('buttonCommand').value};
+    var data = {'type': 'button', 'gpio': parseInt(document.getElementById('element').value.replaceAll('gpio_', '')), 'action_type': 'run_command', 'command': document.getElementById('buttonCommand').value};
     $.ajax({
         url: url,
         type: "POST",
@@ -94,7 +94,7 @@ function saveButtonCustom() {
         Swal.fire('Non-critical error', 'Your platform doesn’t seem to be supported.', 'info');;
     }
     const url = "https://localhost:9876/config";
-    var data = {'port': document.getElementById('element').value, 'action_type': 'run_custom_function', 'function_name': document.getElementById('functionButtonName').value};
+    var data = {'type': 'button', 'gpio': parseInt(document.getElementById('element').value.replaceAll('gpio_', '')), 'action_type': 'run_custom_function', 'function_name': document.getElementById('functionButtonName').value};
     $.ajax({
         url: url,
         type: "POST",

@@ -5,7 +5,7 @@ function saveGamepadKey() {
         Swal.fire('Non-critical error', 'Your platform doesn’t seem to be supported.', 'info');;
     }
     const url = "https://localhost:9876/config";
-    var data = {'port': document.getElementById('element').value, 'gamepad_button': document.getElementById('xbox_one_controller_canvas').innerHTML.replaceAll('<!--', '').replaceAll('-->', ''), 'action_type': 'press_key', 'key': document.getElementById('gamepadKey').value};
+    var data = {'type': 'xbox_one_gamepad', 'button': document.getElementById('xbox_one_controller_canvas').innerHTML.replaceAll('<!--', '').replaceAll('-->', ''), 'action_type': 'press_key', 'key': document.getElementById('gamepadKey').value};
     $.ajax({
         url: url,
         type: "POST",
@@ -35,7 +35,7 @@ function saveGamepadText() {
         Swal.fire('Non-critical error', 'Your platform doesn’t seem to be supported.', 'info');;
     }
     const url = "https://localhost:9876/config";
-    var data = {'port': document.getElementById('element').value, 'gamepad_button': document.getElementById('xbox_one_controller_canvas').innerHTML.replaceAll('<!--', '').replaceAll('-->', ''), 'action_type': 'type_text', 'text': document.getElementById('gamepadText').value};
+    var data = {'type': 'xbox_one_gamepad', 'button': document.getElementById('xbox_one_controller_canvas').innerHTML.replaceAll('<!--', '').replaceAll('-->', ''), 'action_type': 'type_text', 'text': document.getElementById('gamepadText').value};
     $.ajax({
         url: url,
         type: "POST",
@@ -65,7 +65,7 @@ function saveGamepadCommand() {
         Swal.fire('Non-critical error', 'Your platform doesn’t seem to be supported.', 'info');;
     }
     const url = "https://localhost:9876/config";
-    var data = {'port': document.getElementById('element').value, 'gamepad_button': document.getElementById('xbox_one_controller_canvas').innerHTML.replaceAll('<!--', '').replaceAll('-->', ''), 'action_type': 'run_command', 'command': document.getElementById('gamepadCommand').value};
+    var data = {'type': 'xbox_one_gamepad', 'button': document.getElementById('xbox_one_controller_canvas').innerHTML.replaceAll('<!--', '').replaceAll('-->', ''), 'action_type': 'run_command', 'command': document.getElementById('gamepadCommand').value};
     $.ajax({
         url: url,
         type: "POST",
@@ -94,7 +94,7 @@ function saveGamepadCustom() {
         Swal.fire('Non-critical error', 'Your platform doesn’t seem to be supported.', 'info');;
     }
     const url = "https://localhost:9876/config";
-    var data = {'port': document.getElementById('element').value, 'gamepad_button': document.getElementById('xbox_one_controller_canvas').innerHTML.replaceAll('<!--', '').replaceAll('-->', ''), 'action_type': 'run_custom_function', 'function_name': document.getElementById('functionGamepadName').value};
+    var data = {'type': 'xbox_one_gamepad', 'button': document.getElementById('xbox_one_controller_canvas').innerHTML.replaceAll('<!--', '').replaceAll('-->', ''), 'action_type': 'run_custom_function', 'function_name': document.getElementById('functionGamepadName').value};
     $.ajax({
         url: url,
         type: "POST",
@@ -124,7 +124,7 @@ function saveGamepadJoyVolume() {
         Swal.fire('Non-critical error', 'Your platform doesn’t seem to be supported.', 'info');;
     }
     const url = "https://localhost:9876/config";
-    var data = {'port': document.getElementById('element').value, 'gamepad_button': document.getElementById('xbox_one_controller_canvas').innerHTML.replaceAll('<!--', '').replaceAll('-->', ''), 'action_type': 'change_volume'};
+    var data = {'type': 'xbox_one_gamepad', 'button': document.getElementById('xbox_one_controller_canvas').innerHTML.replaceAll('<!--', '').replaceAll('-->', ''), 'action_type': 'change_volume'};
     $.ajax({
         url: url,
         type: "POST",
