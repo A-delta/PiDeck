@@ -9,10 +9,10 @@ class Mixin:
         except Exception:
             print(f"{self.term_fail}USB Device {input_number} doesn't exist. Skipped.{self.term_endc}")
             return
-        self.usb_devices.append(device_name)
+        self.usb_devices.append("generic_usb_"+device_name)
         self.usb_channels.append(input_number)
 
-        self.log(f"USB Device added with input{input_number}")
+        self.log(f"Generic USB Device {'generic_usb_'+device_name} added with input{input_number}")
 
         usb_device_thread = Thread(name="USB Device Reading", target=self.generic_usb_device_loop, args=(usb, device_name))
         usb_device_thread.start()
