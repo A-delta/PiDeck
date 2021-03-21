@@ -88,4 +88,4 @@ class Mixin:
     def event_button(self, button):
         pin = self.pins[self.buttons.index(button)]
         self.log(f"Button{pin}")
-        self.send_data({"code": self.code, "request": {"type": "button", "pin": pin, "value": 1}})
+        self.send_data(("button", pin, "button_event", 1))
