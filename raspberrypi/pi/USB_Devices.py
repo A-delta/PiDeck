@@ -3,6 +3,11 @@ from threading import Thread
 
 class Mixin:
     def add_generic_USB_device(self, input_number, device_name):
+
+        if "mouse" in device_name or "keyboard" in device_name or "gamepad" in device_name:
+            raise(Exception("Illegal name for a Generic USB Device.\nIf you're trying to use a mouse, a keyboard or a controller, use the provided methods."))
+
+
         from evdev import InputDevice
         try:
             usb = InputDevice(f"/dev/input/event{input_number}")
