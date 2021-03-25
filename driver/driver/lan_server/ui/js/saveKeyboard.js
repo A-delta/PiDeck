@@ -59,7 +59,7 @@ function saveKeyboardText() {
       'function': {
         key: {
           'action_type': 'type_text',
-          'to_type': document.getElementById('keyboardText').value},
+          'to_type': document.getElementById('keyboardText').value
         },
       },
     };
