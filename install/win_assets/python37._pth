@@ -1,4 +1,4 @@
-python39.zip
+python37.zip
 .
 
 C:\Program Files\RaspiMote\driver
@@ -10,4 +10,4 @@ C:\Program Files\RaspiMote\py\DLLs
 C:\Program Files\RaspiMote\py\lib
 C:\Program Files\RaspiMote\py\lib\plat-win
 C:\Program Files\RaspiMote\py\lib\site-packages
-C:\Program Files\RaspiMote\py\Lib\site-packages\raspimote_https-8.5.2-py3.9.egg
+C:\Program Files\RaspiMote\py\Lib\site-packages\raspimote_https-8.5.2-py3.7.egg
