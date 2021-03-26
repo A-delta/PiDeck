@@ -1,7 +1,9 @@
 # RaspiMote
 
 <div align="center">
-  <img src="https://github.com/RaspiMote/logo/raw/main/RaspiMote_logo_500px.png" width="150">
+  <a href="#" style="cursor: default;">
+    <img src="https://github.com/RaspiMote/logo/raw/main/RaspiMote_logo_500px.png" width="150">
+  </a>
 </div>
 
 The objective of *RaspiMote* is to allow almost anyone to turn its Raspberry Pi into a programmable keyboard / controller / remote control, with custom physical input methods **and** custom software features with the provided driver.  
