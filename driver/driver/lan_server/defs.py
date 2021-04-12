@@ -23,32 +23,45 @@ def add_action(path, request):
     # {'type': 'xbox_one_gamepad', 'button': 'btn_mode', 'action_type': 'run_command', 'command': 'a'}
 
 
+    """var data = {
+      'type': 'usb_hid',
+      'name': document.getElementById('element').value,
+      'function': {
+        key: {
+          'action_type': 'run_custom_function',
+          'to_run': document.getElementById('functionKeyboardName').value,
+        },
+      },
+    };"""
+
+    #  {type: usb_hid, name: name, function: {the_key: {fcn, arg}}}
+
     device_type = data["type"]
 
     if device_type == "usb_hid":
         name == data["name"]
         function = data["function"]
 
-        
-
+        event_name = function[0]
+        function_to_run = event
 
     elif device_type == "xbox_one_gamepad":
         pass
 
     elif device_type == "adc":
-        pass
+        name = data["channel"]
+        function = data["function"]
+
+        
+
 
     elif device_type == "button":
         pass
 
 
-
-
-
-
-
 def remove_action(path):
     pass
+
 
 def get_actions(path):
     pass
