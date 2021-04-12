@@ -34,8 +34,10 @@ function init() {
             var inventory = JSON.parse(result)
             var items = ["&nbsp;"];
             if (inventory != false) {
-                for (var device of inventory["USB"]) {
-                    items.push(device.split("_").join(" ").split("keyboard").join("Keyboard").split("mouse").join("Mouse").split("generic usb").join("Generic USB"));
+                if ("USB" in inventory) {
+                    for (var device of inventory["USB"]) {
+                        items.push(device.split("_").join(" ").split("keyboard").join("Keyboard").split("mouse").join("Mouse").split("generic usb").join("Generic USB"));
+                    }
                 }
                 for (var button of inventory["GPIO_buttons"]) {
                     items.push("GPIO " + button);
