@@ -5,7 +5,6 @@ function saveButtonKey() {
         Swal.fire('Non-critical error', 'Your platform doesn’t seem to be supported.', 'info');;
     }
     const url = "https://localhost:9876/config";
-<<<<<<< HEAD
     //var data = {'type': 'button', 'gpio': parseInt(document.getElementById('element').value.replaceAll('gpio_', '')), 'action_type': 'press_key', 'key': document.getElementById('buttonKey').value};
 
     var data = {
@@ -19,9 +18,6 @@ function saveButtonKey() {
       },
     };
 
-=======
-    var data = {'type': 'button', 'gpio': parseInt(document.getElementById('element').value.split("gpio_").join("")), 'action_type': 'press_key', 'key': document.getElementById('buttonKey').value};
->>>>>>> dddedfab2d62f51889dba04503948c522446aee2
     $.ajax({
         url: url,
         type: "POST",
@@ -51,7 +47,6 @@ function saveButtonText() {
         Swal.fire('Non-critical error', 'Your platform doesn’t seem to be supported.', 'info');;
     }
     const url = "https://localhost:9876/config";
-<<<<<<< HEAD
     var data = {
       'type': 'button',
       'name': parseInt(document.getElementById('element').value.replaceAll('gpio_', '')),
@@ -62,9 +57,6 @@ function saveButtonText() {
         },
       },
     };
-=======
-    var data = {'type': 'button', 'gpio': parseInt(document.getElementById('element').value.split("gpio_").join("")), 'action_type': 'type_text', 'text': document.getElementById('buttonText').value};
->>>>>>> dddedfab2d62f51889dba04503948c522446aee2
     $.ajax({
         url: url,
         type: "POST",
@@ -94,7 +86,6 @@ function saveButtonCommand() {
         Swal.fire('Non-critical error', 'Your platform doesn’t seem to be supported.', 'info');;
     }
     const url = "https://localhost:9876/config";
-<<<<<<< HEAD
     //var data = {'type': 'button', 'gpio': parseInt(document.getElementById('element').value.replaceAll('gpio_', '')), 'action_type': 'run_command', 'command': document.getElementById('buttonCommand').value};
 
     var data = {
@@ -108,9 +99,6 @@ function saveButtonCommand() {
       },
     };
 
-=======
-    var data = {'type': 'button', 'gpio': parseInt(document.getElementById('element').value.split("gpio_").join("")), 'action_type': 'run_command', 'command': document.getElementById('buttonCommand').value};
->>>>>>> dddedfab2d62f51889dba04503948c522446aee2
     $.ajax({
         url: url,
         type: "POST",
@@ -139,7 +127,6 @@ function saveButtonCustom() {
         Swal.fire('Non-critical error', 'Your platform doesn’t seem to be supported.', 'info');;
     }
     const url = "https://localhost:9876/config";
-<<<<<<< HEAD
     var data = {
       'type': 'button',
       'name': parseInt(document.getElementById('element').value.replaceAll('gpio_', '')),
@@ -150,9 +137,6 @@ function saveButtonCustom() {
         },
       },
     };
-=======
-    var data = {'type': 'button', 'gpio': parseInt(document.getElementById('element').value.split("gpio_").join("")), 'action_type': 'run_custom_function', 'function_name': document.getElementById('functionButtonName').value};
->>>>>>> dddedfab2d62f51889dba04503948c522446aee2
     $.ajax({
         url: url,
         type: "POST",

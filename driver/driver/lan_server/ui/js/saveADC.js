@@ -5,7 +5,6 @@ function saveADCVolume() {
         Swal.fire('Non-critical error', 'Your platform doesn’t seem to be supported.', 'info');;
     }
     const url = "https://localhost:9876/config";
-<<<<<<< HEAD
 
 
     var data = {
@@ -19,9 +18,6 @@ function saveADCVolume() {
       },
     };
 
-=======
-    var data = {'type': 'adc', 'channel': parseInt(document.getElementById('element').value.split("adc_").join("")), 'action_type': 'change_volume'};
->>>>>>> dddedfab2d62f51889dba04503948c522446aee2
     $.ajax({
         url: url,
         type: "POST",
@@ -51,7 +47,6 @@ function saveADCCustom() {
         Swal.fire('Non-critical error', 'Your platform doesn’t seem to be supported.', 'info');;
     }
     const url = "https://localhost:9876/config";
-<<<<<<< HEAD
 
 
     var data = {
@@ -65,9 +60,6 @@ function saveADCCustom() {
       },
     };
 
-=======
-    var data = {'type': 'adc', 'channel': parseInt(document.getElementById('element').value.split("adc_").join("")), 'action_type': 'run_custom_function', 'function_name': document.getElementById('functionADCName').value};
->>>>>>> dddedfab2d62f51889dba04503948c522446aee2
     $.ajax({
         url: url,
         type: "POST",
