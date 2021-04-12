@@ -15,8 +15,8 @@ function saveButtonKey() {
           'action_type': 'press_key',
           'data': document.getElementById('buttonKey').value
         },
-      },
-    };
+      };
+
 
     $.ajax({
         url: url,
@@ -55,8 +55,7 @@ function saveButtonText() {
           'action_type': 'type_text',
           'data': document.getElementById('buttonText').value
         },
-      },
-    };
+      };
     $.ajax({
         url: url,
         type: "POST",
@@ -96,8 +95,7 @@ function saveButtonCommand() {
           'action_type': 'run_command',
           'data': document.getElementById('buttonCommand').value
         },
-      },
-    };
+      };
 
     $.ajax({
         url: url,
@@ -135,8 +133,7 @@ function saveButtonCustom() {
           'action_type': 'run_custom_function',
           'data': document.getElementById('functionButtonName').value
         },
-      },
-    };
+      };
     $.ajax({
         url: url,
         type: "POST",

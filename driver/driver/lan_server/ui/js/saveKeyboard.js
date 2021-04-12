@@ -9,14 +9,14 @@ function saveKeyboardKey() {
 
     var data = {
         'type': 'usb_hid',
-        'name': document.getElementById('element').value,,
+        'name': document.getElementById('element').value,
         'function': {
             'when': document.getElementById('keyboardKey').value,
             'action_type': 'press_key',
             'data': document.getElementById('physicalKeyboardKey').value,
           },
         },
-      };
+
 
 
     $.ajax({
@@ -57,8 +57,8 @@ function saveKeyboardText() {
             'action_type': 'type_text',
             'data': document.getElementById('keyboardText').value
           },
-        },
-      };
+        };
+
 
     $.ajax({
         url: url,
@@ -101,8 +101,7 @@ function saveKeyboardCommand() {
             'action_type': 'run_command',
             'data': document.getElementById('keyboardCommand').value,
           },
-        },
-      };
+        };
     $.ajax({
         url: url,
         type: "POST",
@@ -143,8 +142,7 @@ function saveKeyboardCustom() {
                 'action_type': 'run_custom_function',
                 'data': document.getElementById('functionKeyboardName').value,
               },
-            },
-          };
+            };
 
 
     $.ajax({
@@ -185,8 +183,7 @@ function saveGenericUSBFunction() {
                     'action_type': 'run_custom_function',
                     'data': document.getElementById('genericUSBFunctionName').value,
                   },
-                },
-              };
+                };
 
 
     $.ajax({

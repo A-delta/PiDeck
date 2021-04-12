@@ -14,8 +14,8 @@ function saveGamepadKey() {
             'action_type': 'press_key',
             'data': document.getElementById('gamepadKey').value
           },
-        },
-      };
+        };
+
 
     $.ajax({
         url: url,
@@ -55,8 +55,7 @@ function saveGamepadText() {
             'action_type': 'type_text',
             'data': document.getElementById('gamepadText').value
           },
-        },
-      };
+        };
     $.ajax({
         url: url,
         type: "POST",
@@ -95,8 +94,7 @@ function saveGamepadCommand() {
             'action_type': 'run_command',
             'data': document.getElementById('gamepadCommand').value
           },
-        },
-      };
+        };
     $.ajax({
         url: url,
         type: "POST",
@@ -134,8 +132,7 @@ function saveGamepadCustom() {
             'action_type': 'run_custom_function',
             'data': document.getElementById('functionGamepadName').value
           },
-        },
-      };
+        };
     $.ajax({
         url: url,
         type: "POST",
@@ -174,8 +171,7 @@ function saveGamepadJoyVolume() {
             'action_type': 'change_volume',
             'data': 'None'
           },
-        },
-      };
+        };
     $.ajax({
         url: url,
         type: "POST",

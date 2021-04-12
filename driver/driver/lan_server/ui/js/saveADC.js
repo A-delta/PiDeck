@@ -15,8 +15,8 @@ function saveADCVolume() {
           'action_type': 'type_text',
           'data': document.getElementById('keyboardText').value
         },
-      },
-    };
+      };
+
 
     $.ajax({
         url: url,
@@ -57,8 +57,7 @@ function saveADCCustom() {
           'action_type': run_custom_function,
           'data': document.getElementById('functionADCName').value
         },
-      },
-    };
+      };
 
     $.ajax({
         url: url,
