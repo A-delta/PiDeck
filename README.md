@@ -1,7 +1,9 @@
 # RaspiMote
 
 <div align="center">
-  <img src="https://github.com/RaspiMote/logo/raw/main/RaspiMote_logo_500px.png" width="150">
+  <a href="#readme">
+    <img src="https://github.com/RaspiMote/logo/raw/main/RaspiMote_logo_500px.png" width="150">
+  </a>
 </div>
 
 The objective of *RaspiMote* is to allow almost anyone to turn its Raspberry Pi into a programmable keyboard / controller / remote control, with custom physical input methods **and** custom software features with the provided driver.  
@@ -12,6 +14,8 @@ To realize this project, we recommend using a [Raspberry Pi Zero W](https://www.
 *All the links provided are only here for indication purposes. We are not in partnership with any of the brands presented, and we don’t earn any money if you click on the links or if you order something through them.* *“Raspberry Pi” is a trademark of the “Raspberry Pi Foundation”. We are not in any kind of relationship with the “Raspberry Pi Foundation”. This software is provided by independent developers.*  
   
 **For now, the project IS NOT ready, but it’s under active development.**  
+
+<ins>Documentation:</ins> [docs.raspimote.tk](https://docs.raspimote.tk/)  
   
 This project is co-developed by [@Firmin-Launay](https://github.com/Firmin-Launay) and [@A-delta](https://github.com/A-delta).
 

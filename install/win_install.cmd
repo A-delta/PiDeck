@@ -1,7 +1,7 @@
 @echo off
 cls
 echo [95mRaspiMote - version 1.0.0[0m
-echo [95m!!! This installer only works on Windows 10 1706+ !!![0m
+echo [95m!!! This installer only works on Windows 10 1803+ !!![0m
 echo(
 echo(
 
@@ -48,7 +48,7 @@ goto check_Permissions
 
     powershell -command "mkdir '%LOCALAPPDATA%\Temp\RaspiMote' -erroraction 'silentlycontinue' | Out-Null"
 
-    curl -s -L -o "%LOCALAPPDATA%\Temp\RaspiMote\raspimote.zip" "https://github.com/A-delta/RaspiMote/archive/main.zip"
+    curl -s -L -o "%LOCALAPPDATA%\Temp\RaspiMote\raspimote.zip" "https://github.com/RaspiMote/RaspiMote/archive/main.zip"
 
     echo [[92mv[0m] RaspiMote code downloaded.
     
@@ -156,7 +156,7 @@ goto check_Permissions
 
     reg.exe add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RaspiMote /v DisplayVersion /t REG_SZ /d "1.0.0" > nul
 
-    reg.exe add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RaspiMote /v Publisher /t REG_SZ /d "A-delta & Firmin-Launay" > nul
+    reg.exe add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RaspiMote /v Publisher /t REG_SZ /d "RaspiMote" > nul
 
     reg.exe add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RaspiMote /v HelpLink /t REG_EXPAND_SZ /d "https://raspimote.tk/" > nul
 

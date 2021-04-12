@@ -50,6 +50,7 @@ function saveKeyboardText() {
     const url = "https://localhost:9876/config";
     //var data = {'type': 'usb_hid', 'name': document.getElementById('element').value, 'device_key': document.getElementById('physicalKeyboardKey').value, 'action_type': 'type_text', 'text': document.getElementById('keyboardText').value};
     var data = {
+<<<<<<< HEAD
         'type': 'usb_hid',
         'name': document.getElementById('element').value,,
         'function': {
@@ -57,6 +58,14 @@ function saveKeyboardText() {
             'action_type': 'type_text',
             'data': document.getElementById('keyboardText').value
           },
+=======
+      'type': 'usb_hid',
+      'name': document.getElementById('element').value,
+      'function': {
+        key: {
+          'action_type': 'type_text',
+          'to_type': document.getElementById('keyboardText').value
+>>>>>>> dddedfab2d62f51889dba04503948c522446aee2
         },
       };
 
