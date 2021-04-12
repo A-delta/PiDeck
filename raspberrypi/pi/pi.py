@@ -36,6 +36,7 @@ class Pi(
 
         self.verbose = verbose
         self.log(self.term_header + "Verbose enabled" + self.term_endc)
+        self.debug_inventory = debug_inventory
 
         if connection_mode == "WiFi":
             self.connection_mode = connection_mode
