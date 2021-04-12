@@ -15,7 +15,7 @@ function saveKeyboardKey() {
             'action_type': 'press_key',
             'data': document.getElementById('physicalKeyboardKey').value,
           },
-        },
+        };
 
 
 
