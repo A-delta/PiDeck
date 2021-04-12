@@ -12,11 +12,12 @@ function saveADCVolume() {
       'name': parseInt(document.getElementById('element').value.replaceAll('adc_', '')),
       'function': {
           'when': 'triggered',
-          'action_type': 'type_text',
-          'data': document.getElementById('keyboardText').value
+          'action_type': 'change_volume',
+          'data': "None"
         },
       };
 
+console.log(data);
 
     $.ajax({
         url: url,
@@ -54,10 +55,11 @@ function saveADCCustom() {
       'name': parseInt(document.getElementById('element').value.replaceAll('adc_', '')),
       'function': {
           'when': 'triggered',
-          'action_type': run_custom_function,
+          'action_type': 'run_custom_function',
           'data': document.getElementById('functionADCName').value
         },
       };
+      console.log(data);
 
     $.ajax({
         url: url,

@@ -11,9 +11,9 @@ function saveKeyboardKey() {
         'type': 'usb_hid',
         'name': document.getElementById('element').value,
         'function': {
-            'when': document.getElementById('keyboardKey').value,
+            'when': document.getElementById('physicalKeyboardKey').value,
             'action_type': 'press_key',
-            'data': document.getElementById('physicalKeyboardKey').value,
+            'data': document.getElementById('keyboardKey').value,
           },
         };
 
@@ -53,7 +53,7 @@ function saveKeyboardText() {
         'type': 'usb_hid',
         'name': document.getElementById('element').value,
         'function': {
-            'when': document.getElementById('keyboardKey').value,
+            'when': document.getElementById('physicalKeyboardKey').value,
             'action_type': 'type_text',
             'data': document.getElementById('keyboardText').value
           },
@@ -97,7 +97,7 @@ function saveKeyboardCommand() {
         'type': 'usb_hid',
         'name': document.getElementById('element').value,
         'function': {
-            'when': document.getElementById('keyboardKey').value,
+            'when': document.getElementById('physicalKeyboardKey').value,
             'action_type': 'run_command',
             'data': document.getElementById('keyboardCommand').value,
           },
@@ -138,7 +138,7 @@ function saveKeyboardCustom() {
             'type': 'usb_hid',
             'name': document.getElementById('element').value,
             'function': {
-                'when': document.getElementById('keyboardKey').value,
+                'when': document.getElementById('physicalKeyboardKey').value,
                 'action_type': 'run_custom_function',
                 'data': document.getElementById('functionKeyboardName').value,
               },

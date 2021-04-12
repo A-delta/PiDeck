@@ -16,7 +16,7 @@ function saveButtonKey() {
           'data': document.getElementById('buttonKey').value
         },
       };
-
+      console.log(data);
 
     $.ajax({
         url: url,
@@ -56,6 +56,7 @@ function saveButtonText() {
           'data': document.getElementById('buttonText').value
         },
       };
+      console.log(data);
     $.ajax({
         url: url,
         type: "POST",
@@ -96,7 +97,7 @@ function saveButtonCommand() {
           'data': document.getElementById('buttonCommand').value
         },
       };
-
+console.log(data);
     $.ajax({
         url: url,
         type: "POST",
@@ -134,6 +135,7 @@ function saveButtonCustom() {
           'data': document.getElementById('functionButtonName').value
         },
       };
+      console.log(data);
     $.ajax({
         url: url,
         type: "POST",
