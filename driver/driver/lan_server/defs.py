@@ -48,19 +48,32 @@ def write_action(path, request):
     i=0
     for e in conf[device_type]:
         if name in e.keys():
-            conf[device_type][i].update(function)
+            conf[device_type][i][name].append(function)
             save_conf_file(path, conf)
             return
         i+=1
 
-    conf[device_type].append({name: function})
+    conf[device_type].append({name: [function]})
 
     save_conf_file(path, conf)
 
 
 
 def delete_action(path, request):
-    pass
+    conf = get_conf_file(path)
+
+    device_type = request["type"]
+    name = request["name"]
+    function = request["function"]
+
+    when = function["when"]
+
+    print(f"\nDeleting : {device_type} called {name}")
+    print(f"when [{when}] : {action_type} -> {data}")
+
+    conf[device_type][name].pop()
+    
+
 
 
 
