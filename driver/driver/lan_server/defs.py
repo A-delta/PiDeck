@@ -15,14 +15,13 @@ def get_conf_file(path):
 
 def add_action(path, request):
     data = get_conf_file(path)
-
     device_type = request["type"]
     name = request["name"]
     function = request["function"]
 
     if device_type == "usb_hid":
         print("USB")
-        pass
+
 
     elif device_type == "xbox_one_gamepad":
         print("Gamepad")
@@ -37,8 +36,9 @@ def add_action(path, request):
         pass
 
 
-def remove_action(path):
+def remove_action(path, request):
     pass
+
 
 
 def get_actions(path):
