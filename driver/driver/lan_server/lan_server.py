@@ -55,14 +55,16 @@ def action():
 
 #### Configuration ####
 
-@app.route('/config/add_action', methods = ['POST'])
+#@app.route('/config/add_action', methods = ['POST'])
+@app.route('/config', methods = ['POST'])
 def add_action():
     if request.remote_addr == "127.0.0.1":
         conf_req = loads(list(request.form.to_dict().keys())[0])
         print(f"Adding action : {conf_req}")
 
-        add_action(trigger_actions_file_path, conf_req)
+        write_action(trigger_actions_file_path, conf_req)
 
+        return "Configuration modified successfully."
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
@@ -78,11 +80,12 @@ def remove_action():
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
 
-@app.route('/config/get_actions', methods = ['POST'])
+@app.route('/config/get_actions', methods = ['GET'])
 def get_actions():
     if request.remote_addr == "127.0.0.1":
-        conf_req = loads(list(request.form.to_dict().keys())[0])
-        print(f"Getting actions")
+        actions = get_actions_file(trigger_actions_file_path)
+        print(f"Saved actions : {actions}")
+        return f"Saved actions : {actions}"
 
 
     else:
@@ -94,12 +97,12 @@ def get_actions():
 
 
 
-@app.route('/config', methods = ['POST'])
+"""@app.route('/config', methods = ['POST'])
 def config():
     if request.remote_addr == "127.0.0.1":
         conf_req = loads(list(request.form.to_dict().keys())[0])
         print(conf_req)
-        """try:
+        try:
             with open(path.join(config_file_path, "trigger_actions.raspimote"), "r") as trg_actions:
                 trigger_actions = loads(trg_actions.read())
         except FileNotFoundError:
@@ -114,13 +117,13 @@ def config():
 
 
         with open(path.join(config_file_path, "trigger_actions.raspimote"), "w") as trg_actions:
-            trg_actions.write(dumps(new_trigger_actions))"""
+            trg_actions.write(dumps(new_trigger_actions))
 
 
         return "Configuration modified successfully."
 
     else:
-        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
+        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403"""
 
 @app.route('/')
 def config_ui():
