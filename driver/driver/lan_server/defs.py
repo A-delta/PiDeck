@@ -48,6 +48,9 @@ def write_action(path, request):
     i=0
     for e in conf[device_type]:
         if name in e.keys():
+            for fcn in conf[device_type][i][name]:  # Check if a fcn is already set to this "when"
+                if when == fcn["when"]:
+                    raise Exception("There is already a function set to this event.")
             conf[device_type][i][name].append(function)
             save_conf_file(path, conf)
             return
