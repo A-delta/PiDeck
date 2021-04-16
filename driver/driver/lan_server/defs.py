@@ -25,9 +25,9 @@ def save_conf_file(path, new_conf):
             return
 
 
+
 def write_action(path, request):
     conf = get_conf_file(path)
-    print("\n\n")
 
     device_type = request["type"]
     name = request["name"]
@@ -37,37 +37,26 @@ def write_action(path, request):
     action_type = function["action_type"]
     data = function["data"]
 
-    print(f"Adding : {device_type} called {name}")
+    print(f"\nAdding : {device_type} called {name}")
     print(f"when [{when}] : {action_type} -> {data}")
 
-    if device_type == "usb_hid":
-        if "usb_hid" not in conf.keys():
-            conf.update({"usb_hid": []})
 
-        i=0
-        for e in conf["usb_hid"]:
-            if name in e.keys():
-                conf["usb_hid"][i].update(function)
-                save_conf_file(path, conf)
-                return
-            i+=1
 
-        conf["usb_hid"].append({name: function})
-        print(conf)
+    if device_type not in conf.keys():
+        conf.update({device_type: []})
 
-        save_conf_file(path, conf)
+    i=0
+    for e in conf[device_type]:
+        if name in e.keys():
+            conf[device_type][i].update(function)
+            save_conf_file(path, conf)
+            return
+        i+=1
 
-    elif device_type == "xbox_one_gamepad":
-        print("Gamepad")
-        pass
+    conf[device_type].append({name: function})
 
-    elif device_type == "adc":
-        print("adc")
-        pass
+    save_conf_file(path, conf)
 
-    elif device_type == "button":
-        print("button")
-        pass
 
 
 def delete_action(path, request):
