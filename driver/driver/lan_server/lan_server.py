@@ -2,7 +2,7 @@
 # https://github.com/RaspiMote
 
 """
-Build a web server to receive RaspiMote's requests.
+Build a web server to receive RaspiMote's requests and Driver's configuration.
 """
 from command_processor import process
 import threading
@@ -55,7 +55,7 @@ def action():
 
 #### Configuration ####
 
-#@app.route('/config/add_action', methods = ['POST'])
+#@app.route('/config/add_action', methods = ['POST'])   <- NEED TO BE ADDED
 @app.route('/config', methods = ['POST'])
 def add_action():
     if request.remote_addr == "127.0.0.1":
@@ -75,7 +75,6 @@ def remove_action():
         conf_req = loads(list(request.form.to_dict().keys())[0])
         print(f"Removing action : {conf_req}")
 
-
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
@@ -91,39 +90,8 @@ def get_actions():
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
-
-
 #### End Configuration ####
 
-
-
-"""@app.route('/config', methods = ['POST'])
-def config():
-    if request.remote_addr == "127.0.0.1":
-        conf_req = loads(list(request.form.to_dict().keys())[0])
-        print(conf_req)
-        try:
-            with open(path.join(config_file_path, "trigger_actions.raspimote"), "r") as trg_actions:
-                trigger_actions = loads(trg_actions.read())
-        except FileNotFoundError:
-            trigger_actions = []
-        new_trigger_actions = trigger_actions
-
-        for action in trigger_actions:
-            if action["port"] == conf_req["port"]:
-                new_trigger_actions.remove(action)
-
-        new_trigger_actions.append(conf_req)
-
-
-        with open(path.join(config_file_path, "trigger_actions.raspimote"), "w") as trg_actions:
-            trg_actions.write(dumps(new_trigger_actions))
-
-
-        return "Configuration modified successfully."
-
-    else:
-        return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403"""
 
 @app.route('/')
 def config_ui():

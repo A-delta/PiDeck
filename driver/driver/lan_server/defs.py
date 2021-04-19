@@ -63,6 +63,9 @@ def write_action(path, request):
 
 
 def delete_action(path, request):
+    """
+    NOT TESTED : NEED BUTTON IN UI
+    """
     conf = get_conf_file(path)
 
     device_type = request["type"]
@@ -73,6 +76,12 @@ def delete_action(path, request):
 
     print(f"\nDeleting : {device_type} called {name}")
     print(f"when [{when}] : {action_type} -> {data}")
+
+    if device_type not in conf.keys():  # should not happen if called from UI
+        raise Exception(f"The current configuration doesn't contain any function for this device type : {device_type}")
+
+    if name not in conf[device_type]:
+        raise Exception(f"The current configuration doesn't contain function '{name}' for device type '{device_type}'")
 
     conf[device_type][name].pop()
     
