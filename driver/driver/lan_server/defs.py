@@ -75,7 +75,7 @@ def delete_action(path, request):
     when = function["when"]
 
     print(f"\nDeleting : {device_type} called {name}")
-    print(f"when [{when}] : {action_type} -> {data}")
+    print(f"when [{when}] : {action_type}")
 
     if device_type not in conf.keys():  # should not happen if called from UI
         raise Exception(f"The current configuration doesn't contain any function for this device type : {device_type}")
