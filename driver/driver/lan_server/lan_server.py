@@ -25,6 +25,8 @@ if platform == "linux":
     config_file_path = f"{getenv('HOME')}/.config/RaspiMote"
 elif platform == "win32":
     config_file_path = f"{getenv('APPDATA')}\\RaspiMote"
+elif platform == "darwin": # EXPERIMENTAL
+    config_file_path = f"{getenv('HOME')}/Library/Application Support/RaspiMote"
 
 file = load(open(path.join(config_file_path, "pi_ip.raspimote")))
 pi_ip = file["ip"]

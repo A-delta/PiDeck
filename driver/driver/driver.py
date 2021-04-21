@@ -67,15 +67,15 @@ class Driver:
             pi_ip.close()
         else:
             if self.platform == "linux":
-                self.ip = input("Input Pi IP address (temporary): ")
+                self.ip = input("Input Piʼs IP address (temporary): ")
 
             elif self.platform == "win32":
-                system("powershell -Command \".\driver\dialogText.ps1 RaspiMote 'Raspberry Piʼs IP address:'\" > NUL")
+                system("powershell -Command \".\\driver\\dialogText.ps1 RaspiMote 'Raspberry Piʼs IP address:'\" > NUL")
                 try:
                     with open(path.join(self.appdata_path, "tmp", "dialogTextOutput.txt"), 'r', encoding="utf-16") as dialogTextOutput:
                         self.ip = dialogTextOutput.read().replace('\n', '')
                     remove(path.join(self.appdata_path, "tmp", "dialogTextOutput.txt"))
-                    print(self.ip)
+                    self.log(self.ip)
                 except FileNotFoundError:
                     print("Aborting process.")
                     _exit(1)
@@ -86,10 +86,19 @@ class Driver:
     def new_ip(self):
         if self.platform == "linux":
             config_file_path = f"{getenv('HOME')}/.config/RaspiMote/pi_ip.raspimote"
+            self.ip = input("Input Piʼs IP address (temporary): ")
+
         elif self.platform == "win32":
             config_file_path = f"{getenv('APPDATA')}\\RaspiMote\\pi_ip.raspimote"
-
-        self.ip = input("Raspberry Pi's IP address : ")
+            system("powershell -Command \".\\driver\\dialogText.ps1 RaspiMote 'Raspberry Piʼs IP address:'\" > NUL")
+            try:
+                with open(path.join(self.appdata_path, "tmp", "dialogTextOutput.txt"), 'r', encoding="utf-16") as dialogTextOutput:
+                    self.ip = dialogTextOutput.read().replace('\n', '')
+                remove(path.join(self.appdata_path, "tmp", "dialogTextOutput.txt"))
+                self.log(self.ip)
+            except FileNotFoundError:
+                print("Aborting process.")
+                _exit(1)
 
         with open(self.config_file_path, 'w') as pi_ip:
             pi_ip.write(dumps({"ip": self.ip, "code": self.code}))
