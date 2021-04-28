@@ -81,14 +81,12 @@ def remove_action():
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
 
-@app.route('/config/get_actions', methods = ['GET'])
+@app.route('/config/get_actions', methods = ['POST'])
 def get_actions():
     if request.remote_addr == "127.0.0.1":
         actions = get_actions_file(trigger_actions_file_path)
         print(f"Saved actions : {actions}")
-        return f"Saved actions : {actions}"
-
-
+        return dumps(actions)
     else:
         return '<h1>Not authorized.</h1><h2>Only <code>localhost</code> can configure RaspiMote.</h2>', 403
 
