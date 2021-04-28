@@ -1,0 +1,9 @@
+requests
+urllib3
+flask
+flask_cors
+raspimote_https
+keyboard
+gpiozero
+xbox360controller
+evdev

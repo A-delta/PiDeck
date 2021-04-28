@@ -31,7 +31,8 @@ function init() {
         url: url,
         type: "POST",
         success: function(result) {
-            var inventory = JSON.parse(result)
+            var inventory = JSON.parse(result).request.inventory
+            console.log(inventory)
             var items = ["&nbsp;"];
             if (inventory != false) {
                 if ("USB" in inventory) {
